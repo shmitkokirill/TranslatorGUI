@@ -66,26 +66,26 @@ int Translator::Equation(
     QString label;
     while((label = findTheWord(equation, checkLbl, labelCurPos)).isEmpty())
         if (endOfFile)
-            return labelCurPos;
+            return labelCurPos - startPos + 1;
     for (int i = 0; i < label.length(); i++)
         if (!figure(label[i]))
-            return labelCurPos - label.length() + i;
+            return labelCurPos - label.length() + i - startPos + 1;
 
     int varCurPos = labelCurPos;
     QList<QChar> checkVar = {Operator.EQUAL};
     QString var;
     while((var = findTheWord(equation, checkVar, varCurPos)).isEmpty())
         if (endOfFile)
-            return varCurPos;
+            return varCurPos - startPos + 1;
     if (!letter(var[0]))
         return varCurPos - var.length();
     for (int i = 1; i < var.length(); i++)
         if (!(letter(var[i]) || figure(var[i])))
-            return varCurPos - var.length() + i;
+            return varCurPos - var.length() + i - startPos + 1;
 
     int rvErr = RightValue(equation, varCurPos, end, result);
     if (rvErr)
-        return rvErr;
+        return rvErr - startPos + 1;
 
     variables.append(QPair<QString, int>(var, result));
 
@@ -108,7 +108,7 @@ int Translator::RightValue(
         int blockRes;
         int bErr = Block(rvalue, currentPos, endPos, blockRes);
         if (bErr)
-            return bErr;
+            return bErr - startPos + 1;
         result -= blockRes;
     }
     else
@@ -116,7 +116,7 @@ int Translator::RightValue(
         int blockRes;
         int bErr = Block(rvalue, currentPos, endPos, blockRes);
         if (bErr)
-            return bErr;
+            return bErr - startPos + 1;
         result += blockRes;
     }
     currentPos = endPos;
@@ -128,7 +128,7 @@ int Translator::RightValue(
             int blockRes;
             int bErr = Block(rvalue, currentPos, endPos, blockRes);
             if (bErr)
-                return bErr;
+                return bErr - startPos + 1;
             result -= blockRes;
             currentPos = endPos;
         }
@@ -139,7 +139,7 @@ int Translator::RightValue(
             int blockRes;
             int bErr = Block(rvalue, currentPos, endPos, blockRes);
             if (bErr)
-                return bErr;
+                return bErr - startPos + 1;
             result += blockRes;
             currentPos = endPos;
         }
@@ -147,7 +147,7 @@ int Translator::RightValue(
              rvalue->at(currentPos) == Operator.MINUS
     );
     if (!(rvalue->at(currentPos++) == Spec.SEMICOLON))
-        return currentPos; // OK
+        return currentPos - startPos + 1; // OK
     end = currentPos;
     return 0;
 }
@@ -159,7 +159,7 @@ int Translator::Block(QString *block, int startPos, int &end, int &result)
     int endPos;
     int pErr = Part(block, startPos, endPos, partRes);
     if (pErr)
-        return pErr;
+        return pErr - startPos + 1;
     blockRes = partRes;
     int currentPos = endPos;
     while (
@@ -168,7 +168,7 @@ int Translator::Block(QString *block, int startPos, int &end, int &result)
     ) {
         int pErr = Part(block, currentPos + 1, endPos, partRes);
         if (pErr)
-            return pErr;
+            return pErr - startPos + 1;
         if (block->at(currentPos) == Operator.DIVIDE)
         {
             blockRes /= partRes;
@@ -189,12 +189,11 @@ int Translator::Block(QString *block, int startPos, int &end, int &result)
 
 int Translator::Part(QString *part, int startPos, int &end, int &result)
 {
-    result = 0;
     int endPos;
     int pieceRes;
     int pieceErr = Piece(part, startPos, endPos, pieceRes);
     if (pieceErr)
-        return pieceErr;
+        return pieceErr - startPos + 1;
     result = pieceRes;
     int currentPos = endPos;
     while (
@@ -203,7 +202,7 @@ int Translator::Part(QString *part, int startPos, int &end, int &result)
     ) {
         int pieceErr2 = Piece(part, currentPos + 1, endPos, pieceRes);
         if (pieceErr2)
-            return pieceErr2;
+            return pieceErr2 - startPos + 1;
         if (part->at(currentPos) == Operator.AND)
         {
             result &= pieceRes;
@@ -234,7 +233,7 @@ int Translator::Piece(QString *piece, int startPos, int &end, int &result)
     }
     int spErr = SmallPart(piece, startPos, endPos, sPartRes);
     if (spErr)
-        return spErr;
+        return spErr - startPos + 1;
     if (notExpected)
         sPartRes = inverseNumberWithSign((unsigned int) sPartRes);
     result = sPartRes;
@@ -264,7 +263,7 @@ int Translator::SmallPart(
         {
             int spErr2 = SmallPiece(spart, prevWordPos, endPos, spResult);
             if (spErr2)
-                return spErr2;
+                return spErr2 - startPos + 1;
             else
                 break;
         }
@@ -330,7 +329,7 @@ int Translator::SmallPiece(
     if (isNumber(word))
         result = word.toInt();
     else if (!isVariable(word, result))
-        return currentPos - 1;
+        return currentPos - 1 - startPos + 1;
     return 0;
 }
 
@@ -356,7 +355,7 @@ int Translator::Variety(
         }
         int varVal{0};
         if (!isVariable(word, varVal))
-            return currentPos - word.length();
+            return currentPos - word.length() - startPos + 1;
     }
     return currentPos;
 }
@@ -383,7 +382,8 @@ QString Translator::findTheWord(QString *main, QList<QChar> check, int &counter)
     {
         if (main->at(counter) == Spec.EOS)
         {
-            counter++;
+//            counter++;
+            main->remove(counter, 1);
             strCounter++;
             return word.trimmed();
         }
@@ -406,8 +406,9 @@ bool Translator::findTheOperator(QString *main, QChar check, int &counter)
     {
         if (main->at(counter) == Spec.EOS)
         {
-            main->remove(counter, 1);
             strCounter++;
+            main->remove(counter, 1);
+//            counter++;
         }
         if (main->at(counter++) == check)
             return true;
@@ -424,7 +425,8 @@ Translator::func Translator::findTheFunction(QString *main, int &counter)
     {
         if (main->at(counter) == Spec.EOS)
         {
-            counter++;
+//            counter++;
+            main->remove(counter, 1);
             strCounter++;
             break;
         }
@@ -480,7 +482,8 @@ void Translator::skipSpaceAndLine(QString *main, int &counter)
         if (main->at(counter) == Spec.EOS)
         {
             strCounter++;
-            counter++;
+            main->remove(counter, 1);
+//            counter++;
         }
     }
 }

@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent)
         this,
         &MainWindow::receiveMsg
     );
-    translator = new SHK_Translator::Translator();
 }
 
 MainWindow::~MainWindow()
@@ -146,6 +145,7 @@ void MainWindow::SaveFileActionClicked()
 
 void MainWindow::on_btnRunClicked()
 {
+    translator = new SHK_Translator::Translator();
     ui->statusBar->clearMessage();
     QString text = srcCodeEditor->toPlainText();
     if (srcFileIsOpened)
@@ -182,6 +182,7 @@ void MainWindow::on_btnRunClicked()
     ui->outputTxtBrowser->setText(
         stringManager->getOutputResult(translator->getVariables())
     );
+    delete translator;
 }
 
 void MainWindow::receiveMsg(QString message)
