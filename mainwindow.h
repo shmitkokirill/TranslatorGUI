@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,6 +17,13 @@ public:
     ~MainWindow();
 
 private:
+    const QString FILE_OPTIONS = "Исходный код (*.shk)";
+
     Ui::MainWindow *ui;
+
+    void InitMenuBar();
+private slots:
+    void OpenFileActionClicked();
+    void SaveFileActionClicked();
 };
 #endif // MAINWINDOW_H
