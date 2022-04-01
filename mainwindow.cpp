@@ -3,14 +3,20 @@
 
 #include <QAction>
 #include <QTextStream>
+#include <codeeditor.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    using namespace SourceCodeEdit;
     ui->setupUi(this);
 
     InitMenuBar();
+
+    CodeEditor *srcCodeEditor = new CodeEditor(this);
+    ui->srcCodeGroup->layout()->addWidget(srcCodeEditor);
+
 
 }
 
@@ -59,7 +65,7 @@ void MainWindow::OpenFileActionClicked()
         text->append(inputStream.readAll());
     }
     inputFile.close();
-    ui->sourceCodeTxtEdit->setPlainText(*text);
+//    ui->sourceCodeTxtEdit->setPlainText(*text);
     delete text;
 }
 
@@ -80,9 +86,9 @@ void MainWindow::SaveFileActionClicked()
         ui->statusBar->showMessage(FAIL_SAVE_FILE);
         return;
     }
-    QString text = ui->sourceCodeTxtEdit->toPlainText();
+//    QString text = ui->sourceCodeTxtEdit->toPlainText();
     QTextStream outputStream(&outputFile);
-    outputStream << text;
+//    outputStream << text;
     outputFile.close();
 }
 
