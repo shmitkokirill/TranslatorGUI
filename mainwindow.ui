@@ -30,7 +30,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QTextEdit" name="sourceCodeTxtEdit"/>
+          <widget class="QPlainTextEdit" name="sourceCodeTxtEdit"/>
          </item>
         </layout>
        </widget>

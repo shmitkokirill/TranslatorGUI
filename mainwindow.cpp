@@ -59,7 +59,7 @@ void MainWindow::OpenFileActionClicked()
         text->append(inputStream.readAll());
     }
     inputFile.close();
-    ui->sourceCodeTxtEdit->setText(*text);
+    ui->sourceCodeTxtEdit->setPlainText(*text);
     delete text;
 }
 
