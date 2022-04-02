@@ -21,7 +21,14 @@ namespace SourceCodeEdit
         void highlightCurrentLine();
         void updateLineNumberArea(const QRect &rect, int dy);
     private:
-         QWidget *lineNumberArea;
+        enum Colors
+        {
+            NUMBER_PANEL = 0xfaf5e8,
+            CURRENT_LINE = 0xd4d3d2
+        };
+
+        QWidget *lineNumberArea;
+
     };
 }
 #endif // CODEEDITOR_H

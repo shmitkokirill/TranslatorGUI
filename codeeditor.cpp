@@ -1,11 +1,12 @@
 #include "codeeditor.h"
+#include <QFont>
 #include <QPainter>
 #include <QTextBlock>
 #include <linenumberarea.h>
 using namespace SourceCodeEdit;
 
-SourceCodeEdit::CodeEditor::CodeEditor(QWidget *parent) :
-    QPlainTextEdit(parent)
+SourceCodeEdit::CodeEditor::CodeEditor(QWidget *parent)
+    : QPlainTextEdit(parent)
 {
     lineNumberArea = new LineNumberArea(this);
 
@@ -24,24 +25,29 @@ SourceCodeEdit::CodeEditor::CodeEditor(QWidget *parent) :
     connect(
         this,
         &CodeEditor::cursorPositionChanged,
-        this, &CodeEditor::highlightCurrentLine
+        this,
+        &CodeEditor::highlightCurrentLine
     );
 
     updateLineNumberAreaWidth(0);
     highlightCurrentLine();
+    setFont(QFont("Consolas", 14));
 }
 
 void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
     QPainter *painter = new QPainter(lineNumberArea);
-    painter->fillRect(event->rect(), Qt::lightGray);
+    const QRgb numberPanelColor = NUMBER_PANEL;
+    painter->fillRect(event->rect(), QColor::fromRgb(numberPanelColor));
     QTextBlock block = firstVisibleBlock();
     int blockNumber = block.blockNumber();
     int top =
         qRound(blockBoundingGeometry(block).translated(contentOffset()).top());
     int bottom = top + qRound(blockBoundingRect(block).height());
-    while (block.isValid() && top <= event->rect().bottom()) {
-        if (block.isVisible() && bottom >= event->rect().top()) {
+    while (block.isValid() && top <= event->rect().bottom())
+    {
+        if (block.isVisible() && bottom >= event->rect().top())
+        {
             QString number = QString::number(blockNumber + 1);
             painter->setPen(Qt::black);
             painter->drawText(
@@ -65,7 +71,8 @@ int CodeEditor::lineNumberAreaWidth()
 {
     int digits = 1;
     int max = qMax(1, blockCount());
-    while (max >= 10) {
+    while (max >= 10)
+    {
         max /= 10;
         ++digits;
     }
@@ -92,6 +99,7 @@ void CodeEditor::resizeEvent(QResizeEvent *event)
 
 void CodeEditor::updateLineNumberAreaWidth(int newBlockCount)
 {
+    Q_UNUSED(newBlockCount);
     setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
 }
 
@@ -101,8 +109,8 @@ void CodeEditor::highlightCurrentLine()
 
     if (!isReadOnly()) {
         QTextEdit::ExtraSelection selection;
-
-        QColor lineColor = QColor(Qt::yellow).lighter(160);
+        const QRgb clColor = CURRENT_LINE;
+        QColor lineColor = QColor(clColor);
 
         selection.format.setBackground(lineColor);
         selection.format.setProperty(QTextFormat::FullWidthSelection, true);

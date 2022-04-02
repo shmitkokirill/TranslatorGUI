@@ -3,26 +3,22 @@
 
 #include <QAction>
 #include <QTextStream>
-#include <codeeditor.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    using namespace SourceCodeEdit;
     ui->setupUi(this);
 
     InitMenuBar();
-
-    CodeEditor *srcCodeEditor = new CodeEditor(this);
-    ui->srcCodeGroup->layout()->addWidget(srcCodeEditor);
-
-
+    InitCodeEditor();
+    ShowBnf();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete srcCodeEditor;
 }
 
 void MainWindow::InitMenuBar()
@@ -43,6 +39,33 @@ void MainWindow::InitMenuBar()
     );
 }
 
+void MainWindow::InitCodeEditor()
+{
+    srcCodeEditor = new SourceCodeEdit::CodeEditor(this);
+    ui->srcCodeGroup->layout()->addWidget(srcCodeEditor);
+}
+
+void MainWindow::ShowBnf()
+{
+    QFile bnf(PATH_TO_BNF);
+    if (!bnf.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        ui->statusBar->showMessage("Ошибка показа БНФ");
+        return;
+    }
+    QString text;
+    QTextStream inputStream(&bnf);
+    while (!inputStream.atEnd())
+    {
+        text.append(inputStream.readAll());
+    }
+    bnf.close();
+
+    ui->bnfTxtBrowser->setFont(QFont("Consolas", 12));
+    ui->bnfTxtBrowser->setWordWrapMode(QTextOption::NoWrap);
+    ui->bnfTxtBrowser->setPlainText(text);
+}
+
 void MainWindow::OpenFileActionClicked()
 {
     const QString FAIL_OPEN_FILE = "Не удалось открыть файл";
@@ -55,17 +78,19 @@ void MainWindow::OpenFileActionClicked()
                 FILE_OPTIONS
             );
     QFile inputFile(fileName);
-    if (!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    if (!inputFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
         ui->statusBar->showMessage(FAIL_OPEN_FILE);
         return;
     }
-    QString* text = new QString();
+    QString *text = new QString();
     QTextStream inputStream(&inputFile);
-    while (!inputStream.atEnd()) {
+    while (!inputStream.atEnd())
+    {
         text->append(inputStream.readAll());
     }
     inputFile.close();
-//    ui->sourceCodeTxtEdit->setPlainText(*text);
+    srcCodeEditor->setPlainText(*text);
     delete text;
 }
 
@@ -82,13 +107,13 @@ void MainWindow::SaveFileActionClicked()
             );
     fileName.append(".shk");
     QFile outputFile(fileName);
-    if (!outputFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+    if (!outputFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
         ui->statusBar->showMessage(FAIL_SAVE_FILE);
         return;
     }
-//    QString text = ui->sourceCodeTxtEdit->toPlainText();
+    QString text = srcCodeEditor->toPlainText();
     QTextStream outputStream(&outputFile);
-//    outputStream << text;
+    outputStream << text;
     outputFile.close();
 }
-
