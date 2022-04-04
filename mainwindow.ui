@@ -50,7 +50,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QTextBrowser" name="bnfTxtBrowser"/>
+         <widget class="QTextBrowser" name="txtBrowserBnf"/>
         </item>
        </layout>
       </widget>
@@ -115,7 +115,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="runBtn">
+       <widget class="QPushButton" name="btnRun">
         <property name="text">
          <string>Запустить</string>
         </property>
@@ -138,18 +138,18 @@
     <property name="title">
      <string>Файл</string>
     </property>
-    <addaction name="openFileAction"/>
-    <addaction name="saveFileAction"/>
+    <addaction name="actionOpenFile"/>
+    <addaction name="actionSaveFile"/>
    </widget>
    <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="openFileAction">
+  <action name="actionOpenFile">
    <property name="text">
     <string>Открыть</string>
    </property>
   </action>
-  <action name="saveFileAction">
+  <action name="actionSaveFile">
    <property name="text">
     <string>Сохранить</string>
    </property>

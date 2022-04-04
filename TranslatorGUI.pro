@@ -12,12 +12,14 @@ SOURCES += \
     codeeditor.cpp \
     linenumberarea.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    translator.cpp
 
 HEADERS += \
     codeeditor.h \
     linenumberarea.h \
-    mainwindow.h
+    mainwindow.h \
+    translator.h
 
 FORMS += \
     mainwindow.ui

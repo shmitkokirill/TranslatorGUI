@@ -61,15 +61,17 @@ void MainWindow::ShowBnf()
     }
     bnf.close();
 
-    ui->bnfTxtBrowser->setFont(QFont("Consolas", 12));
-    ui->bnfTxtBrowser->setWordWrapMode(QTextOption::NoWrap);
-    ui->bnfTxtBrowser->setPlainText(text);
+    ui->txtBrowserBnf->setFont(QFont("Consolas", 12));
+    ui->txtBrowserBnf->setWordWrapMode(QTextOption::NoWrap);
+    ui->txtBrowserBnf->setPlainText(text);
 }
 
 void MainWindow::OpenFileActionClicked()
 {
     const QString FAIL_OPEN_FILE = "Не удалось открыть файл";
     const QString OPEN_FILE = "Открыть файл исходного кода";
+
+    srcFileIsOpened = true;
     QString fileName =
             QFileDialog::getOpenFileName(
                 this,
@@ -77,6 +79,7 @@ void MainWindow::OpenFileActionClicked()
                 "",
                 FILE_OPTIONS
             );
+    pathToSrcFile = fileName;
     QFile inputFile(fileName);
     if (!inputFile.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -96,7 +99,6 @@ void MainWindow::OpenFileActionClicked()
 
 void MainWindow::SaveFileActionClicked()
 {
-    const QString FAIL_SAVE_FILE = "Не удалось создать файл";
     const QString SAVE_FILE = "Сохранить файл исходного кода";
     QString fileName =
             QFileDialog::getSaveFileName(
@@ -116,4 +118,29 @@ void MainWindow::SaveFileActionClicked()
     QTextStream outputStream(&outputFile);
     outputStream << text;
     outputFile.close();
+}
+
+void MainWindow::on_btnRunClicked()
+{
+    if (srcFileIsOpened)
+    {
+        QFile runFile(pathToSrcFile);
+        if (!runFile.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            ui->statusBar->showMessage(FAIL_SAVE_FILE);
+            return;
+        }
+        QString text = srcCodeEditor->toPlainText();
+        QTextStream outputStream(&runFile);
+        outputStream << text;
+        runFile.close();
+
+        //save the OBJECT file in the same directory
+    }
+    else
+    {
+        SaveFileActionClicked();
+    }
+
+
 }
