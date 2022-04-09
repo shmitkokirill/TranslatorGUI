@@ -1,0 +1,58 @@
+\hypertarget{translator_8h_source}{}\doxysection{translator.\+h}
+\label{translator_8h_source}\index{/home/kirill/programs/qtProjects/translatorGUI/TranslatorGUI/translator.h@{/home/kirill/programs/qtProjects/translatorGUI/TranslatorGUI/translator.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef TRANSLATOR\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define TRANSLATOR\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QString>}}
+\DoxyCodeLine{5 \textcolor{keyword}{namespace }SHK\_Translator}
+\DoxyCodeLine{6 \{}
+\DoxyCodeLine{7     \textcolor{keyword}{class }\mbox{\hyperlink{class_s_h_k___translator_1_1_translator}{Translator}}}
+\DoxyCodeLine{8     \{}
+\DoxyCodeLine{9     \textcolor{keyword}{public}:}
+\DoxyCodeLine{10         \mbox{\hyperlink{class_s_h_k___translator_1_1_translator}{Translator}}();}
+\DoxyCodeLine{19         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ab4fcd94d7740135ae0d608dfa279020c}{Main}}(\textcolor{keyword}{const} QString *srcCode);}
+\DoxyCodeLine{20     \textcolor{keyword}{private}:}
+\DoxyCodeLine{21         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_s_h_k___translator_1_1_translator_1_1_key_word}{KeyWord}}}
+\DoxyCodeLine{22         \{}
+\DoxyCodeLine{23             \textcolor{keyword}{const} QString BEGIN = \textcolor{stringliteral}{"{}Begin"{}};}
+\DoxyCodeLine{24             \textcolor{keyword}{const} QString END = \textcolor{stringliteral}{"{}End"{}};}
+\DoxyCodeLine{25             \textcolor{keyword}{const} QString ANALYSIS = \textcolor{stringliteral}{"{}Анализ"{}};}
+\DoxyCodeLine{26             \textcolor{keyword}{const} QString SINTEZ = \textcolor{stringliteral}{"{}Синтез"{}};}
+\DoxyCodeLine{27         \};}
+\DoxyCodeLine{28         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_s_h_k___translator_1_1_translator_1_1_operator}{Operator}}}
+\DoxyCodeLine{29         \{}
+\DoxyCodeLine{30             \textcolor{keyword}{const} QChar COLON = \textcolor{charliteral}{':'};}
+\DoxyCodeLine{31             \textcolor{keyword}{const} QChar EQUAL = \textcolor{charliteral}{'='};}
+\DoxyCodeLine{32             \textcolor{keyword}{const} QChar MINUS = \textcolor{charliteral}{'-\/'};}
+\DoxyCodeLine{33             \textcolor{keyword}{const} QChar PLUS = \textcolor{charliteral}{'+'};}
+\DoxyCodeLine{34             \textcolor{keyword}{const} QChar MULTIPLY = \textcolor{charliteral}{'*'};}
+\DoxyCodeLine{35             \textcolor{keyword}{const} QChar DIVIDE = \textcolor{charliteral}{'/'};}
+\DoxyCodeLine{36             \textcolor{keyword}{const} QChar AND = \textcolor{charliteral}{'\&'};}
+\DoxyCodeLine{37             \textcolor{keyword}{const} QChar OR = \textcolor{charliteral}{'|'};}
+\DoxyCodeLine{38             \textcolor{keyword}{const} QChar NOT = \textcolor{charliteral}{'\string^'};}
+\DoxyCodeLine{39         \};}
+\DoxyCodeLine{40         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_s_h_k___translator_1_1_translator_1_1_function}{Function}}}
+\DoxyCodeLine{41         \{}
+\DoxyCodeLine{42             \textcolor{keyword}{const} QString SIN = \textcolor{stringliteral}{"{}sin"{}};}
+\DoxyCodeLine{43             \textcolor{keyword}{const} QString COS = \textcolor{stringliteral}{"{}cos"{}};}
+\DoxyCodeLine{44             \textcolor{keyword}{const} QString LN = \textcolor{stringliteral}{"{}ln"{}};}
+\DoxyCodeLine{45             \textcolor{keyword}{const} QString TG = \textcolor{stringliteral}{"{}tg"{}};}
+\DoxyCodeLine{46             \textcolor{keyword}{const} QString CTG = \textcolor{stringliteral}{"{}ctg"{}};}
+\DoxyCodeLine{47         \};}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{57         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a768f08762f7053fe53694a8e11860433}{Equation}}(\textcolor{keyword}{const} QString *equation, \textcolor{keywordtype}{int} startPos, \textcolor{keywordtype}{int} \&end);}
+\DoxyCodeLine{66         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aa15ad3aa4a55a6c836c48e5105988c28}{RightValue}}(\textcolor{keyword}{const} QString *rvalue, \textcolor{keywordtype}{int} startPos, \textcolor{keywordtype}{int} \&end);}
+\DoxyCodeLine{75         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a098ba179ddee6f7c26d09d6d878c4a4d}{Block}}(\textcolor{keyword}{const} QString *block, \textcolor{keywordtype}{int} startPos, \textcolor{keywordtype}{int} \&end);}
+\DoxyCodeLine{84         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a4af760af2152e277074e5c369372178a}{Part}}(\textcolor{keyword}{const} QString *part, \textcolor{keywordtype}{int} startPos, \textcolor{keywordtype}{int} \&end);}
+\DoxyCodeLine{93         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a69ad164aa034aa4b7c6144e845c61dcc}{Piece}}(\textcolor{keyword}{const} QString *piece, \textcolor{keywordtype}{int} startPos, \textcolor{keywordtype}{int} \&end);}
+\DoxyCodeLine{102         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a1dc36341fde4a85993dec35999d71b06}{SmallPart}}(\textcolor{keyword}{const} QString *spart, \textcolor{keywordtype}{int} startPos, \textcolor{keywordtype}{int} \&end);}
+\DoxyCodeLine{111         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a7b2e052ef3bf493d2a230327c2a41575}{SmallPiece}}(\textcolor{keyword}{const} QString *spiece, \textcolor{keywordtype}{int} startPos, \textcolor{keywordtype}{int} \&end);}
+\DoxyCodeLine{120         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_af3cea96edd428ecf42a171144d989206}{Variety}}(\textcolor{keyword}{const} QString *variety, \textcolor{keywordtype}{int} startPos, \textcolor{keywordtype}{int} \&end);}
+\DoxyCodeLine{121     \};}
+\DoxyCodeLine{122 \}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// TRANSLATOR\_H}}
+
+\end{DoxyCode}

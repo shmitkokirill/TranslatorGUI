@@ -1,0 +1,40 @@
+\hypertarget{codeeditor_8h_source}{}\doxysection{codeeditor.\+h}
+\label{codeeditor_8h_source}\index{/home/kirill/programs/qtProjects/translatorGUI/TranslatorGUI/codeeditor.h@{/home/kirill/programs/qtProjects/translatorGUI/TranslatorGUI/codeeditor.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CODEEDITOR\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CODEEDITOR\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QPlainTextEdit>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }SourceCodeEdit}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8     \textcolor{keyword}{class }\mbox{\hyperlink{class_source_code_edit_1_1_code_editor}{CodeEditor}} : \textcolor{keyword}{public} QPlainTextEdit}
+\DoxyCodeLine{9     \{}
+\DoxyCodeLine{10         Q\_OBJECT}
+\DoxyCodeLine{11     \textcolor{keyword}{public}:}
+\DoxyCodeLine{12         \mbox{\hyperlink{class_source_code_edit_1_1_code_editor}{CodeEditor}}(QWidget *parent = \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{13         \textcolor{keywordtype}{void} lineNumberAreaPaintEvent(QPaintEvent *event);}
+\DoxyCodeLine{14         \textcolor{keywordtype}{int} lineNumberAreaWidth();}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{17         \textcolor{keywordtype}{void} resizeEvent(QResizeEvent *event) \textcolor{keyword}{override};}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     \textcolor{keyword}{private} slots:}
+\DoxyCodeLine{20         \textcolor{keywordtype}{void} updateLineNumberAreaWidth(\textcolor{keywordtype}{int} newBlockCount);}
+\DoxyCodeLine{21         \textcolor{keywordtype}{void} highlightCurrentLine();}
+\DoxyCodeLine{22         \textcolor{keywordtype}{void} updateLineNumberArea(\textcolor{keyword}{const} QRect \&rect, \textcolor{keywordtype}{int} dy);}
+\DoxyCodeLine{23     \textcolor{keyword}{private}:}
+\DoxyCodeLine{24         \textcolor{keyword}{enum} Colors}
+\DoxyCodeLine{25         \{}
+\DoxyCodeLine{26             NUMBER\_PANEL = 0xfaf5e8,}
+\DoxyCodeLine{27             CURRENT\_LINE = 0xd4d3d2}
+\DoxyCodeLine{28         \};}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30         QWidget *lineNumberArea;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \};}
+\DoxyCodeLine{33 \}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CODEEDITOR\_H}}
+
+\end{DoxyCode}

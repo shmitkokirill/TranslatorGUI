@@ -1,0 +1,58 @@
+\hypertarget{class_source_code_edit_1_1_code_editor}{}\doxysection{Source\+Code\+Edit\+::Code\+Editor Class Reference}
+\label{class_source_code_edit_1_1_code_editor}\index{SourceCodeEdit::CodeEditor@{SourceCodeEdit::CodeEditor}}
+Inheritance diagram for Source\+Code\+Edit\+::Code\+Editor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_source_code_edit_1_1_code_editor}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_source_code_edit_1_1_code_editor_a495858382b49dea230d7af3016c464af}\label{class_source_code_edit_1_1_code_editor_a495858382b49dea230d7af3016c464af}} 
+{\bfseries Code\+Editor} (QWidget $\ast$parent=nullptr)
+\item 
+\mbox{\Hypertarget{class_source_code_edit_1_1_code_editor_a96e24088faa784a4ec419a647fcab5dd}\label{class_source_code_edit_1_1_code_editor_a96e24088faa784a4ec419a647fcab5dd}} 
+void {\bfseries line\+Number\+Area\+Paint\+Event} (QPaint\+Event $\ast$event)
+\item 
+\mbox{\Hypertarget{class_source_code_edit_1_1_code_editor_af7c3fbf0af03c4ff136e0298a336dd88}\label{class_source_code_edit_1_1_code_editor_af7c3fbf0af03c4ff136e0298a336dd88}} 
+int {\bfseries line\+Number\+Area\+Width} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_source_code_edit_1_1_code_editor_ac8368e6e103979e763bcd446b56a93b0}\label{class_source_code_edit_1_1_code_editor_ac8368e6e103979e763bcd446b56a93b0}} 
+void {\bfseries resize\+Event} (QResize\+Event $\ast$event) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_source_code_edit_1_1_code_editor_a288881cf5bce3ee34d4353d12759afb8}\label{class_source_code_edit_1_1_code_editor_a288881cf5bce3ee34d4353d12759afb8}} 
+enum {\bfseries Colors} \{ {\bfseries NUMBER\+\_\+\+PANEL} = 0xfaf5e8
+, {\bfseries CURRENT\+\_\+\+LINE} = 0xd4d3d2
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_source_code_edit_1_1_code_editor_a28c8e8d686d9bacfb1bff04783b39924}\label{class_source_code_edit_1_1_code_editor_a28c8e8d686d9bacfb1bff04783b39924}} 
+void {\bfseries update\+Line\+Number\+Area\+Width} (int new\+Block\+Count)
+\item 
+\mbox{\Hypertarget{class_source_code_edit_1_1_code_editor_a8d0bbb48f1f7ad273dba6e31f0b5f28b}\label{class_source_code_edit_1_1_code_editor_a8d0bbb48f1f7ad273dba6e31f0b5f28b}} 
+void {\bfseries highlight\+Current\+Line} ()
+\item 
+\mbox{\Hypertarget{class_source_code_edit_1_1_code_editor_a697259986621f041eb12a24d0009f128}\label{class_source_code_edit_1_1_code_editor_a697259986621f041eb12a24d0009f128}} 
+void {\bfseries update\+Line\+Number\+Area} (const QRect \&rect, int dy)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_source_code_edit_1_1_code_editor_aa5284ca3c6b040747f7e6224b5ef9b40}\label{class_source_code_edit_1_1_code_editor_aa5284ca3c6b040747f7e6224b5ef9b40}} 
+QWidget $\ast$ {\bfseries line\+Number\+Area}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/kirill/programs/qt\+Projects/translator\+GUI/\+Translator\+GUI/codeeditor.\+h\item 
+/home/kirill/programs/qt\+Projects/translator\+GUI/\+Translator\+GUI/codeeditor.\+cpp\end{DoxyCompactItemize}

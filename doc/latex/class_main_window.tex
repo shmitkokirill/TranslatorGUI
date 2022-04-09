@@ -1,0 +1,93 @@
+\hypertarget{class_main_window}{}\doxysection{Main\+Window Class Reference}
+\label{class_main_window}\index{MainWindow@{MainWindow}}
+Inheritance diagram for Main\+Window\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_main_window}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_main_window_a996c5a2b6f77944776856f08ec30858d}\label{class_main_window_a996c5a2b6f77944776856f08ec30858d}} 
+{\bfseries Main\+Window} (QWidget $\ast$parent=nullptr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_main_window_adbd984cc063bf412345c502d0c4bc3ea}\label{class_main_window_adbd984cc063bf412345c502d0c4bc3ea}} 
+void {\bfseries Open\+File\+Action\+Clicked} ()
+\item 
+\mbox{\Hypertarget{class_main_window_a3d215f5c7dcd84122540db46c2b88abc}\label{class_main_window_a3d215f5c7dcd84122540db46c2b88abc}} 
+void {\bfseries Save\+File\+Action\+Clicked} ()
+\item 
+\mbox{\Hypertarget{class_main_window_a5566509d30f3222d173badb9d36837da}\label{class_main_window_a5566509d30f3222d173badb9d36837da}} 
+void {\bfseries on\+\_\+btn\+Run\+Clicked} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_main_window_a385a443aa70ff3d0f1d9cd24c5eb0c62}\label{class_main_window_a385a443aa70ff3d0f1d9cd24c5eb0c62}} 
+void {\bfseries Init\+Menu\+Bar} ()
+\item 
+\mbox{\Hypertarget{class_main_window_a478de70e7e8dcf5d2c19679e3da6381a}\label{class_main_window_a478de70e7e8dcf5d2c19679e3da6381a}} 
+void {\bfseries Init\+Code\+Editor} ()
+\item 
+\mbox{\Hypertarget{class_main_window_abaaa91c5066d80e363d9e6807cb3a44c}\label{class_main_window_abaaa91c5066d80e363d9e6807cb3a44c}} 
+void {\bfseries Show\+Bnf} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a759493c8ae847f75b1ee3535cef25628}{Save\+File}} (const QString file\+Path, const QString $\ast$what\+To\+Save)
+\begin{DoxyCompactList}\small\item\em Save\+File Save the file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_main_window_a39956b2a11912ead1441a532b2cf1695}\label{class_main_window_a39956b2a11912ead1441a532b2cf1695}} 
+const QString {\bfseries FILE\+\_\+\+OBJECT\+\_\+\+NAME} = \char`\"{}object.\+oshk\char`\"{}
+\item 
+\mbox{\Hypertarget{class_main_window_a1df8be5177fe8ec7e8657e555fd15c46}\label{class_main_window_a1df8be5177fe8ec7e8657e555fd15c46}} 
+const QString {\bfseries FILE\+\_\+\+OPTIONS} = \char`\"{}Исходный код ($\ast$.shk)\char`\"{}
+\item 
+\mbox{\Hypertarget{class_main_window_ab4f8fcf525ecbe0a7a37acfde83c0ee9}\label{class_main_window_ab4f8fcf525ecbe0a7a37acfde83c0ee9}} 
+const QString {\bfseries PATH\+\_\+\+TO\+\_\+\+BNF} = \char`\"{}../Translator\+GUI/bnf\char`\"{}
+\item 
+\mbox{\Hypertarget{class_main_window_a7efd41aefe51063a40b6b345c995c993}\label{class_main_window_a7efd41aefe51063a40b6b345c995c993}} 
+const QString {\bfseries FAIL\+\_\+\+SAVE\+\_\+\+FILE} = \char`\"{}Не удалось сохранить файл\char`\"{}
+\item 
+\mbox{\Hypertarget{class_main_window_a35466a70ed47252a0191168126a352a5}\label{class_main_window_a35466a70ed47252a0191168126a352a5}} 
+Ui\+::\+Main\+Window $\ast$ {\bfseries ui}
+\item 
+\mbox{\Hypertarget{class_main_window_a0589221f4cb7a933cdb401b595eb0ca1}\label{class_main_window_a0589221f4cb7a933cdb401b595eb0ca1}} 
+\mbox{\hyperlink{class_source_code_edit_1_1_code_editor}{Source\+Code\+Edit\+::\+Code\+Editor}} $\ast$ {\bfseries src\+Code\+Editor} \{ nullptr \}
+\item 
+\mbox{\Hypertarget{class_main_window_af362b7d94f5ea49be1b0a80aef9d8c20}\label{class_main_window_af362b7d94f5ea49be1b0a80aef9d8c20}} 
+bool {\bfseries src\+File\+Is\+Opened} \{ false \}
+\item 
+\mbox{\Hypertarget{class_main_window_a1de72133498b7f32e1b800a9ba21a6da}\label{class_main_window_a1de72133498b7f32e1b800a9ba21a6da}} 
+QString {\bfseries path\+To\+Src\+File} \{ QString() \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_main_window_a759493c8ae847f75b1ee3535cef25628}\label{class_main_window_a759493c8ae847f75b1ee3535cef25628}} 
+\index{MainWindow@{MainWindow}!SaveFile@{SaveFile}}
+\index{SaveFile@{SaveFile}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{SaveFile()}{SaveFile()}}
+{\footnotesize\ttfamily void Main\+Window\+::\+Save\+File (\begin{DoxyParamCaption}\item[{const QString}]{file\+Path,  }\item[{const QString $\ast$}]{what\+To\+Save }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Save\+File Save the file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em file\+Path} & Path to file \\
+\hline
+\mbox{\texttt{ in}}  & {\em what\+To\+Save} & Text for saving \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/kirill/programs/qt\+Projects/translator\+GUI/\+Translator\+GUI/mainwindow.\+h\item 
+/home/kirill/programs/qt\+Projects/translator\+GUI/\+Translator\+GUI/mainwindow.\+cpp\end{DoxyCompactItemize}

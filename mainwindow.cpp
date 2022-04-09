@@ -3,6 +3,7 @@
 
 #include <QAction>
 #include <QTextStream>
+#include <stringmanager.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,6 +14,13 @@ MainWindow::MainWindow(QWidget *parent)
     InitMenuBar();
     InitCodeEditor();
     ShowBnf();
+
+    connect(
+        ui->btnRun,
+        &QPushButton::clicked,
+        this,
+        &MainWindow::on_btnRunClicked
+    );
 }
 
 MainWindow::~MainWindow()
@@ -66,6 +74,20 @@ void MainWindow::ShowBnf()
     ui->txtBrowserBnf->setPlainText(text);
 }
 
+void MainWindow::SaveFile(const QString filePath, const QString *whatToSave)
+{
+    QFile outputFile(filePath);
+    if (!outputFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        ui->statusBar->showMessage(FAIL_SAVE_FILE);
+        return;
+    }
+    QTextStream outputStream(&outputFile);
+    outputStream << *whatToSave;
+    outputFile.close();
+}
+
+
 void MainWindow::OpenFileActionClicked()
 {
     const QString FAIL_OPEN_FILE = "Не удалось открыть файл";
@@ -107,40 +129,36 @@ void MainWindow::SaveFileActionClicked()
                 "",
                 FILE_OPTIONS
             );
-    fileName.append(".shk");
-    QFile outputFile(fileName);
-    if (!outputFile.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        ui->statusBar->showMessage(FAIL_SAVE_FILE);
-        return;
-    }
+    pathToSrcFile = fileName;
+    if (!fileName.contains(".shk"))
+        fileName.append(".shk");
     QString text = srcCodeEditor->toPlainText();
-    QTextStream outputStream(&outputFile);
-    outputStream << text;
-    outputFile.close();
+    SaveFile(fileName, &text);
 }
 
 void MainWindow::on_btnRunClicked()
 {
+    QString text = srcCodeEditor->toPlainText();
     if (srcFileIsOpened)
     {
-        QFile runFile(pathToSrcFile);
-        if (!runFile.open(QIODevice::WriteOnly | QIODevice::Text))
-        {
-            ui->statusBar->showMessage(FAIL_SAVE_FILE);
-            return;
-        }
-        QString text = srcCodeEditor->toPlainText();
-        QTextStream outputStream(&runFile);
-        outputStream << text;
-        runFile.close();
-
-        //save the OBJECT file in the same directory
+        SaveFile(pathToSrcFile, &text);
     }
     else
     {
         SaveFileActionClicked();
     }
+    Translator::StringManager stringManager;
+    QString fileDirectory = stringManager.TrimThePathFromRight(pathToSrcFile);
+    QStringList *objectFile { nullptr };
+    if (stringManager.TrimFile(&text, objectFile))
+    {
+        SaveFile(fileDirectory + FILE_OBJECT_NAME, &text);
+    }
+    else
+    {
+        ui->statusBar->showMessage("Не удалось получить объектный файл");
+        return ;
+    }
 
-
+    // go to syntax analyzer
 }

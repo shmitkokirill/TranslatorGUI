@@ -18,18 +18,28 @@ public:
     ~MainWindow();
 
 private:
+    const QString FILE_OBJECT_NAME = "object.oshk";
     const QString FILE_OPTIONS = "Исходный код (*.shk)";
     const QString PATH_TO_BNF = "../TranslatorGUI/bnf";
     const QString FAIL_SAVE_FILE = "Не удалось сохранить файл";
 
     Ui::MainWindow *ui;
-    SourceCodeEdit::CodeEditor *srcCodeEditor{ nullptr };
-    bool srcFileIsOpened{ false };
+    SourceCodeEdit::CodeEditor *srcCodeEditor { nullptr };
+    bool srcFileIsOpened { false };
     QString pathToSrcFile { QString() };
 
     void InitMenuBar();
     void InitCodeEditor();
     void ShowBnf();
+    /**
+     * @brief SaveFile
+     * Save the file
+     * @param[in] filePath
+     * Path to file
+     * @param[in] whatToSave
+     * Text for saving
+     */
+    void SaveFile(const QString filePath, const QString *whatToSave);
 private slots:
     void OpenFileActionClicked();
     void SaveFileActionClicked();
