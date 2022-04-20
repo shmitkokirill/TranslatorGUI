@@ -8,39 +8,44 @@
 \DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QMainWindow>}}
 \DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QFileDialog>}}
 \DoxyCodeLine{6 \textcolor{preprocessor}{\#include <codeeditor.h>}}
-\DoxyCodeLine{7 }
-\DoxyCodeLine{8 QT\_BEGIN\_NAMESPACE}
-\DoxyCodeLine{9 \textcolor{keyword}{namespace }Ui \{ \textcolor{keyword}{class }\mbox{\hyperlink{class_main_window}{MainWindow}}; \}}
-\DoxyCodeLine{10 QT\_END\_NAMESPACE}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{keyword}{class }\mbox{\hyperlink{class_main_window}{MainWindow}} : \textcolor{keyword}{public} QMainWindow}
-\DoxyCodeLine{13 \{}
-\DoxyCodeLine{14     Q\_OBJECT}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{keyword}{public}:}
-\DoxyCodeLine{17     \mbox{\hyperlink{class_main_window}{MainWindow}}(QWidget *parent = \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{18     \mbox{\hyperlink{class_main_window}{\string~MainWindow}}();}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{keyword}{private}:}
-\DoxyCodeLine{21     \textcolor{keyword}{const} QString FILE\_OBJECT\_NAME = \textcolor{stringliteral}{"{}object.oshk"{}};}
-\DoxyCodeLine{22     \textcolor{keyword}{const} QString FILE\_OPTIONS = \textcolor{stringliteral}{"{}Исходный код (*.shk)"{}};}
-\DoxyCodeLine{23     \textcolor{keyword}{const} QString PATH\_TO\_BNF = \textcolor{stringliteral}{"{}../TranslatorGUI/bnf"{}};}
-\DoxyCodeLine{24     \textcolor{keyword}{const} QString FAIL\_SAVE\_FILE = \textcolor{stringliteral}{"{}Не удалось сохранить файл"{}};}
-\DoxyCodeLine{25 }
-\DoxyCodeLine{26     Ui::MainWindow *ui;}
-\DoxyCodeLine{27     \mbox{\hyperlink{class_source_code_edit_1_1_code_editor}{SourceCodeEdit::CodeEditor}} *srcCodeEditor \{ \textcolor{keyword}{nullptr} \};}
-\DoxyCodeLine{28     \textcolor{keywordtype}{bool} srcFileIsOpened \{ \textcolor{keyword}{false} \};}
-\DoxyCodeLine{29     QString pathToSrcFile \{ QString() \};}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31     \textcolor{keywordtype}{void} InitMenuBar();}
-\DoxyCodeLine{32     \textcolor{keywordtype}{void} InitCodeEditor();}
-\DoxyCodeLine{33     \textcolor{keywordtype}{void} ShowBnf();}
-\DoxyCodeLine{42     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_window_a759493c8ae847f75b1ee3535cef25628}{SaveFile}}(\textcolor{keyword}{const} QString filePath, \textcolor{keyword}{const} QString *whatToSave);}
-\DoxyCodeLine{43 \textcolor{keyword}{private} slots:}
-\DoxyCodeLine{44     \textcolor{keywordtype}{void} OpenFileActionClicked();}
-\DoxyCodeLine{45     \textcolor{keywordtype}{void} SaveFileActionClicked();}
-\DoxyCodeLine{46     \textcolor{keywordtype}{void} on\_btnRunClicked();}
-\DoxyCodeLine{47 \};}
-\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// MAINWINDOW\_H}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}stringmanager.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}translator.h"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }Ui \{ \textcolor{keyword}{class }\mbox{\hyperlink{class_main_window}{MainWindow}}; \}}
+\DoxyCodeLine{12 QT\_END\_NAMESPACE}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{class }\mbox{\hyperlink{class_main_window}{MainWindow}} : \textcolor{keyword}{public} QMainWindow}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16     Q\_OBJECT}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{public}:}
+\DoxyCodeLine{19     \mbox{\hyperlink{class_main_window}{MainWindow}}(QWidget *parent = \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{20     \mbox{\hyperlink{class_main_window}{\string~MainWindow}}();}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{private}:}
+\DoxyCodeLine{23     \textcolor{keyword}{const} QString FILE\_OBJECT\_NAME = \textcolor{stringliteral}{"{}object.oshk"{}};}
+\DoxyCodeLine{24     \textcolor{keyword}{const} QString FILE\_OPTIONS = \textcolor{stringliteral}{"{}Исходный код (*.shk)"{}};}
+\DoxyCodeLine{25     \textcolor{keyword}{const} QString PATH\_TO\_BNF = \textcolor{stringliteral}{"{}../TranslatorGUI/bnf"{}};}
+\DoxyCodeLine{26     \textcolor{keyword}{const} QString FAIL\_SAVE\_FILE = \textcolor{stringliteral}{"{}Не удалось сохранить файл"{}};}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     Ui::MainWindow *ui;}
+\DoxyCodeLine{29     \mbox{\hyperlink{class_source_code_edit_1_1_code_editor}{SourceCodeEdit::CodeEditor}} *srcCodeEditor \{ \textcolor{keyword}{nullptr} \};}
+\DoxyCodeLine{30     \textcolor{keywordtype}{bool} srcFileIsOpened \{ \textcolor{keyword}{false} \};}
+\DoxyCodeLine{31     QString pathToSrcFile \{ QString() \};}
+\DoxyCodeLine{32     \mbox{\hyperlink{class_s_h_k___translator_1_1_string_manager}{SHK\_Translator::StringManager}}* stringManager;}
+\DoxyCodeLine{33     \mbox{\hyperlink{class_s_h_k___translator_1_1_translator}{SHK\_Translator::Translator}}* translator;}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keywordtype}{void} InitMenuBar();}
+\DoxyCodeLine{36     \textcolor{keywordtype}{void} InitCodeEditor();}
+\DoxyCodeLine{37     \textcolor{keywordtype}{void} ShowBnf();}
+\DoxyCodeLine{46     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_window_a759493c8ae847f75b1ee3535cef25628}{SaveFile}}(\textcolor{keyword}{const} QString filePath, \textcolor{keyword}{const} QString *whatToSave);}
+\DoxyCodeLine{47 \textcolor{keyword}{private} slots:}
+\DoxyCodeLine{48     \textcolor{keywordtype}{void} OpenFileActionClicked();}
+\DoxyCodeLine{49     \textcolor{keywordtype}{void} SaveFileActionClicked();}
+\DoxyCodeLine{50     \textcolor{keywordtype}{void} on\_btnRunClicked();}
+\DoxyCodeLine{51     \textcolor{keywordtype}{void} receiveMsg(QString message);}
+\DoxyCodeLine{52 \};}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// MAINWINDOW\_H}}
 
 \end{DoxyCode}

@@ -72,24 +72,29 @@ $(function() {
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef STRINGMANAGER_H</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define STRINGMANAGER_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;QString&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;QStringList&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;QObject&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;QStringList&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>Translator</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_translator_1_1_string_manager.html">   10</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_translator_1_1_string_manager.html">StringManager</a></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <a class="code hl_class" href="class_translator_1_1_string_manager.html">StringManager</a>();</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        QString TrimThePathFromRight(<span class="keyword">const</span> QString str);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_translator_1_1_string_manager.html#a2015cc6b7fbc038b84ff28ff2e09a224">TrimFile</a>(QString *input, QStringList *output);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    };</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#endif </span><span class="comment">// STRINGMANAGER_H</span></div>
-<div class="ttc" id="aclass_translator_1_1_string_manager_html"><div class="ttname"><a href="class_translator_1_1_string_manager.html">Translator::StringManager</a></div><div class="ttdef"><b>Definition:</b> stringmanager.h:11</div></div>
-<div class="ttc" id="aclass_translator_1_1_string_manager_html_a2015cc6b7fbc038b84ff28ff2e09a224"><div class="ttname"><a href="class_translator_1_1_string_manager.html#a2015cc6b7fbc038b84ff28ff2e09a224">Translator::StringManager::TrimFile</a></div><div class="ttdeci">bool TrimFile(QString *input, QStringList *output)</div><div class="ttdoc">TrimFile Deletes all spaces between words and inserts numbers of string instead of \n.</div><div class="ttdef"><b>Definition:</b> stringmanager.cpp:9</div></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>SHK_Translator</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="class_s_h_k___translator_1_1_string_manager.html">   11</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_s_h_k___translator_1_1_string_manager.html">StringManager</a> : <span class="keyword">public</span> QObject</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        Q_OBJECT</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <a class="code hl_class" href="class_s_h_k___translator_1_1_string_manager.html">StringManager</a>();</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        QString TrimThePathFromRight(<span class="keyword">const</span> QString str);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_s_h_k___translator_1_1_string_manager.html#a2015cc6b7fbc038b84ff28ff2e09a224">TrimFile</a>(QString *input, QStringList *output);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    signals:</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="class_s_h_k___translator_1_1_string_manager.html#aeddeb15aef409ada48bf60b9831c4324">   35</a></span>        <span class="keywordtype">void</span> <a class="code hl_signal" href="class_s_h_k___translator_1_1_string_manager.html#aeddeb15aef409ada48bf60b9831c4324">sendMsgToBar</a>(QString);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#endif </span><span class="comment">// STRINGMANAGER_H</span></div>
+<div class="ttc" id="aclass_s_h_k___translator_1_1_string_manager_html"><div class="ttname"><a href="class_s_h_k___translator_1_1_string_manager.html">SHK_Translator::StringManager</a></div><div class="ttdef"><b>Definition:</b> stringmanager.h:12</div></div>
+<div class="ttc" id="aclass_s_h_k___translator_1_1_string_manager_html_a2015cc6b7fbc038b84ff28ff2e09a224"><div class="ttname"><a href="class_s_h_k___translator_1_1_string_manager.html#a2015cc6b7fbc038b84ff28ff2e09a224">SHK_Translator::StringManager::TrimFile</a></div><div class="ttdeci">bool TrimFile(QString *input, QStringList *output)</div><div class="ttdoc">TrimFile Deletes all spaces between words and inserts numbers of string instead of \n.</div><div class="ttdef"><b>Definition:</b> stringmanager.cpp:9</div></div>
+<div class="ttc" id="aclass_s_h_k___translator_1_1_string_manager_html_aeddeb15aef409ada48bf60b9831c4324"><div class="ttname"><a href="class_s_h_k___translator_1_1_string_manager.html#aeddeb15aef409ada48bf60b9831c4324">SHK_Translator::StringManager::sendMsgToBar</a></div><div class="ttdeci">void sendMsgToBar(QString)</div><div class="ttdoc">sendMsgToBar It's for communication between Ui and This obj</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

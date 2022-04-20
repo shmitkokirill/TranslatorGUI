@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <codeeditor.h>
+#include "stringmanager.h"
+#include "translator.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,6 +29,8 @@ private:
     SourceCodeEdit::CodeEditor *srcCodeEditor { nullptr };
     bool srcFileIsOpened { false };
     QString pathToSrcFile { QString() };
+    SHK_Translator::StringManager* stringManager;
+    SHK_Translator::Translator* translator;
 
     void InitMenuBar();
     void InitCodeEditor();
@@ -44,5 +48,6 @@ private slots:
     void OpenFileActionClicked();
     void SaveFileActionClicked();
     void on_btnRunClicked();
+    void receiveMsg(QString message);
 };
 #endif // MAINWINDOW_H

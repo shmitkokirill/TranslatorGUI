@@ -46,6 +46,8 @@ namespace SHK_Translator
             const QString CTG = "ctg";
         };
 
+        int strCounter {1};
+
         /**
          * @brief Equation
          * @param[in] equation

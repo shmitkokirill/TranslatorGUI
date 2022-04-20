@@ -1,14 +1,16 @@
 #ifndef STRINGMANAGER_H
 #define STRINGMANAGER_H
 
+#include <QObject>
 #include <QString>
 #include <QStringList>
 
 
-namespace Translator
+namespace SHK_Translator
 {
-    class StringManager
+    class StringManager : public QObject
     {
+        Q_OBJECT
     public:
         StringManager();
         QString TrimThePathFromRight(const QString str);
@@ -25,6 +27,12 @@ namespace Translator
          * true if success
          */
         bool TrimFile(QString *input, QStringList *output);
+    signals:
+        /**
+         * @brief sendMsgToBar
+         * It's for communication between Ui and This obj
+         */
+        void sendMsgToBar(QString);
 
     };
 }

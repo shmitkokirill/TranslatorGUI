@@ -1,5 +1,5 @@
 #include "stringmanager.h"
-using namespace Translator;
+using namespace SHK_Translator;
 
 StringManager::StringManager()
 {
@@ -8,34 +8,37 @@ StringManager::StringManager()
 
 bool StringManager::TrimFile(QString *input, QStringList *output)
 {
-    if (output)
+    if (!output)
     {
+        emit sendMsgToBar("TrimFile: Не инициализирована выходная переменная");
         return false;
     }
     QRegExp removeSpaces("[ ]+");
     *input = input->replace(removeSpaces, " ");
-    output = new QStringList();
-    int i {input->length() - 1}, j, stNum {1};
+    int i {input->length() - 1}/*, j, stNum {1}*/;
     while (input->at(i) == '\n')
     {
         input->remove(i--, 1);
     }
+    input->append('\n');
     QString raw;
     for (i = 0; i < input->length();)
     {
         if (input->at(i) == '\n')
         {
-            input->remove(i, 1);
-            QString number = QString::number(stNum);
-            input->insert(i, "@" + number + "@");
-            int size {2 + number.length()};
-            for (j = 0; j < size; j++)
-            {
-                raw.append(input->at(i++));
-            }
+            input->replace(i, 1, '@');
+//            QString number = QString::number(stNum);
+//            input->insert(i, "@" + number + "@");
+//            int size {2 + number.length()};
+//            for (j = 0; j < size; j++)
+//            {
+//                raw.append(input->at(i++));
+//            }
+            raw.append('@');
+            i++;
             output->append(raw);
             raw.clear();
-            stNum++;
+//            stNum++;
             continue;
         }
         raw.append(input->at(i++));

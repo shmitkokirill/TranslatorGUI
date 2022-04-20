@@ -3,7 +3,6 @@
 
 #include <QAction>
 #include <QTextStream>
-#include <stringmanager.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,6 +20,15 @@ MainWindow::MainWindow(QWidget *parent)
         this,
         &MainWindow::on_btnRunClicked
     );
+
+    stringManager = new SHK_Translator::StringManager();
+    connect(
+        stringManager,
+        &SHK_Translator::StringManager::sendMsgToBar,
+        this,
+        &MainWindow::receiveMsg
+    );
+    translator = new SHK_Translator::Translator();
 }
 
 MainWindow::~MainWindow()
@@ -138,6 +146,7 @@ void MainWindow::SaveFileActionClicked()
 
 void MainWindow::on_btnRunClicked()
 {
+    ui->statusBar->clearMessage();
     QString text = srcCodeEditor->toPlainText();
     if (srcFileIsOpened)
     {
@@ -147,10 +156,9 @@ void MainWindow::on_btnRunClicked()
     {
         SaveFileActionClicked();
     }
-    Translator::StringManager stringManager;
-    QString fileDirectory = stringManager.TrimThePathFromRight(pathToSrcFile);
-    QStringList *objectFile { nullptr };
-    if (stringManager.TrimFile(&text, objectFile))
+    QString fileDirectory = stringManager->TrimThePathFromRight(pathToSrcFile);
+    QStringList *objectFile = new QStringList();
+    if (stringManager->TrimFile(&text, objectFile))
     {
         SaveFile(fileDirectory + FILE_OBJECT_NAME, &text);
     }
@@ -160,5 +168,12 @@ void MainWindow::on_btnRunClicked()
         return ;
     }
 
-    // go to syntax analyzer
+    int resMain = translator->Main(&text);
+    if (resMain)
+        ui->statusBar->showMessage("Ошибка " + QString::number(resMain));
+}
+
+void MainWindow::receiveMsg(QString message)
+{
+    ui->statusBar->showMessage(message);
 }
