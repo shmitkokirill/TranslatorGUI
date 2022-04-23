@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_0',['Main',['../class_s_h_k___translator_1_1_translator.html#aa33f2615832ad45c1448e85f0a379482',1,'SHK_Translator::Translator']]]
+  ['figure_0',['figure',['../class_s_h_k___translator_1_1_translator.html#afadd8a084f61e7f16d0186a65f9a5c93',1,'SHK_Translator::Translator']]]
 ];
