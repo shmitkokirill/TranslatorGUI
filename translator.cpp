@@ -57,9 +57,13 @@ int Translator::Equation(
         return 3;
     if (!letter(equation->at(labelCurPos + 1)))
         return 4;
-    for (int i = labelCurPos + 1; i < varCurPos - 1; i++)
+    for (int i = labelCurPos + 1; i < varCurPos - 2 /*!!*/; i++)
         if (!(letter(equation->at(i)) || figure(equation->at(i))))
             return 5;
+    variables.insert(
+        equation->mid(labelCurPos, varCurPos - 1 - labelCurPos),
+        NULL
+    );
 
     if (!RightValue(equation, varCurPos, end, result))
         return 6;
@@ -73,19 +77,21 @@ int Translator::RightValue(
     int &end,
     int &result
 ) {
+    int endPos = startPos;
     result = 0;
     int currentPos = startPos;
     if (rvalue->at(currentPos) == Operator.MINUS)
     {
         currentPos++;
         int blockRes;
-        if (Block(rvalue, currentPos, end, blockRes))
+        if (Block(rvalue, currentPos, endPos, blockRes))
             return 1;
         result -= blockRes;
     }
+    currentPos = endPos;
     do {
         int blockRes;
-        if (Block(rvalue, currentPos, end, blockRes))
+        if (Block(rvalue, currentPos, endPos, blockRes))
             return 2;
         result += blockRes;
     } while (rvalue->at(currentPos) == Operator.PLUS ||
@@ -93,6 +99,7 @@ int Translator::RightValue(
     );
     if (!(rvalue->at(currentPos) == Spec.SEMICOLON))
         return 2;
+    end = endPos;
     return 0;
 }
 
@@ -124,6 +131,7 @@ int Translator::Block(QString *block, int startPos, int &end, int &result)
             continue;
         }
     }
+    end = endPos;
     return 0;
 }
 
@@ -301,7 +309,7 @@ bool Translator::figure(QChar symbol)
 bool Translator::findTheWord(QString *main, QString check, int &counter)
 {
     QString word;
-    for (; counter < main->length(); counter++)
+    for (; counter < main->length(); )
     {
         if (main->at(counter) == Spec.EOS)
         {
@@ -311,9 +319,9 @@ bool Translator::findTheWord(QString *main, QString check, int &counter)
         }
         if (main->at(counter) == Spec.SPACE)
             break;
-        word.append(main->at(counter));
+        word.append(main->at(counter++));
     }
-    counter++;
+//    counter++;
     if (!word.compare(check, Qt::CaseSensitive))
         return true;
     if (counter >= main->length())
@@ -352,7 +360,7 @@ Translator::func Translator::findTheFunction(QString *main, int &counter)
             break;
         func.append(main->at(counter++));
     }
-    counter++;
+//    counter++;
     if (func == Function.COS)
         return COS;
     if (func == Function.SIN)
