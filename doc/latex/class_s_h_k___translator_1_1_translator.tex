@@ -5,6 +5,20 @@
 \item 
 int \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ab9d1b745ceae289c27fdd92029d8453a}{Main}} (QString $\ast$src\+Code)
 \begin{DoxyCompactList}\small\item\em Main Enter the program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_ae42ffd43dd21f936c49c2be51d8db57f}\label{class_s_h_k___translator_1_1_translator_ae42ffd43dd21f936c49c2be51d8db57f}} 
+enum {\bfseries func} \{ \newline
+{\bfseries SIN} = 1
+, {\bfseries COS}
+, {\bfseries TG}
+, {\bfseries CTG}
+, \newline
+{\bfseries LN}
+, {\bfseries NON}
+ \}
+\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -31,7 +45,13 @@ bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_afadd8a084f61e7f16
 bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aca9f1ff54a4521205cf4309c8232b7b7}{find\+The\+Word}} (QString $\ast$main, QString check, int \&counter)
 \begin{DoxyCompactList}\small\item\em find word in main string \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a30ac0eb50868ae78779ae7aa7a0ff3ee}{find\+The\+Operator}} (QString $\ast$main, QChar check, int \&counter)
-\begin{DoxyCompactList}\small\item\em find\+The\+Operator \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em find\+The\+Operator \end{DoxyCompactList}\item 
+func \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a47b5ff444213e5c61d459d29f64c1dd8}{find\+The\+Function}} (QString $\ast$main, int \&counter)
+\begin{DoxyCompactList}\small\item\em find\+The\+Function \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a02232b2b885097f242d64f863bfb0775}{is\+Number}} (QString word)
+\begin{DoxyCompactList}\small\item\em is\+Number \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a2742e7152101de90ba8328c91903137c}{is\+Variable}} (QString word)
+\begin{DoxyCompactList}\small\item\em is\+Variable \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -41,6 +61,7 @@ xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
 struct \{\\
 \>const QChar {\bfseries SPACE} = \textquotesingle{} \textquotesingle{}\\
 \>const QChar {\bfseries EOS} = \textquotesingle{}@\textquotesingle{}\\
+\>const QChar {\bfseries SEMICOLON} = \textquotesingle{};\textquotesingle{}\\
 \} {\bfseries Spec}\\
 
 \end{tabbing}\item 
@@ -88,6 +109,9 @@ int {\bfseries str\+Counter} \{1\}
 \item 
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a8a65effec078f28a71f5e655426d1503}\label{class_s_h_k___translator_1_1_translator_a8a65effec078f28a71f5e655426d1503}} 
 bool {\bfseries end\+Of\+File} \{false\}
+\item 
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a8656589e3a91bd9e4197600aa308f1ba}\label{class_s_h_k___translator_1_1_translator_a8656589e3a91bd9e4197600aa308f1ba}} 
+QHash$<$ QString, int $>$ {\bfseries variables}
 \end{DoxyCompactItemize}
 
 
@@ -154,6 +178,26 @@ figure
 \begin{DoxyReturn}{Returns}
 is char a figure? 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a47b5ff444213e5c61d459d29f64c1dd8}\label{class_s_h_k___translator_1_1_translator_a47b5ff444213e5c61d459d29f64c1dd8}} 
+\index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!findTheFunction@{findTheFunction}}
+\index{findTheFunction@{findTheFunction}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
+\doxysubsubsection{\texorpdfstring{findTheFunction()}{findTheFunction()}}
+{\footnotesize\ttfamily Translator\+::func Translator\+::find\+The\+Function (\begin{DoxyParamCaption}\item[{QString $\ast$}]{main,  }\item[{int \&}]{counter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+find\+The\+Function 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em main} & \\
+\hline
+\mbox{\texttt{ in}}  & {\em counter} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+enum with founded function 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a30ac0eb50868ae78779ae7aa7a0ff3ee}\label{class_s_h_k___translator_1_1_translator_a30ac0eb50868ae78779ae7aa7a0ff3ee}} 
 \index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!findTheOperator@{findTheOperator}}
 \index{findTheOperator@{findTheOperator}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
@@ -197,6 +241,42 @@ find word in main string
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 found or not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a02232b2b885097f242d64f863bfb0775}\label{class_s_h_k___translator_1_1_translator_a02232b2b885097f242d64f863bfb0775}} 
+\index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!isNumber@{isNumber}}
+\index{isNumber@{isNumber}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
+\doxysubsubsection{\texorpdfstring{isNumber()}{isNumber()}}
+{\footnotesize\ttfamily bool Translator\+::is\+Number (\begin{DoxyParamCaption}\item[{QString}]{word }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+is\+Number 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em word} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if word is Number 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a2742e7152101de90ba8328c91903137c}\label{class_s_h_k___translator_1_1_translator_a2742e7152101de90ba8328c91903137c}} 
+\index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!isVariable@{isVariable}}
+\index{isVariable@{isVariable}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
+\doxysubsubsection{\texorpdfstring{isVariable()}{isVariable()}}
+{\footnotesize\ttfamily bool Translator\+::is\+Variable (\begin{DoxyParamCaption}\item[{QString}]{word }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+is\+Variable 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em word} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if word is Variable 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_ac66bfd831224a38e54efb3e86b8f6bc7}\label{class_s_h_k___translator_1_1_translator_ac66bfd831224a38e54efb3e86b8f6bc7}} 
 \index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!letter@{letter}}

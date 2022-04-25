@@ -1,4 +1,7 @@
 #include "translator.h"
+
+#include <QList>
+#include <math.h>
 using namespace SHK_Translator;
 
 Translator::Translator()
@@ -71,24 +74,106 @@ int Translator::RightValue(
     int &result
 ) {
     result = 0;
-
-
-
+    int currentPos = startPos;
+    if (rvalue->at(currentPos) == Operator.MINUS)
+    {
+        currentPos++;
+        int blockRes;
+        if (Block(rvalue, currentPos, end, blockRes))
+            return 1;
+        result -= blockRes;
+    }
+    do {
+        int blockRes;
+        if (Block(rvalue, currentPos, end, blockRes))
+            return 2;
+        result += blockRes;
+    } while (rvalue->at(currentPos) == Operator.PLUS ||
+             rvalue->at(currentPos) == Operator.MINUS
+    );
+    if (!(rvalue->at(currentPos) == Spec.SEMICOLON))
+        return 2;
+    return 0;
 }
 
 int Translator::Block(QString *block, int startPos, int &end, int &result)
 {
-
+    int blockRes {0};
+    int partRes;
+    int endPos;
+    if (Part(block, startPos, endPos, partRes))
+        return 1;
+    blockRes = partRes;
+    int currentPos = endPos;
+    while (
+           block->at(currentPos) == Operator.MULTIPLY ||
+           block->at(currentPos) == Operator.DIVIDE
+    ) {
+        if (Part(block, currentPos + 1, endPos, partRes))
+            return 2;
+        if (block->at(currentPos) == Operator.DIVIDE)
+        {
+            blockRes /= partRes;
+            currentPos = endPos;
+            continue;
+        }
+        if (block->at(currentPos) == Operator.MULTIPLY)
+        {
+            blockRes *= partRes;
+            currentPos = endPos;
+            continue;
+        }
+    }
+    return 0;
 }
 
 int Translator::Part(QString *part, int startPos, int &end, int &result)
 {
-
+    result = 0;
+    int endPos;
+    int pieceRes;
+    if (Piece(part, startPos, endPos, pieceRes))
+        return 1;
+    result = pieceRes;
+    int currentPos = endPos;
+    while (
+           part->at(currentPos) == Operator.AND ||
+           part->at(currentPos) == Operator.OR
+    ) {
+        if (Piece(part, currentPos + 1, endPos, pieceRes))
+            return 2;
+        if (part->at(currentPos) == Operator.AND)
+        {
+            result &= pieceRes;
+            currentPos = endPos;
+            continue;
+        }
+        if (part->at(currentPos) == Operator.OR)
+        {
+            result |= pieceRes;
+            currentPos = endPos;
+            continue;
+        }
+    }
+    end = endPos;
+    return 0;
 }
 
 int Translator::Piece(QString *piece, int startPos, int &end, int &result)
 {
-
+    result = 0;
+    int sPartRes;
+    int endPos;
+    bool notExpected {false};
+    if (piece->at(startPos) == Operator.NOT)
+        notExpected = true;
+    if (SmallPart(piece, startPos, endPos, sPartRes))
+        return 1;
+    if (notExpected)
+        result = !sPartRes;
+    result = sPartRes;
+    end = endPos;
+    return 0;
 }
 
 int Translator::SmallPart(
@@ -97,7 +182,47 @@ int Translator::SmallPart(
     int &end,
     int &result
 ) {
-
+    int currentPos = startPos;
+    result = 0;
+    int spResult;
+    int endPos;
+    QList<func> fStack;
+    func f;
+    while (currentPos < spart->length())
+    {
+        int prevWordPos = currentPos;
+        if ((f = findTheFunction(spart, currentPos)) != NON)
+            fStack.append(f);
+        else
+            if (SmallPiece(spart, prevWordPos, endPos, spResult))
+                return 1;
+            else
+                break;
+    }
+    result = spResult;
+    while (!fStack.isEmpty())
+    {
+        switch (fStack.last())
+        {
+            case SIN:
+                result = sin(result);
+                break;
+            case COS:
+                result = cos(result);
+                break;
+            case TG:
+                result = tan(result);
+                break;
+            case CTG:
+                result = 1 / tan(result);
+            case LN:
+                result = log(result);
+                break;
+        }
+        fStack.pop_back();
+    }
+    end = currentPos;
+    return 0;
 }
 
 int Translator::SmallPiece(
@@ -106,7 +231,20 @@ int Translator::SmallPiece(
     int &end,
     int &result
 ) {
-
+    result = 0;
+    QString word;
+    int currentPos = startPos;
+    for (; currentPos < spiece->length();)
+    {
+        if (spiece->at(currentPos) == Spec.SPACE)
+            break;
+        word.append(spiece->at(currentPos++));
+    }
+    currentPos++;
+    end = currentPos;
+    if (!(isVariable(word) || isNumber(word)))
+        return 1;
+    return 0;
 }
 
 int Translator::Variety(
@@ -115,8 +253,35 @@ int Translator::Variety(
     int &end,
     int &result
 ) {
-    end = startPos;
-    return 0;
+    int currentPos = startPos;
+    if (!findTheWord(variety, KeyWord.ANALYSIS, currentPos))
+    {
+        currentPos = startPos;
+        if (!findTheWord(variety, KeyWord.SINTEZ, currentPos))
+            return 1;
+    }
+    while (currentPos < variety->length())
+    {
+        QString word;
+        for (; currentPos < variety->length(); )
+        {
+            if (variety->at(currentPos) == Spec.EOS)
+            {
+                variety->remove(currentPos, 1);
+                strCounter++;
+                break;
+            }
+            if (variety->at(currentPos) == Spec.SPACE)
+                break;
+            word.append(variety->at(currentPos++));
+        }
+        currentPos++;
+        if (word == KeyWord.END)
+            return 0;
+        if (!isVariable(word))
+            return 2;
+    }
+    return 3;
 }
 
 bool Translator::letter(QChar symbol)
@@ -171,5 +336,46 @@ bool Translator::findTheOperator(QString *main, QChar check, int &counter)
     if (counter >= main->length())
         endOfFile = true;
     return false;
+}
+
+Translator::func Translator::findTheFunction(QString *main, int &counter)
+{
+    QString func;
+    while (counter < main->length())
+    {
+        if (main->at(counter) == Spec.EOS)
+        {
+            main->remove(counter, 1);
+            strCounter++;
+        }
+        if (main->at(counter) == Spec.SPACE)
+            break;
+        func.append(main->at(counter++));
+    }
+    counter++;
+    if (func == Function.COS)
+        return COS;
+    if (func == Function.SIN)
+        return SIN;
+    if (func == Function.TG)
+        return TG;
+    if (func == Function.CTG)
+        return CTG;
+    if (func == Function.LN)
+        return LN;
+    return NON;
+}
+
+bool Translator::isNumber(QString word)
+{
+    for (int i = 0; i < word.length(); i++)
+        if (!figure(word[i]))
+            return false;
+    return true;
+}
+
+bool Translator::isVariable(QString word)
+{
+    return variables.contains(word);
 }
 

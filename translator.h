@@ -1,6 +1,7 @@
 #ifndef TRANSLATOR_H
 #define TRANSLATOR_H
 
+#include <QHash>
 #include <QString>
 namespace SHK_Translator
 {
@@ -22,6 +23,7 @@ namespace SHK_Translator
         {
             const QChar SPACE = ' ';
             const QChar EOS = '@';
+            const QChar SEMICOLON = ';';
         } Spec;
         struct
         {
@@ -50,9 +52,19 @@ namespace SHK_Translator
             const QString TG = "tg";
             const QString CTG = "ctg";
         } Function;
+        enum func
+        {
+            SIN = 1,
+            COS,
+            TG,
+            CTG,
+            LN,
+            NON
+        };
 
         int strCounter {1};
         bool endOfFile {false};
+        QHash<QString, int> variables;
 
         /**
          * @brief Equation
@@ -207,6 +219,28 @@ namespace SHK_Translator
             QChar check,
             int &counter
         );
+        /**
+         * @brief findTheFunction
+         * @param[in] main
+         * @param[in] counter
+         * @return
+         * enum with founded function
+         */
+        func findTheFunction(QString *main, int &counter);
+        /**
+         * @brief isNumber
+         * @param[in] word
+         * @return
+         * true if word is Number
+         */
+        bool isNumber(QString word);
+        /**
+         * @brief isVariable
+         * @param[in] word
+         * @return
+         * true if word is Variable
+         */
+        bool isVariable(QString word);
     };
 }
 
