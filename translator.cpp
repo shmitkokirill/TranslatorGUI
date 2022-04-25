@@ -5,30 +5,14 @@ Translator::Translator()
 {
 }
 
-int Translator::Main(const QString *srcCode)
+int Translator::Main(QString *srcCode)
 {
     int currentPos {0}, endPos {0};
     QString word;
     bool beginExpected {false};
     bool endExpected {false};
-    while (!beginExpected && currentPos < srcCode->length())
-    {
-        for (; currentPos < srcCode->length(); currentPos++)
-        {
-            if (srcCode->at(currentPos) == '@')
-            {
-                strCounter++;
-                break;
-            }
-            word.append(srcCode->at(currentPos));
-        }
-        currentPos++;
-        if (!word.compare(KeyWord.BEGIN, Qt::CaseSensitive))
-        {
-            beginExpected = true;
-            word.clear();
-        }
-    }
+
+    beginExpected = findTheWord(srcCode, KeyWord.BEGIN, currentPos);
     if (!beginExpected)
         return 1;
     int equationRes;
@@ -41,31 +25,14 @@ int Translator::Main(const QString *srcCode)
         return 3;
     currentPos = endPos;
     endPos = 0;
-    while (!endExpected && currentPos < srcCode->length())
-    {
-        for (; currentPos < srcCode->length(); currentPos++)
-        {
-            if (srcCode->at(currentPos) == '@')
-            {
-                strCounter++;
-                break;
-            }
-            word.append(srcCode->at(currentPos));
-        }
-        currentPos++;
-        if (!word.compare(KeyWord.END, Qt::CaseSensitive))
-        {
-            word.clear();
-            endExpected = true;
-        }
-    }
+    endExpected = findTheWord(srcCode, KeyWord.END, currentPos);
     if (!endExpected)
         return 4;
     return 0;
 }
 
 int Translator::Equation(
-    const QString *equation,
+    QString *equation,
     int startPos,
     int &end,
     int &result
@@ -74,9 +41,7 @@ int Translator::Equation(
     bool equalsExpected {false};
 
     int labelCurPos = startPos;
-    while (labelCurPos < equation->length() && !labelExpected)
-        if (equation->at(labelCurPos++) == Operator.COLON)
-            labelExpected = true;
+    labelExpected = findTheOperator(equation, Operator.COLON, labelCurPos);
     if (!labelExpected)
         return 1;
     for (int i = startPos; i < labelCurPos - 1; i++)
@@ -84,9 +49,7 @@ int Translator::Equation(
             return 2;
 
     int varCurPos = labelCurPos;
-    while (varCurPos < equation->length() && !equalsExpected)
-        if (equation->at(varCurPos++) == Operator.EQUAL)
-            equalsExpected = true;
+    equalsExpected = findTheOperator(equation, Operator.EQUAL, varCurPos);
     if (!equalsExpected)
         return 3;
     if (!letter(equation->at(labelCurPos + 1)))
@@ -102,7 +65,7 @@ int Translator::Equation(
 }
 
 int Translator::RightValue(
-    const QString *rvalue,
+    QString *rvalue,
     int startPos,
     int &end,
     int &result
@@ -113,23 +76,23 @@ int Translator::RightValue(
 
 }
 
-int Translator::Block(const QString *block, int startPos, int &end, int &result)
+int Translator::Block(QString *block, int startPos, int &end, int &result)
 {
 
 }
 
-int Translator::Part(const QString *part, int startPos, int &end, int &result)
+int Translator::Part(QString *part, int startPos, int &end, int &result)
 {
 
 }
 
-int Translator::Piece(const QString *piece, int startPos, int &end, int &result)
+int Translator::Piece(QString *piece, int startPos, int &end, int &result)
 {
 
 }
 
 int Translator::SmallPart(
-    const QString *spart,
+    QString *spart,
     int startPos,
     int &end,
     int &result
@@ -138,7 +101,7 @@ int Translator::SmallPart(
 }
 
 int Translator::SmallPiece(
-    const QString *spiece,
+    QString *spiece,
     int startPos,
     int &end,
     int &result
@@ -147,7 +110,7 @@ int Translator::SmallPiece(
 }
 
 int Translator::Variety(
-    const QString *variety,
+    QString *variety,
     int startPos,
     int &end,
     int &result
@@ -169,3 +132,44 @@ bool Translator::figure(QChar symbol)
 {
     return (symbol >= 48 && symbol <= 71);
 }
+
+bool Translator::findTheWord(QString *main, QString check, int &counter)
+{
+    QString word;
+    for (; counter < main->length(); counter++)
+    {
+        if (main->at(counter) == Spec.EOS)
+        {
+            main->remove(counter, 1);
+            strCounter++;
+            break;
+        }
+        if (main->at(counter) == Spec.SPACE)
+            break;
+        word.append(main->at(counter));
+    }
+    counter++;
+    if (!word.compare(check, Qt::CaseSensitive))
+        return true;
+    if (counter >= main->length())
+        endOfFile = true;
+    return false;
+}
+
+bool Translator::findTheOperator(QString *main, QChar check, int &counter)
+{
+    while (counter < main->length())
+    {
+        if (main->at(counter) == Spec.EOS)
+        {
+            main->remove(counter, 1);
+            strCounter++;
+        }
+        if (main->at(counter++) == check)
+            return true;
+    }
+    if (counter >= main->length())
+        endOfFile = true;
+    return false;
+}
+

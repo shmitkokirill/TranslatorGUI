@@ -16,8 +16,13 @@ namespace SHK_Translator
          * @return
          * Errors
          */
-        int Main(const QString *srcCode);
+        int Main(QString *srcCode);
     private:
+        struct
+        {
+            const QChar SPACE = ' ';
+            const QChar EOS = '@';
+        } Spec;
         struct
         {
             const QString BEGIN = "Begin";
@@ -47,6 +52,7 @@ namespace SHK_Translator
         } Function;
 
         int strCounter {1};
+        bool endOfFile {false};
 
         /**
          * @brief Equation
@@ -57,7 +63,7 @@ namespace SHK_Translator
          * Errors
          */
         int Equation(
-            const QString *equation,
+            QString *equation,
             int startPos,
             int &end,
             int &result
@@ -71,7 +77,7 @@ namespace SHK_Translator
          * Errors
          */
         int RightValue(
-            const QString *rvalue,
+            QString *rvalue,
             int startPos,
             int &end,
             int &result
@@ -85,7 +91,7 @@ namespace SHK_Translator
          * Errors
          */
         int Block(
-            const QString *block,
+            QString *block,
             int startPos,
             int &end,
             int &result
@@ -99,7 +105,7 @@ namespace SHK_Translator
          * Errors
          */
         int Part(
-            const QString *part,
+            QString *part,
             int startPos,
             int &end,
             int &result
@@ -113,7 +119,7 @@ namespace SHK_Translator
          * Errors
          */
         int Piece(
-            const QString *piece,
+            QString *piece,
             int startPos,
             int &end,
             int &result
@@ -127,7 +133,7 @@ namespace SHK_Translator
          * Errors
          */
         int SmallPart(
-            const QString *spart,
+            QString *spart,
             int startPos,
             int &end,
             int &result
@@ -141,7 +147,7 @@ namespace SHK_Translator
          * Errors
          */
         int SmallPiece(
-            const QString *spiece,
+            QString *spiece,
             int startPos,
             int &end,
             int &result
@@ -155,7 +161,7 @@ namespace SHK_Translator
          * Errors
          */
         int Variety(
-            const QString *variety,
+            QString *variety,
             int startPos,
             int &end,
             int &result
@@ -174,6 +180,33 @@ namespace SHK_Translator
          * is char a figure?
          */
         bool figure(QChar symbol);
+        /**
+         * @brief find word in main string
+         * @param[in] main
+         * @param[in] check
+         * what to check (which word)
+         * @param[in] counter
+         * @return
+         * found or not
+         */
+        bool findTheWord(
+            QString *main,
+            QString check,
+            int &counter
+        );
+        /**
+         * @brief findTheOperator
+         * @param[in] main
+         * @param[in] check
+         * @param[in] counter
+         * @return
+         * found or not
+         */
+        bool findTheOperator(
+            QString *main,
+            QChar check,
+            int &counter
+        );
     };
 }
 
