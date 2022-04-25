@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mainwindow_0',['MainWindow',['../class_main_window.html',1,'']]]
+  ['translator_0',['Translator',['../class_s_h_k___translator_1_1_translator.html',1,'SHK_Translator']]]
 ];

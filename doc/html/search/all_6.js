@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['main_0',['Main',['../class_s_h_k___translator_1_1_translator.html#aa33f2615832ad45c1448e85f0a379482',1,'SHK_Translator::Translator']]],
-  ['mainwindow_1',['MainWindow',['../class_main_window.html',1,'']]]
+  ['part_0',['Part',['../class_s_h_k___translator_1_1_translator.html#a088aee61b434f7f4bf028708f06085e4',1,'SHK_Translator::Translator']]],
+  ['piece_1',['Piece',['../class_s_h_k___translator_1_1_translator.html#a04d02be39be1d04cce2f2ae3ada68a93',1,'SHK_Translator::Translator']]]
 ];

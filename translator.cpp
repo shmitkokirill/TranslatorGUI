@@ -92,7 +92,7 @@ int Translator::Equation(
     if (!letter(equation->at(labelCurPos + 1)))
         return 4;
     for (int i = labelCurPos + 1; i < varCurPos - 1; i++)
-        if (!letter(equation->at(i)) || !figure(equation->at(i)))
+        if (!(letter(equation->at(i)) || figure(equation->at(i))))
             return 5;
 
     if (!RightValue(equation, varCurPos, end, result))
@@ -108,6 +108,7 @@ int Translator::RightValue(
     int &result
 ) {
     result = 0;
+
 
 
 }

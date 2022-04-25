@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['linenumberarea_0',['LineNumberArea',['../class_source_code_edit_1_1_line_number_area.html',1,'SourceCodeEdit']]]
+  ['stringmanager_0',['StringManager',['../class_s_h_k___translator_1_1_string_manager.html',1,'SHK_Translator']]]
 ];
