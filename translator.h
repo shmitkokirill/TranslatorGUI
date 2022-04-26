@@ -201,9 +201,9 @@ namespace SHK_Translator
          * @return
          * found or not
          */
-        bool findTheWord(
+        QString findTheWord(
             QString *main,
-            QString check,
+            QList<QChar> check,
             int &counter
         );
         /**
@@ -241,6 +241,8 @@ namespace SHK_Translator
          * true if word is Variable
          */
         bool isVariable(QString word);
+        void skipSpace(QString *main, int &counter);
+        bool isSeparator(QChar sym);
     };
 }
 

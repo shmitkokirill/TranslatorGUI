@@ -11,26 +11,34 @@ Translator::Translator()
 int Translator::Main(QString *srcCode)
 {
     int currentPos {0}, endPos {0};
-    QString word;
-    bool beginExpected {false};
-    bool endExpected {false};
-
-    beginExpected = findTheWord(srcCode, KeyWord.BEGIN, currentPos);
-    if (!beginExpected)
+    QString beg;
+    QList<QChar> check = {Spec.SPACE};
+    while ((beg = findTheWord(srcCode, check, currentPos)).isEmpty());
+    if (beg != KeyWord.BEGIN)
         return 1;
-    int equationRes;
-    if (Equation(srcCode, currentPos, endPos, equationRes))
-        return 2;
-    currentPos = endPos;
-    endPos = 0;
-    int varietyRes;
-    if (Variety(srcCode, currentPos, endPos, varietyRes))
+    do {
+        int equationRes;
+        if (Equation(srcCode, currentPos, endPos, equationRes))
+            return 2;
+        currentPos = endPos;
+        QList<QChar> check = {Spec.SPACE};
+        QString w = findTheWord(srcCode, check, currentPos);
+        if (w == KeyWord.ANALYSIS || w == KeyWord.SINTEZ)
+        {
+            currentPos = endPos;
+            break;
+        }
+    } while (true);
+    if (endOfFile)
         return 3;
-    currentPos = endPos;
     endPos = 0;
-    endExpected = findTheWord(srcCode, KeyWord.END, currentPos);
-    if (!endExpected)
-        return 4;
+    do {
+        int varietyRes;
+        if (Variety(srcCode, currentPos, endPos, varietyRes))
+            return 3;
+        else
+            break;
+    } while (true);
     return 0;
 }
 
@@ -40,33 +48,28 @@ int Translator::Equation(
     int &end,
     int &result
 ) {
-    bool labelExpected {false};
-    bool equalsExpected {false};
-
     int labelCurPos = startPos;
-    labelExpected = findTheOperator(equation, Operator.COLON, labelCurPos);
-    if (!labelExpected)
-        return 1;
-    for (int i = startPos; i < labelCurPos - 1; i++)
-        if (!figure(equation->at(i)))
-            return 2;
+    QList<QChar> checkLbl = {Operator.COLON};
+    QString label;
+    while((label = findTheWord(equation, checkLbl, labelCurPos)).isEmpty());
+    for (int i = 0; i < label.length(); i++)
+        if (!figure(label[i]))
+            return 1;
 
     int varCurPos = labelCurPos;
-    equalsExpected = findTheOperator(equation, Operator.EQUAL, varCurPos);
-    if (!equalsExpected)
-        return 3;
-    if (!letter(equation->at(labelCurPos + 1)))
-        return 4;
-    for (int i = labelCurPos + 1; i < varCurPos - 2 /*!!*/; i++)
-        if (!(letter(equation->at(i)) || figure(equation->at(i))))
-            return 5;
-    variables.insert(
-        equation->mid(labelCurPos, varCurPos - 1 - labelCurPos),
-        NULL
-    );
+    QList<QChar> checkVar = {Operator.EQUAL};
+    QString var;
+    while((var = findTheWord(equation, checkVar, varCurPos)).isEmpty());
+    if (!letter(var[0]))
+        return 2;
+    for (int i = 1; i < var.length(); i++)
+        if (!(letter(var[i]) || figure(var[i])))
+            return 3;
 
-    if (!RightValue(equation, varCurPos, end, result))
-        return 6;
+    if (RightValue(equation, varCurPos, end, result))
+        return 4;
+
+    variables.insert(var, result);
 
     return 0;
 }
@@ -77,9 +80,10 @@ int Translator::RightValue(
     int &end,
     int &result
 ) {
-    int endPos = startPos;
     result = 0;
     int currentPos = startPos;
+    skipSpace(rvalue, currentPos);
+    int endPos = currentPos;
     if (rvalue->at(currentPos) == Operator.MINUS)
     {
         currentPos++;
@@ -89,17 +93,21 @@ int Translator::RightValue(
         result -= blockRes;
     }
     currentPos = endPos;
+    currentPos--;
     do {
+        currentPos++;
+        skipSpace(rvalue, currentPos);
         int blockRes;
         if (Block(rvalue, currentPos, endPos, blockRes))
             return 2;
         result += blockRes;
+        currentPos = endPos;
     } while (rvalue->at(currentPos) == Operator.PLUS ||
              rvalue->at(currentPos) == Operator.MINUS
     );
-    if (!(rvalue->at(currentPos) == Spec.SEMICOLON))
+    if (!(rvalue->at(currentPos++) == Spec.SEMICOLON))
         return 2;
-    end = endPos;
+    end = currentPos;
     return 0;
 }
 
@@ -131,6 +139,7 @@ int Translator::Block(QString *block, int startPos, int &end, int &result)
             continue;
         }
     }
+    result = blockRes;
     end = endPos;
     return 0;
 }
@@ -229,7 +238,7 @@ int Translator::SmallPart(
         }
         fStack.pop_back();
     }
-    end = currentPos;
+    end = endPos;
     return 0;
 }
 
@@ -244,14 +253,24 @@ int Translator::SmallPiece(
     int currentPos = startPos;
     for (; currentPos < spiece->length();)
     {
-        if (spiece->at(currentPos) == Spec.SPACE)
+        if (spiece->at(currentPos) == Spec.SEMICOLON)
+        {
+            currentPos--;
+            break;
+        }
+        if (isSeparator(spiece->at(currentPos)))
             break;
         word.append(spiece->at(currentPos++));
     }
     currentPos++;
     end = currentPos;
-    if (!(isVariable(word) || isNumber(word)))
+
+    if (isNumber(word))
+        result = word.toInt();
+    else
         return 1;
+//    if (isVariable(word))
+//        result = variables.value(word);
     return 0;
 }
 
@@ -262,30 +281,19 @@ int Translator::Variety(
     int &result
 ) {
     int currentPos = startPos;
-    if (!findTheWord(variety, KeyWord.ANALYSIS, currentPos))
-    {
-        currentPos = startPos;
-        if (!findTheWord(variety, KeyWord.SINTEZ, currentPos))
-            return 1;
-    }
+    QList<QChar> check = {Spec.SPACE};
+    QString key = findTheWord(variety, check, currentPos);
+    if (!(key == KeyWord.ANALYSIS || key == KeyWord.SINTEZ))
+        return 1;
     while (currentPos < variety->length())
     {
-        QString word;
-        for (; currentPos < variety->length(); )
-        {
-            if (variety->at(currentPos) == Spec.EOS)
-            {
-                variety->remove(currentPos, 1);
-                strCounter++;
-                break;
-            }
-            if (variety->at(currentPos) == Spec.SPACE)
-                break;
-            word.append(variety->at(currentPos++));
-        }
-        currentPos++;
+        QList<QChar> check = {Spec.SPACE};
+        QString word = findTheWord(variety, check, currentPos);
         if (word == KeyWord.END)
+        {
+            end = currentPos;
             return 0;
+        }
         if (!isVariable(word))
             return 2;
     }
@@ -306,27 +314,27 @@ bool Translator::figure(QChar symbol)
     return (symbol >= 48 && symbol <= 71);
 }
 
-bool Translator::findTheWord(QString *main, QString check, int &counter)
+QString Translator::findTheWord(QString *main, QList<QChar> check, int &counter)
 {
-    QString word;
-    for (; counter < main->length(); )
+    int len = main->length();
+    QString word {""};
+    for (; counter < len; )
     {
         if (main->at(counter) == Spec.EOS)
         {
-            main->remove(counter, 1);
+            counter++;
             strCounter++;
-            break;
+            return word.trimmed();
         }
-        if (main->at(counter) == Spec.SPACE)
-            break;
+        for (int i = 0; i < check.count(); i++)
+            if (main->at(counter) == check[i])
+            {
+                counter++;
+                return word.trimmed();
+            }
         word.append(main->at(counter++));
     }
-//    counter++;
-    if (!word.compare(check, Qt::CaseSensitive))
-        return true;
-    if (counter >= main->length())
-        endOfFile = true;
-    return false;
+    return QString();
 }
 
 bool Translator::findTheOperator(QString *main, QChar check, int &counter)
@@ -385,5 +393,27 @@ bool Translator::isNumber(QString word)
 bool Translator::isVariable(QString word)
 {
     return variables.contains(word);
+}
+
+void Translator::skipSpace(QString *main, int &counter)
+{
+    for (int i = 0; i < 2; i++)
+        if (main->at(counter) == Spec.SPACE)
+            counter++;
+}
+
+bool Translator::isSeparator(QChar sym)
+{
+    if (
+        sym == Spec.SPACE ||
+        sym == Operator.AND ||
+        sym == Operator.MINUS ||
+        sym == Operator.OR ||
+        sym == Operator.MULTIPLY ||
+        sym == Operator.PLUS ||
+        sym == Operator.DIVIDE
+    )
+        return true;
+    return false;
 }
 

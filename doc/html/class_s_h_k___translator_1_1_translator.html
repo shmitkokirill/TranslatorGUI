@@ -127,9 +127,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:afadd8a084f61e7f16d0186a65f9a5c93"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#afadd8a084f61e7f16d0186a65f9a5c93">figure</a> (QChar symbol)</td></tr>
 <tr class="memdesc:afadd8a084f61e7f16d0186a65f9a5c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">figure  <a href="class_s_h_k___translator_1_1_translator.html#afadd8a084f61e7f16d0186a65f9a5c93">More...</a><br /></td></tr>
 <tr class="separator:afadd8a084f61e7f16d0186a65f9a5c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca9f1ff54a4521205cf4309c8232b7b7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#aca9f1ff54a4521205cf4309c8232b7b7">findTheWord</a> (QString *main, QString check, int &amp;counter)</td></tr>
-<tr class="memdesc:aca9f1ff54a4521205cf4309c8232b7b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">find word in main string  <a href="class_s_h_k___translator_1_1_translator.html#aca9f1ff54a4521205cf4309c8232b7b7">More...</a><br /></td></tr>
-<tr class="separator:aca9f1ff54a4521205cf4309c8232b7b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab456df74ae9fc3e22d1a5451811e2848"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#ab456df74ae9fc3e22d1a5451811e2848">findTheWord</a> (QString *main, QList&lt; QChar &gt; check, int &amp;counter)</td></tr>
+<tr class="memdesc:ab456df74ae9fc3e22d1a5451811e2848"><td class="mdescLeft">&#160;</td><td class="mdescRight">find word in main string  <a href="class_s_h_k___translator_1_1_translator.html#ab456df74ae9fc3e22d1a5451811e2848">More...</a><br /></td></tr>
+<tr class="separator:ab456df74ae9fc3e22d1a5451811e2848"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30ac0eb50868ae78779ae7aa7a0ff3ee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#a30ac0eb50868ae78779ae7aa7a0ff3ee">findTheOperator</a> (QString *main, QChar check, int &amp;counter)</td></tr>
 <tr class="memdesc:a30ac0eb50868ae78779ae7aa7a0ff3ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">findTheOperator  <a href="class_s_h_k___translator_1_1_translator.html#a30ac0eb50868ae78779ae7aa7a0ff3ee">More...</a><br /></td></tr>
 <tr class="separator:a30ac0eb50868ae78779ae7aa7a0ff3ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,6 +142,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a2742e7152101de90ba8328c91903137c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#a2742e7152101de90ba8328c91903137c">isVariable</a> (QString word)</td></tr>
 <tr class="memdesc:a2742e7152101de90ba8328c91903137c"><td class="mdescLeft">&#160;</td><td class="mdescRight">isVariable  <a href="class_s_h_k___translator_1_1_translator.html#a2742e7152101de90ba8328c91903137c">More...</a><br /></td></tr>
 <tr class="separator:a2742e7152101de90ba8328c91903137c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc673238c4da5f85f12785558332e6b4"><td class="memItemLeft" align="right" valign="top"><a id="abc673238c4da5f85f12785558332e6b4" name="abc673238c4da5f85f12785558332e6b4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>skipSpace</b> (QString *main, int &amp;counter)</td></tr>
+<tr class="separator:abc673238c4da5f85f12785558332e6b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa4c3a719bdb04b92d67fb9a77db9322"><td class="memItemLeft" align="right" valign="top"><a id="aaa4c3a719bdb04b92d67fb9a77db9322" name="aaa4c3a719bdb04b92d67fb9a77db9322"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isSeparator</b> (QChar sym)</td></tr>
+<tr class="separator:aaa4c3a719bdb04b92d67fb9a77db9322"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -350,7 +356,6 @@ QHash&lt; QString, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Errors </dd></dl>
-<p >!</p>
 
 </div>
 </div>
@@ -488,8 +493,8 @@ QHash&lt; QString, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 
 </div>
 </div>
-<a id="aca9f1ff54a4521205cf4309c8232b7b7" name="aca9f1ff54a4521205cf4309c8232b7b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca9f1ff54a4521205cf4309c8232b7b7">&#9670;&nbsp;</a></span>findTheWord()</h2>
+<a id="ab456df74ae9fc3e22d1a5451811e2848" name="ab456df74ae9fc3e22d1a5451811e2848"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab456df74ae9fc3e22d1a5451811e2848">&#9670;&nbsp;</a></span>findTheWord()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -498,7 +503,7 @@ QHash&lt; QString, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool Translator::findTheWord </td>
+          <td class="memname">QString Translator::findTheWord </td>
           <td>(</td>
           <td class="paramtype">QString *&#160;</td>
           <td class="paramname"><em>main</em>, </td>
@@ -506,7 +511,7 @@ QHash&lt; QString, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">QString&#160;</td>
+          <td class="paramtype">QList&lt; QChar &gt;&#160;</td>
           <td class="paramname"><em>check</em>, </td>
         </tr>
         <tr>

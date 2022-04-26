@@ -112,9 +112,9 @@
 \DoxyCodeLine{180         );}
 \DoxyCodeLine{187         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ac66bfd831224a38e54efb3e86b8f6bc7}{letter}}(QChar symbol);}
 \DoxyCodeLine{194         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_afadd8a084f61e7f16d0186a65f9a5c93}{figure}}(QChar symbol);}
-\DoxyCodeLine{204         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aca9f1ff54a4521205cf4309c8232b7b7}{findTheWord}}(}
+\DoxyCodeLine{204         QString \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ab456df74ae9fc3e22d1a5451811e2848}{findTheWord}}(}
 \DoxyCodeLine{205             QString *main,}
-\DoxyCodeLine{206             QString check,}
+\DoxyCodeLine{206             QList<QChar> check,}
 \DoxyCodeLine{207             \textcolor{keywordtype}{int} \&counter}
 \DoxyCodeLine{208         );}
 \DoxyCodeLine{217         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a30ac0eb50868ae78779ae7aa7a0ff3ee}{findTheOperator}}(}
@@ -125,9 +125,11 @@
 \DoxyCodeLine{229         func \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a47b5ff444213e5c61d459d29f64c1dd8}{findTheFunction}}(QString *main, \textcolor{keywordtype}{int} \&counter);}
 \DoxyCodeLine{236         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a02232b2b885097f242d64f863bfb0775}{isNumber}}(QString word);}
 \DoxyCodeLine{243         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a2742e7152101de90ba8328c91903137c}{isVariable}}(QString word);}
-\DoxyCodeLine{244     \};}
-\DoxyCodeLine{245 \}}
-\DoxyCodeLine{246 }
-\DoxyCodeLine{247 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// TRANSLATOR\_H}}
+\DoxyCodeLine{244         \textcolor{keywordtype}{void} skipSpace(QString *main, \textcolor{keywordtype}{int} \&counter);}
+\DoxyCodeLine{245         \textcolor{keywordtype}{bool} isSeparator(QChar sym);}
+\DoxyCodeLine{246     \};}
+\DoxyCodeLine{247 \}}
+\DoxyCodeLine{248 }
+\DoxyCodeLine{249 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// TRANSLATOR\_H}}
 
 \end{DoxyCode}
