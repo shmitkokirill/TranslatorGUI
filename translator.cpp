@@ -92,16 +92,35 @@ int Translator::RightValue(
             return 1;
         result -= blockRes;
     }
-    currentPos = endPos;
-    currentPos--;
-    do {
-        currentPos++;
-        skipSpace(rvalue, currentPos);
+    else
+    {
         int blockRes;
         if (Block(rvalue, currentPos, endPos, blockRes))
             return 2;
         result += blockRes;
-        currentPos = endPos;
+    }
+    currentPos = endPos;
+    do {
+        if (rvalue->at(currentPos) == Operator.MINUS)
+        {
+            currentPos++;
+            skipSpace(rvalue, currentPos);
+            int blockRes;
+            if (Block(rvalue, currentPos, endPos, blockRes))
+                return 2;
+            result -= blockRes;
+            currentPos = endPos;
+        }
+        if (rvalue->at(currentPos) == Operator.PLUS)
+        {
+            currentPos++;
+            skipSpace(rvalue, currentPos);
+            int blockRes;
+            if (Block(rvalue, currentPos, endPos, blockRes))
+                return 3;
+            result += blockRes;
+            currentPos = endPos;
+        }
     } while (rvalue->at(currentPos) == Operator.PLUS ||
              rvalue->at(currentPos) == Operator.MINUS
     );
@@ -254,15 +273,12 @@ int Translator::SmallPiece(
     for (; currentPos < spiece->length();)
     {
         if (spiece->at(currentPos) == Spec.SEMICOLON)
-        {
-            currentPos--;
             break;
-        }
         if (isSeparator(spiece->at(currentPos)))
             break;
         word.append(spiece->at(currentPos++));
     }
-    currentPos++;
+    skipSpace(spiece, currentPos);
     end = currentPos;
 
     if (isNumber(word))
@@ -361,14 +377,14 @@ Translator::func Translator::findTheFunction(QString *main, int &counter)
     {
         if (main->at(counter) == Spec.EOS)
         {
-            main->remove(counter, 1);
+            counter++;
             strCounter++;
+            break;
         }
-        if (main->at(counter) == Spec.SPACE)
+        if (isSeparator(main->at(counter)))
             break;
         func.append(main->at(counter++));
     }
-//    counter++;
     if (func == Function.COS)
         return COS;
     if (func == Function.SIN)
