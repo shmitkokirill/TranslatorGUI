@@ -20,6 +20,7 @@ int Translator::Main(QString *srcCode)
         int equationRes;
         if (Equation(srcCode, currentPos, endPos, equationRes))
             return 2;
+        skipSpaceAndLine(srcCode, endPos);
         currentPos = endPos;
         QList<QChar> check = {Spec.SPACE};
         QString w = findTheWord(srcCode, check, currentPos);
@@ -227,6 +228,7 @@ int Translator::SmallPart(
     while (currentPos < spart->length())
     {
         int prevWordPos = currentPos;
+        skipSpace(spart, currentPos);
         if ((f = findTheFunction(spart, currentPos)) != NON)
             fStack.append(f);
         else
@@ -272,6 +274,7 @@ int Translator::SmallPiece(
     int currentPos = startPos;
     for (; currentPos < spiece->length();)
     {
+        skipSpace(spiece, currentPos);
         if (spiece->at(currentPos) == Spec.SEMICOLON)
             break;
         if (isSeparator(spiece->at(currentPos)))
@@ -413,9 +416,23 @@ bool Translator::isVariable(QString word)
 
 void Translator::skipSpace(QString *main, int &counter)
 {
-    for (int i = 0; i < 2; i++)
+//    for (int i = 0; i < 2; i++)
         if (main->at(counter) == Spec.SPACE)
             counter++;
+}
+
+void Translator::skipSpaceAndLine(QString *main, int &counter)
+{
+    for (int i = 0; i < 2; i++)
+    {
+        if (main->at(counter) == Spec.SPACE)
+        {
+            strCounter++;
+            counter++;
+        }
+        if (main->at(counter) == Spec.EOS)
+            counter++;
+    }
 }
 
 bool Translator::isSeparator(QChar sym)

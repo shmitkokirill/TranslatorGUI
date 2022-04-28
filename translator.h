@@ -243,6 +243,7 @@ namespace SHK_Translator
         bool isVariable(QString word);
         void skipSpace(QString *main, int &counter);
         bool isSeparator(QChar sym);
+        void skipSpaceAndLine(QString *main, int &counter);
     };
 }
 
