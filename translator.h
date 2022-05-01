@@ -244,6 +244,7 @@ namespace SHK_Translator
         void skipSpace(QString *main, int &counter);
         bool isSeparator(QChar sym);
         void skipSpaceAndLine(QString *main, int &counter);
+        unsigned int inverseNumberWithSign(unsigned int number);
     };
 }
 

@@ -1,6 +1,7 @@
 #include "translator.h"
 
 #include <QList>
+#include <cmath>
 #include <math.h>
 using namespace SHK_Translator;
 
@@ -13,30 +14,29 @@ int Translator::Main(QString *srcCode)
     int currentPos {0}, endPos {0};
     QString beg;
     QList<QChar> check = {Spec.SPACE};
-    while ((beg = findTheWord(srcCode, check, currentPos)).isEmpty());
+    while ((beg = findTheWord(srcCode, check, currentPos)).isEmpty())
+        if (endOfFile)
+            return 1;
     if (beg != KeyWord.BEGIN)
-        return 1;
+        return 2;
     do {
         int equationRes;
         if (Equation(srcCode, currentPos, endPos, equationRes))
-            return 2;
+            return 3;
         skipSpaceAndLine(srcCode, endPos);
-        currentPos = endPos;
         QList<QChar> check = {Spec.SPACE};
         QString w = findTheWord(srcCode, check, currentPos);
+        currentPos = endPos;
         if (w == KeyWord.ANALYSIS || w == KeyWord.SINTEZ)
-        {
-            currentPos = endPos;
             break;
-        }
     } while (true);
     if (endOfFile)
-        return 3;
+        return 4;
     endPos = 0;
     do {
         int varietyRes;
         if (Variety(srcCode, currentPos, endPos, varietyRes))
-            return 3;
+            return 5;
         else
             break;
     } while (true);
@@ -52,23 +52,27 @@ int Translator::Equation(
     int labelCurPos = startPos;
     QList<QChar> checkLbl = {Operator.COLON};
     QString label;
-    while((label = findTheWord(equation, checkLbl, labelCurPos)).isEmpty());
+    while((label = findTheWord(equation, checkLbl, labelCurPos)).isEmpty())
+        if (endOfFile)
+            return 1;
     for (int i = 0; i < label.length(); i++)
         if (!figure(label[i]))
-            return 1;
+            return 2;
 
     int varCurPos = labelCurPos;
     QList<QChar> checkVar = {Operator.EQUAL};
     QString var;
-    while((var = findTheWord(equation, checkVar, varCurPos)).isEmpty());
+    while((var = findTheWord(equation, checkVar, varCurPos)).isEmpty())
+        if (endOfFile)
+            return 3;
     if (!letter(var[0]))
-        return 2;
+        return 4;
     for (int i = 1; i < var.length(); i++)
         if (!(letter(var[i]) || figure(var[i])))
-            return 3;
+            return 5;
 
     if (RightValue(equation, varCurPos, end, result))
-        return 4;
+        return 6;
 
     variables.insert(var, result);
 
@@ -83,7 +87,7 @@ int Translator::RightValue(
 ) {
     result = 0;
     int currentPos = startPos;
-    skipSpace(rvalue, currentPos);
+    skipSpaceAndLine(rvalue, currentPos);
     int endPos = currentPos;
     if (rvalue->at(currentPos) == Operator.MINUS)
     {
@@ -105,7 +109,7 @@ int Translator::RightValue(
         if (rvalue->at(currentPos) == Operator.MINUS)
         {
             currentPos++;
-            skipSpace(rvalue, currentPos);
+            skipSpaceAndLine(rvalue, currentPos);
             int blockRes;
             if (Block(rvalue, currentPos, endPos, blockRes))
                 return 2;
@@ -115,7 +119,7 @@ int Translator::RightValue(
         if (rvalue->at(currentPos) == Operator.PLUS)
         {
             currentPos++;
-            skipSpace(rvalue, currentPos);
+            skipSpaceAndLine(rvalue, currentPos);
             int blockRes;
             if (Block(rvalue, currentPos, endPos, blockRes))
                 return 3;
@@ -203,11 +207,14 @@ int Translator::Piece(QString *piece, int startPos, int &end, int &result)
     int endPos;
     bool notExpected {false};
     if (piece->at(startPos) == Operator.NOT)
+    {
+        startPos++;
         notExpected = true;
+    }
     if (SmallPart(piece, startPos, endPos, sPartRes))
         return 1;
     if (notExpected)
-        result = !sPartRes;
+        sPartRes = inverseNumberWithSign((unsigned int) sPartRes);
     result = sPartRes;
     end = endPos;
     return 0;
@@ -228,7 +235,7 @@ int Translator::SmallPart(
     while (currentPos < spart->length())
     {
         int prevWordPos = currentPos;
-        skipSpace(spart, currentPos);
+        skipSpaceAndLine(spart, currentPos);
         if ((f = findTheFunction(spart, currentPos)) != NON)
             fStack.append(f);
         else
@@ -240,6 +247,7 @@ int Translator::SmallPart(
     result = spResult;
     while (!fStack.isEmpty())
     {
+        result = round((double) result * 0.01745);
         switch (fStack.last())
         {
             case SIN:
@@ -274,14 +282,14 @@ int Translator::SmallPiece(
     int currentPos = startPos;
     for (; currentPos < spiece->length();)
     {
-        skipSpace(spiece, currentPos);
+        skipSpaceAndLine(spiece, currentPos);
         if (spiece->at(currentPos) == Spec.SEMICOLON)
             break;
         if (isSeparator(spiece->at(currentPos)))
             break;
         word.append(spiece->at(currentPos++));
     }
-    skipSpace(spiece, currentPos);
+    skipSpaceAndLine(spiece, currentPos);
     end = currentPos;
 
     if (isNumber(word))
@@ -353,6 +361,8 @@ QString Translator::findTheWord(QString *main, QList<QChar> check, int &counter)
             }
         word.append(main->at(counter++));
     }
+    if (counter == main->length())
+        endOfFile = true;
     return QString();
 }
 
@@ -433,6 +443,13 @@ void Translator::skipSpaceAndLine(QString *main, int &counter)
         if (main->at(counter) == Spec.EOS)
             counter++;
     }
+}
+
+unsigned int Translator::inverseNumberWithSign(unsigned int number)
+{
+    // количество цифр числа a в системе счисления 2
+    unsigned int shift = (unsigned int)std::log2(number) + 1u;
+    return (shift == 32) ? ~number : (~number & ((1u << shift) - 1u));
 }
 
 bool Translator::isSeparator(QChar sym)
