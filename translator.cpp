@@ -43,7 +43,7 @@ int Translator::Main(QString *srcCode)
     return 0;
 }
 
-const QHash<QString, int> Translator::getVariables()
+const QList<QPair<QString, int>> Translator::getVariables()
 {
     return variables;
 }
@@ -79,7 +79,7 @@ int Translator::Equation(
     if (RightValue(equation, varCurPos, end, result))
         return 6;
 
-    variables.insert(var, result);
+    variables.append(QPair<QString, int>(var, result));
 
     return 0;
 }
@@ -436,7 +436,10 @@ bool Translator::isNumber(QString word)
 
 bool Translator::isVariable(QString word)
 {
-    return variables.contains(word);
+    for (auto item : variables)
+        if (item.first == word)
+            return true;
+    return false;
 }
 
 void Translator::skipSpace(QString *main, int &counter)

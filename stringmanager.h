@@ -28,7 +28,7 @@ namespace SHK_Translator
          * true if success
          */
         bool TrimFile(QString *input, QStringList *output);
-        const QString getOutputResult(QHash<QString, int> result);
+        const QString getOutputResult(QList<QPair<QString, int>> result);
     signals:
         /**
          * @brief sendMsgToBar

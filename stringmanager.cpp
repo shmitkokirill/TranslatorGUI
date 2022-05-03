@@ -46,12 +46,12 @@ bool StringManager::TrimFile(QString *input, QStringList *output)
     return true;
 }
 
-const QString StringManager::getOutputResult(QHash<QString, int> result)
+const QString StringManager::getOutputResult(QList<QPair<QString, int>> result)
 {
     QString res;
-    for(auto key : result.keys())
+    for(auto item : result)
     {
-        res.append(key + " = " + QString::number(result[key]) + "\n");
+        res.append(item.first + " = " + QString::number(item.second) + "\n");
     }
     return res;
 }

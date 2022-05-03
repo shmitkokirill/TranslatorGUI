@@ -18,7 +18,7 @@ namespace SHK_Translator
          * Errors
          */
         int Main(QString *srcCode);
-        const QHash<QString, int> getVariables();
+        const QList<QPair<QString, int>> getVariables();
     private:
         struct
         {
@@ -65,7 +65,7 @@ namespace SHK_Translator
 
         int strCounter {1};
         bool endOfFile {false};
-        QHash<QString, int> variables;
+        QList<QPair<QString, int>> variables;
 
         /**
          * @brief Equation
