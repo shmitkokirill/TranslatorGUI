@@ -171,7 +171,12 @@ void MainWindow::on_btnRunClicked()
     int resMain = translator->Main(&text);
     if (resMain)
     {
-        ui->statusBar->showMessage("Ошибка " + QString::number(resMain));
+        ui->statusBar->showMessage(
+            "Ошибка в строке " +
+            QString::number(translator->getErrorString()) +
+            " в позиции " +
+            QString::number(resMain)
+        );
         return;
     }
     ui->outputTxtBrowser->setText(

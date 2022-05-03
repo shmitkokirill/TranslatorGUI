@@ -14,6 +14,12 @@ namespace SHK_Translator
         Q_OBJECT
     public:
         StringManager();
+        /**
+         * @brief TrimThePathFromRight
+         * @param[in] str
+         * @return
+         * trimmed str from right pos
+         */
         QString TrimThePathFromRight(const QString str);
         /**
          * @brief TrimFile
@@ -28,6 +34,12 @@ namespace SHK_Translator
          * true if success
          */
         bool TrimFile(QString *input, QStringList *output);
+        /**
+         * @brief
+         * @param[in] result
+         * @return
+         * result from collected variables
+         */
         const QString getOutputResult(QList<QPair<QString, int>> result);
     signals:
         /**
