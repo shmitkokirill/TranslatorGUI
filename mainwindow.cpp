@@ -170,7 +170,13 @@ void MainWindow::on_btnRunClicked()
 
     int resMain = translator->Main(&text);
     if (resMain)
+    {
         ui->statusBar->showMessage("Ошибка " + QString::number(resMain));
+        return;
+    }
+    ui->outputTxtBrowser->setText(
+        stringManager->getOutputResult(translator->getVariables())
+    );
 }
 
 void MainWindow::receiveMsg(QString message)

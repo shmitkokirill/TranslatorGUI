@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
+#include <QHash>
 
 
 namespace SHK_Translator
@@ -27,6 +28,7 @@ namespace SHK_Translator
          * true if success
          */
         bool TrimFile(QString *input, QStringList *output);
+        const QString getOutputResult(QHash<QString, int> result);
     signals:
         /**
          * @brief sendMsgToBar

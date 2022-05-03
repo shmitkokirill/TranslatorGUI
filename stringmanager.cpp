@@ -46,6 +46,16 @@ bool StringManager::TrimFile(QString *input, QStringList *output)
     return true;
 }
 
+const QString StringManager::getOutputResult(QHash<QString, int> result)
+{
+    QString res;
+    for(auto key : result.keys())
+    {
+        res.append(key + " = " + QString::number(result[key]) + "\n");
+    }
+    return res;
+}
+
 QString StringManager::TrimThePathFromRight(const QString str)
 {
     QString result = str;

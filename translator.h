@@ -18,6 +18,7 @@ namespace SHK_Translator
          * Errors
          */
         int Main(QString *srcCode);
+        const QHash<QString, int> getVariables();
     private:
         struct
         {

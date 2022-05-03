@@ -25,8 +25,8 @@ int Translator::Main(QString *srcCode)
             return 3;
         skipSpaceAndLine(srcCode, endPos);
         QList<QChar> check = {Spec.SPACE};
-        QString w = findTheWord(srcCode, check, currentPos);
         currentPos = endPos;
+        QString w = findTheWord(srcCode, check, endPos);
         if (w == KeyWord.ANALYSIS || w == KeyWord.SINTEZ)
             break;
     } while (true);
@@ -41,6 +41,11 @@ int Translator::Main(QString *srcCode)
             break;
     } while (true);
     return 0;
+}
+
+const QHash<QString, int> Translator::getVariables()
+{
+    return variables;
 }
 
 int Translator::Equation(
@@ -285,9 +290,19 @@ int Translator::SmallPiece(
         skipSpaceAndLine(spiece, currentPos);
         if (spiece->at(currentPos) == Spec.SEMICOLON)
             break;
-        if (isSeparator(spiece->at(currentPos)))
+        auto sym = spiece->at(currentPos);
+        if (
+            sym == Spec.SPACE ||
+            sym == Operator.AND ||
+            sym == Operator.OR ||
+            sym == Operator.MULTIPLY ||
+            sym == Operator.PLUS ||
+            sym == Operator.DIVIDE
+        )
             break;
         word.append(spiece->at(currentPos++));
+        if (isSeparator(spiece->at(currentPos)))
+            break;
     }
     skipSpaceAndLine(spiece, currentPos);
     end = currentPos;
@@ -414,7 +429,7 @@ Translator::func Translator::findTheFunction(QString *main, int &counter)
 bool Translator::isNumber(QString word)
 {
     for (int i = 0; i < word.length(); i++)
-        if (!figure(word[i]))
+        if (!figure(word[i]) && word[i] != Operator.MINUS)
             return false;
     return true;
 }
