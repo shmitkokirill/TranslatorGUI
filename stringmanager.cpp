@@ -8,6 +8,11 @@ StringManager::StringManager()
 
 bool StringManager::TrimFile(QString *input, QStringList *output)
 {
+    if (input->isEmpty())
+    {
+        emit sendMsgToBar("TrimFile: Нет входных данных");
+        return false;
+    }
     if (!output)
     {
         emit sendMsgToBar("TrimFile: Не инициализирована выходная переменная");

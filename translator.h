@@ -18,7 +18,18 @@ namespace SHK_Translator
          * Errors
          */
         int Main(QString *srcCode);
+        /**
+         * @brief getter
+         * @return
+         * list of collected variables
+         */
         const QList<QPair<QString, int>> getVariables();
+        /**
+         * @brief getter
+         * @return
+         * strCounter
+         */
+        int getErrorString();
     private:
         struct
         {
@@ -63,7 +74,7 @@ namespace SHK_Translator
             NON
         };
 
-        int strCounter {1};
+        int strCounter {0};
         bool endOfFile {false};
         QList<QPair<QString, int>> variables;
 
@@ -241,10 +252,28 @@ namespace SHK_Translator
          * @return
          * true if word is Variable
          */
-        bool isVariable(QString word);
+        bool isVariable(QString word, int &val);
         void skipSpace(QString *main, int &counter);
+        /**
+         * @brief sym is separator?
+         * @param[in] sym
+         * @return
+         * true if it is separator
+         */
         bool isSeparator(QChar sym);
+        /**
+         * @brief it is necessary to go to the next sym (word)
+         * @param[main] main
+         * @param[in] counter
+         * increases
+         */
         void skipSpaceAndLine(QString *main, int &counter);
+        /**
+         * @brief it is necessary to execute operation NOT
+         * @param[in] number
+         * @return
+         * inversed number with sign
+         */
         unsigned int inverseNumberWithSign(unsigned int number);
     };
 }

@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent)
         this,
         &MainWindow::receiveMsg
     );
-    translator = new SHK_Translator::Translator();
 }
 
 MainWindow::~MainWindow()
@@ -146,6 +145,7 @@ void MainWindow::SaveFileActionClicked()
 
 void MainWindow::on_btnRunClicked()
 {
+    translator = new SHK_Translator::Translator();
     ui->statusBar->clearMessage();
     QString text = srcCodeEditor->toPlainText();
     if (srcFileIsOpened)
@@ -171,12 +171,18 @@ void MainWindow::on_btnRunClicked()
     int resMain = translator->Main(&text);
     if (resMain)
     {
-        ui->statusBar->showMessage("Ошибка " + QString::number(resMain));
+        ui->statusBar->showMessage(
+            "Ошибка в строке " +
+            QString::number(translator->getErrorString()) +
+            " в позиции " +
+            QString::number(resMain)
+        );
         return;
     }
     ui->outputTxtBrowser->setText(
         stringManager->getOutputResult(translator->getVariables())
     );
+    delete translator;
 }
 
 void MainWindow::receiveMsg(QString message)
