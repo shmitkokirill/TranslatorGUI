@@ -214,10 +214,7 @@ namespace SHK_Translator
          * @return
          * found or not
          */
-        QString findTheWord(QString *main,
-            QList<QChar> check,
-            int &counter
-        );
+        QString findTheWord(QString *main, int &count);
         /**
          * @brief findTheOperator
          * @param[in] main
@@ -226,7 +223,7 @@ namespace SHK_Translator
          * @return
          * found or not
          */
-        bool findTheOperator(
+        bool findTheSymbol(
             QString *main,
             QChar check,
             int &counter
