@@ -36,6 +36,7 @@ namespace SHK_Translator
             const QChar SPACE = ' ';
             const QChar EOS = '@';
             const QChar SEMICOLON = ';';
+            const QChar EOS2 = '?';
         } Spec;
         struct
         {
@@ -213,8 +214,7 @@ namespace SHK_Translator
          * @return
          * found or not
          */
-        QString findTheWord(
-            QString *main,
+        QString findTheWord(QString *main,
             QList<QChar> check,
             int &counter
         );
@@ -267,7 +267,7 @@ namespace SHK_Translator
          * @param[in] counter
          * increases
          */
-        void skipSpaceAndLine(QString *main, int &counter);
+        bool skipSpaceAndLine(QString *main, int &counter);
         /**
          * @brief it is necessary to execute operation NOT
          * @param[in] number

@@ -5,9 +5,10 @@
 \item 
 int \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ab9d1b745ceae289c27fdd92029d8453a}{Main}} (QString $\ast$src\+Code)
 \begin{DoxyCompactList}\small\item\em Main Enter the program. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_ad68e640ea5a45f57be0d3d8815df247a}\label{class_s_h_k___translator_1_1_translator_ad68e640ea5a45f57be0d3d8815df247a}} 
-const QList$<$ QPair$<$ QString, int $>$ $>$ {\bfseries get\+Variables} ()
-\end{DoxyCompactItemize}
+const QList$<$ QPair$<$ QString, int $>$ $>$ \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ad68e640ea5a45f57be0d3d8815df247a}{get\+Variables}} ()
+\begin{DoxyCompactList}\small\item\em getter \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a00d7b84b43bc80c89398b91632fb24f7}{get\+Error\+String}} ()
+\begin{DoxyCompactList}\small\item\em getter \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -53,20 +54,17 @@ func \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a47b5ff444213e5c61
 \begin{DoxyCompactList}\small\item\em find\+The\+Function \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a02232b2b885097f242d64f863bfb0775}{is\+Number}} (QString word)
 \begin{DoxyCompactList}\small\item\em is\+Number \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a2742e7152101de90ba8328c91903137c}{is\+Variable}} (QString word)
+bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aa9937abf6da61e9da9d655c3b76ab79d}{is\+Variable}} (QString word, int \&val)
 \begin{DoxyCompactList}\small\item\em is\+Variable \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_abc673238c4da5f85f12785558332e6b4}\label{class_s_h_k___translator_1_1_translator_abc673238c4da5f85f12785558332e6b4}} 
 void {\bfseries skip\+Space} (QString $\ast$main, int \&counter)
 \item 
-\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_aaa4c3a719bdb04b92d67fb9a77db9322}\label{class_s_h_k___translator_1_1_translator_aaa4c3a719bdb04b92d67fb9a77db9322}} 
-bool {\bfseries is\+Separator} (QChar sym)
-\item 
-\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a941131cd87cf9dff1f6337f4608891b4}\label{class_s_h_k___translator_1_1_translator_a941131cd87cf9dff1f6337f4608891b4}} 
-void {\bfseries skip\+Space\+And\+Line} (QString $\ast$main, int \&counter)
-\item 
-\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a0843f751c031db791df945650a2fef93}\label{class_s_h_k___translator_1_1_translator_a0843f751c031db791df945650a2fef93}} 
-unsigned int {\bfseries inverse\+Number\+With\+Sign} (unsigned int number)
-\end{DoxyCompactItemize}
+bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aaa4c3a719bdb04b92d67fb9a77db9322}{is\+Separator}} (QChar sym)
+\begin{DoxyCompactList}\small\item\em sym is separator? \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a229e39fad055c0e40ba7b87ef7c1f87a}{skip\+Space\+And\+Line}} (QString $\ast$main, int \&counter)
+\begin{DoxyCompactList}\small\item\em it is necessary to go to the next sym (word) \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a0843f751c031db791df945650a2fef93}{inverse\+Number\+With\+Sign}} (unsigned int number)
+\begin{DoxyCompactList}\small\item\em it is necessary to execute operation NOT \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -77,6 +75,7 @@ struct \{\\
 \>const QChar {\bfseries SPACE} = \textquotesingle{} \textquotesingle{}\\
 \>const QChar {\bfseries EOS} = \textquotesingle{}@\textquotesingle{}\\
 \>const QChar {\bfseries SEMICOLON} = \textquotesingle{};\textquotesingle{}\\
+\>const QChar {\bfseries EOS2} = \textquotesingle{}?\textquotesingle{}\\
 \} {\bfseries Spec}\\
 
 \end{tabbing}\item 
@@ -120,7 +119,7 @@ struct \{\\
 
 \end{tabbing}\item 
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_aa5006eed1a9525689d7a7d784982ea5a}\label{class_s_h_k___translator_1_1_translator_aa5006eed1a9525689d7a7d784982ea5a}} 
-int {\bfseries str\+Counter} \{1\}
+int {\bfseries str\+Counter} \{0\}
 \item 
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a8a65effec078f28a71f5e655426d1503}\label{class_s_h_k___translator_1_1_translator_a8a65effec078f28a71f5e655426d1503}} 
 bool {\bfseries end\+Of\+File} \{false\}
@@ -257,6 +256,50 @@ find word in main string
 \begin{DoxyReturn}{Returns}
 found or not 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a00d7b84b43bc80c89398b91632fb24f7}\label{class_s_h_k___translator_1_1_translator_a00d7b84b43bc80c89398b91632fb24f7}} 
+\index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!getErrorString@{getErrorString}}
+\index{getErrorString@{getErrorString}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
+\doxysubsubsection{\texorpdfstring{getErrorString()}{getErrorString()}}
+{\footnotesize\ttfamily int Translator\+::get\+Error\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+getter 
+
+\begin{DoxyReturn}{Returns}
+str\+Counter 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_ad68e640ea5a45f57be0d3d8815df247a}\label{class_s_h_k___translator_1_1_translator_ad68e640ea5a45f57be0d3d8815df247a}} 
+\index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!getVariables@{getVariables}}
+\index{getVariables@{getVariables}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
+\doxysubsubsection{\texorpdfstring{getVariables()}{getVariables()}}
+{\footnotesize\ttfamily const QList$<$ QPair$<$ QString, int $>$ $>$ Translator\+::get\+Variables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+getter 
+
+\begin{DoxyReturn}{Returns}
+list of collected variables 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a0843f751c031db791df945650a2fef93}\label{class_s_h_k___translator_1_1_translator_a0843f751c031db791df945650a2fef93}} 
+\index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!inverseNumberWithSign@{inverseNumberWithSign}}
+\index{inverseNumberWithSign@{inverseNumberWithSign}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
+\doxysubsubsection{\texorpdfstring{inverseNumberWithSign()}{inverseNumberWithSign()}}
+{\footnotesize\ttfamily unsigned int Translator\+::inverse\+Number\+With\+Sign (\begin{DoxyParamCaption}\item[{unsigned int}]{number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+it is necessary to execute operation NOT 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em number} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+inversed number with sign 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a02232b2b885097f242d64f863bfb0775}\label{class_s_h_k___translator_1_1_translator_a02232b2b885097f242d64f863bfb0775}} 
 \index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!isNumber@{isNumber}}
 \index{isNumber@{isNumber}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
@@ -275,11 +318,29 @@ is\+Number
 \begin{DoxyReturn}{Returns}
 true if word is Number 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a2742e7152101de90ba8328c91903137c}\label{class_s_h_k___translator_1_1_translator_a2742e7152101de90ba8328c91903137c}} 
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_aaa4c3a719bdb04b92d67fb9a77db9322}\label{class_s_h_k___translator_1_1_translator_aaa4c3a719bdb04b92d67fb9a77db9322}} 
+\index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!isSeparator@{isSeparator}}
+\index{isSeparator@{isSeparator}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
+\doxysubsubsection{\texorpdfstring{isSeparator()}{isSeparator()}}
+{\footnotesize\ttfamily bool Translator\+::is\+Separator (\begin{DoxyParamCaption}\item[{QChar}]{sym }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+sym is separator? 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em sym} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if it is separator 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_aa9937abf6da61e9da9d655c3b76ab79d}\label{class_s_h_k___translator_1_1_translator_aa9937abf6da61e9da9d655c3b76ab79d}} 
 \index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!isVariable@{isVariable}}
 \index{isVariable@{isVariable}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
 \doxysubsubsection{\texorpdfstring{isVariable()}{isVariable()}}
-{\footnotesize\ttfamily bool Translator\+::is\+Variable (\begin{DoxyParamCaption}\item[{QString}]{word }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily bool Translator\+::is\+Variable (\begin{DoxyParamCaption}\item[{QString}]{word,  }\item[{int \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
@@ -391,6 +452,23 @@ Right\+Value.
 \begin{DoxyReturn}{Returns}
 Errors 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a229e39fad055c0e40ba7b87ef7c1f87a}\label{class_s_h_k___translator_1_1_translator_a229e39fad055c0e40ba7b87ef7c1f87a}} 
+\index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!skipSpaceAndLine@{skipSpaceAndLine}}
+\index{skipSpaceAndLine@{skipSpaceAndLine}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
+\doxysubsubsection{\texorpdfstring{skipSpaceAndLine()}{skipSpaceAndLine()}}
+{\footnotesize\ttfamily bool Translator\+::skip\+Space\+And\+Line (\begin{DoxyParamCaption}\item[{QString $\ast$}]{main,  }\item[{int \&}]{counter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+it is necessary to go to the next sym (word) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em \mbox{[}main\mbox{]}} & main \\
+\hline
+\mbox{\texttt{ in}}  & {\em counter} & increases \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_ae11f6783ca826b6f45df10a37e95188e}\label{class_s_h_k___translator_1_1_translator_ae11f6783ca826b6f45df10a37e95188e}} 
 \index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!SmallPart@{SmallPart}}
 \index{SmallPart@{SmallPart}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
