@@ -5,135 +5,134 @@
 \DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef TRANSLATOR\_H}}
 \DoxyCodeLine{2 \textcolor{preprocessor}{\#define TRANSLATOR\_H}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QHash>}}
-\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QString>}}
-\DoxyCodeLine{6 \textcolor{keyword}{namespace }SHK\_Translator}
-\DoxyCodeLine{7 \{}
-\DoxyCodeLine{8     \textcolor{keyword}{class }\mbox{\hyperlink{class_s_h_k___translator_1_1_translator}{Translator}}}
-\DoxyCodeLine{9     \{}
-\DoxyCodeLine{10     \textcolor{keyword}{public}:}
-\DoxyCodeLine{11         \mbox{\hyperlink{class_s_h_k___translator_1_1_translator}{Translator}}();}
-\DoxyCodeLine{20         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ab9d1b745ceae289c27fdd92029d8453a}{Main}}(QString *srcCode);}
-\DoxyCodeLine{26         \textcolor{keyword}{const} QList<QPair<QString, int>> \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ad68e640ea5a45f57be0d3d8815df247a}{getVariables}}();}
-\DoxyCodeLine{32         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a00d7b84b43bc80c89398b91632fb24f7}{getErrorString}}();}
-\DoxyCodeLine{33     \textcolor{keyword}{private}:}
-\DoxyCodeLine{34         \textcolor{keyword}{struct}}
-\DoxyCodeLine{35         \{}
-\DoxyCodeLine{36             \textcolor{keyword}{const} QChar SPACE = \textcolor{charliteral}{' '};}
-\DoxyCodeLine{37             \textcolor{keyword}{const} QChar EOS = \textcolor{charliteral}{'@'};}
-\DoxyCodeLine{38             \textcolor{keyword}{const} QChar SEMICOLON = \textcolor{charliteral}{';'};}
-\DoxyCodeLine{39             \textcolor{keyword}{const} QChar EOS2 = \textcolor{charliteral}{'?'};}
-\DoxyCodeLine{40         \} Spec;}
-\DoxyCodeLine{41         \textcolor{keyword}{struct}}
-\DoxyCodeLine{42         \{}
-\DoxyCodeLine{43             \textcolor{keyword}{const} QString BEGIN = \textcolor{stringliteral}{"{}Begin"{}};}
-\DoxyCodeLine{44             \textcolor{keyword}{const} QString END = \textcolor{stringliteral}{"{}End"{}};}
-\DoxyCodeLine{45             \textcolor{keyword}{const} QString ANALYSIS = \textcolor{stringliteral}{"{}Анализ"{}};}
-\DoxyCodeLine{46             \textcolor{keyword}{const} QString SINTEZ = \textcolor{stringliteral}{"{}Синтез"{}};}
-\DoxyCodeLine{47         \} KeyWord;}
-\DoxyCodeLine{48         \textcolor{keyword}{struct}}
-\DoxyCodeLine{49         \{}
-\DoxyCodeLine{50             \textcolor{keyword}{const} QChar COLON = \textcolor{charliteral}{':'};}
-\DoxyCodeLine{51             \textcolor{keyword}{const} QChar EQUAL = \textcolor{charliteral}{'='};}
-\DoxyCodeLine{52             \textcolor{keyword}{const} QChar MINUS = \textcolor{charliteral}{'-\/'};}
-\DoxyCodeLine{53             \textcolor{keyword}{const} QChar PLUS = \textcolor{charliteral}{'+'};}
-\DoxyCodeLine{54             \textcolor{keyword}{const} QChar MULTIPLY = \textcolor{charliteral}{'*'};}
-\DoxyCodeLine{55             \textcolor{keyword}{const} QChar DIVIDE = \textcolor{charliteral}{'/'};}
-\DoxyCodeLine{56             \textcolor{keyword}{const} QChar AND = \textcolor{charliteral}{'\&'};}
-\DoxyCodeLine{57             \textcolor{keyword}{const} QChar OR = \textcolor{charliteral}{'|'};}
-\DoxyCodeLine{58             \textcolor{keyword}{const} QChar NOT = \textcolor{charliteral}{'\string^'};}
-\DoxyCodeLine{59         \} Operator;}
-\DoxyCodeLine{60         \textcolor{keyword}{struct}}
-\DoxyCodeLine{61         \{}
-\DoxyCodeLine{62             \textcolor{keyword}{const} QString SIN = \textcolor{stringliteral}{"{}sin"{}};}
-\DoxyCodeLine{63             \textcolor{keyword}{const} QString COS = \textcolor{stringliteral}{"{}cos"{}};}
-\DoxyCodeLine{64             \textcolor{keyword}{const} QString LN = \textcolor{stringliteral}{"{}ln"{}};}
-\DoxyCodeLine{65             \textcolor{keyword}{const} QString TG = \textcolor{stringliteral}{"{}tg"{}};}
-\DoxyCodeLine{66             \textcolor{keyword}{const} QString CTG = \textcolor{stringliteral}{"{}ctg"{}};}
-\DoxyCodeLine{67         \} Function;}
-\DoxyCodeLine{68         \textcolor{keyword}{enum} func}
-\DoxyCodeLine{69         \{}
-\DoxyCodeLine{70             SIN = 1,}
-\DoxyCodeLine{71             COS,}
-\DoxyCodeLine{72             TG,}
-\DoxyCodeLine{73             CTG,}
-\DoxyCodeLine{74             LN,}
-\DoxyCodeLine{75             NON}
-\DoxyCodeLine{76         \};}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78         \textcolor{keywordtype}{int} strCounter \{0\};}
-\DoxyCodeLine{79         \textcolor{keywordtype}{bool} endOfFile \{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{80         QList<QPair<QString, int>> variables;}
-\DoxyCodeLine{81 }
-\DoxyCodeLine{90         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ac0b878d79f17a6f8e35c7fe1ce4a43e0}{Equation}}(}
-\DoxyCodeLine{91             QString *equation,}
-\DoxyCodeLine{92             \textcolor{keywordtype}{int} startPos,}
-\DoxyCodeLine{93             \textcolor{keywordtype}{int} \&end,}
-\DoxyCodeLine{94             \textcolor{keywordtype}{int} \&result}
-\DoxyCodeLine{95         );}
-\DoxyCodeLine{104         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a9316ff0657860ff1eed9cb22db8b2368}{RightValue}}(}
-\DoxyCodeLine{105             QString *rvalue,}
-\DoxyCodeLine{106             \textcolor{keywordtype}{int} startPos,}
-\DoxyCodeLine{107             \textcolor{keywordtype}{int} \&end,}
-\DoxyCodeLine{108             \textcolor{keywordtype}{int} \&result}
-\DoxyCodeLine{109         );}
-\DoxyCodeLine{118         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a424118c0f55161fa5cd9c66407935541}{Block}}(}
-\DoxyCodeLine{119             QString *block,}
-\DoxyCodeLine{120             \textcolor{keywordtype}{int} startPos,}
-\DoxyCodeLine{121             \textcolor{keywordtype}{int} \&end,}
-\DoxyCodeLine{122             \textcolor{keywordtype}{int} \&result}
-\DoxyCodeLine{123         );}
-\DoxyCodeLine{132         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_acbc1a3806267e1b6aaf7493f621d5636}{Part}}(}
-\DoxyCodeLine{133             QString *part,}
-\DoxyCodeLine{134             \textcolor{keywordtype}{int} startPos,}
-\DoxyCodeLine{135             \textcolor{keywordtype}{int} \&end,}
-\DoxyCodeLine{136             \textcolor{keywordtype}{int} \&result}
-\DoxyCodeLine{137         );}
-\DoxyCodeLine{146         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a87834f1a06ae437fe2ca2d792b7a531f}{Piece}}(}
-\DoxyCodeLine{147             QString *piece,}
-\DoxyCodeLine{148             \textcolor{keywordtype}{int} startPos,}
-\DoxyCodeLine{149             \textcolor{keywordtype}{int} \&end,}
-\DoxyCodeLine{150             \textcolor{keywordtype}{int} \&result}
-\DoxyCodeLine{151         );}
-\DoxyCodeLine{160         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ae11f6783ca826b6f45df10a37e95188e}{SmallPart}}(}
-\DoxyCodeLine{161             QString *spart,}
-\DoxyCodeLine{162             \textcolor{keywordtype}{int} startPos,}
-\DoxyCodeLine{163             \textcolor{keywordtype}{int} \&end,}
-\DoxyCodeLine{164             \textcolor{keywordtype}{int} \&result}
-\DoxyCodeLine{165         );}
-\DoxyCodeLine{174         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_af0ae5f716b0d26665fcc400bd7e20182}{SmallPiece}}(}
-\DoxyCodeLine{175             QString *spiece,}
-\DoxyCodeLine{176             \textcolor{keywordtype}{int} startPos,}
-\DoxyCodeLine{177             \textcolor{keywordtype}{int} \&end,}
-\DoxyCodeLine{178             \textcolor{keywordtype}{int} \&result}
-\DoxyCodeLine{179         );}
-\DoxyCodeLine{188         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a73cacf4970e6f2461eb948727c8bf519}{Variety}}(}
-\DoxyCodeLine{189             QString *variety,}
-\DoxyCodeLine{190             \textcolor{keywordtype}{int} startPos,}
-\DoxyCodeLine{191             \textcolor{keywordtype}{int} \&end,}
-\DoxyCodeLine{192             \textcolor{keywordtype}{int} \&result}
-\DoxyCodeLine{193         );}
-\DoxyCodeLine{200         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ac66bfd831224a38e54efb3e86b8f6bc7}{letter}}(QChar symbol);}
-\DoxyCodeLine{207         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_afadd8a084f61e7f16d0186a65f9a5c93}{figure}}(QChar symbol);}
-\DoxyCodeLine{217         QString \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ab456df74ae9fc3e22d1a5451811e2848}{findTheWord}}(QString *main,}
-\DoxyCodeLine{218             QList<QChar> check,}
-\DoxyCodeLine{219             \textcolor{keywordtype}{int} \&counter}
-\DoxyCodeLine{220         );}
-\DoxyCodeLine{229         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a30ac0eb50868ae78779ae7aa7a0ff3ee}{findTheOperator}}(}
-\DoxyCodeLine{230             QString *main,}
-\DoxyCodeLine{231             QChar check,}
-\DoxyCodeLine{232             \textcolor{keywordtype}{int} \&counter}
-\DoxyCodeLine{233         );}
-\DoxyCodeLine{241         func \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a47b5ff444213e5c61d459d29f64c1dd8}{findTheFunction}}(QString *main, \textcolor{keywordtype}{int} \&counter);}
-\DoxyCodeLine{248         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a02232b2b885097f242d64f863bfb0775}{isNumber}}(QString word);}
-\DoxyCodeLine{255         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aa9937abf6da61e9da9d655c3b76ab79d}{isVariable}}(QString word, \textcolor{keywordtype}{int} \&val);}
-\DoxyCodeLine{256         \textcolor{keywordtype}{void} skipSpace(QString *main, \textcolor{keywordtype}{int} \&counter);}
-\DoxyCodeLine{263         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aaa4c3a719bdb04b92d67fb9a77db9322}{isSeparator}}(QChar sym);}
-\DoxyCodeLine{270         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a229e39fad055c0e40ba7b87ef7c1f87a}{skipSpaceAndLine}}(QString *main, \textcolor{keywordtype}{int} \&counter);}
-\DoxyCodeLine{277         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a0843f751c031db791df945650a2fef93}{inverseNumberWithSign}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} number);}
-\DoxyCodeLine{278     \};}
-\DoxyCodeLine{279 \}}
-\DoxyCodeLine{280 }
-\DoxyCodeLine{281 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// TRANSLATOR\_H}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}qglobal.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QHash>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <QString>}}
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }SHK\_Translator}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9     \textcolor{keyword}{class }\mbox{\hyperlink{class_s_h_k___translator_1_1_translator}{Translator}}}
+\DoxyCodeLine{10     \{}
+\DoxyCodeLine{11     \textcolor{keyword}{public}:}
+\DoxyCodeLine{12         \mbox{\hyperlink{class_s_h_k___translator_1_1_translator}{Translator}}();}
+\DoxyCodeLine{21         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ab9d1b745ceae289c27fdd92029d8453a}{Main}}(QString *srcCode);}
+\DoxyCodeLine{27         \textcolor{keyword}{const} QList<QPair<QString, int>> \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ad68e640ea5a45f57be0d3d8815df247a}{getVariables}}();}
+\DoxyCodeLine{33         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a00d7b84b43bc80c89398b91632fb24f7}{getErrorString}}();}
+\DoxyCodeLine{34     \textcolor{keyword}{private}:}
+\DoxyCodeLine{35         \textcolor{keyword}{struct}}
+\DoxyCodeLine{36         \{}
+\DoxyCodeLine{37             \textcolor{keyword}{const} QChar SPACE = \textcolor{charliteral}{' '};}
+\DoxyCodeLine{38             \textcolor{keyword}{const} QChar EOS = \textcolor{charliteral}{'@'};}
+\DoxyCodeLine{39             \textcolor{keyword}{const} QChar SEMICOLON = \textcolor{charliteral}{';'};}
+\DoxyCodeLine{40             \textcolor{keyword}{const} QChar EOS2 = \textcolor{charliteral}{'?'};}
+\DoxyCodeLine{41         \} Spec;}
+\DoxyCodeLine{42         \textcolor{keyword}{struct}}
+\DoxyCodeLine{43         \{}
+\DoxyCodeLine{44             \textcolor{keyword}{const} QString BEGIN = \textcolor{stringliteral}{"{}Begin"{}};}
+\DoxyCodeLine{45             \textcolor{keyword}{const} QString END = \textcolor{stringliteral}{"{}End"{}};}
+\DoxyCodeLine{46             \textcolor{keyword}{const} QString ANALYSIS = \textcolor{stringliteral}{"{}Анализ"{}};}
+\DoxyCodeLine{47             \textcolor{keyword}{const} QString SINTEZ = \textcolor{stringliteral}{"{}Синтез"{}};}
+\DoxyCodeLine{48         \} KeyWord;}
+\DoxyCodeLine{49         \textcolor{keyword}{struct}}
+\DoxyCodeLine{50         \{}
+\DoxyCodeLine{51             \textcolor{keyword}{const} QChar COLON = \textcolor{charliteral}{':'};}
+\DoxyCodeLine{52             \textcolor{keyword}{const} QChar EQUAL = \textcolor{charliteral}{'='};}
+\DoxyCodeLine{53             \textcolor{keyword}{const} QChar MINUS = \textcolor{charliteral}{'-\/'};}
+\DoxyCodeLine{54             \textcolor{keyword}{const} QChar PLUS = \textcolor{charliteral}{'+'};}
+\DoxyCodeLine{55             \textcolor{keyword}{const} QChar MULTIPLY = \textcolor{charliteral}{'*'};}
+\DoxyCodeLine{56             \textcolor{keyword}{const} QChar DIVIDE = \textcolor{charliteral}{'/'};}
+\DoxyCodeLine{57             \textcolor{keyword}{const} QChar AND = \textcolor{charliteral}{'\&'};}
+\DoxyCodeLine{58             \textcolor{keyword}{const} QChar OR = \textcolor{charliteral}{'|'};}
+\DoxyCodeLine{59             \textcolor{keyword}{const} QChar NOT = \textcolor{charliteral}{'\string^'};}
+\DoxyCodeLine{60         \} Operator;}
+\DoxyCodeLine{61         \textcolor{keyword}{struct}}
+\DoxyCodeLine{62         \{}
+\DoxyCodeLine{63             \textcolor{keyword}{const} QString SIN = \textcolor{stringliteral}{"{}sin"{}};}
+\DoxyCodeLine{64             \textcolor{keyword}{const} QString COS = \textcolor{stringliteral}{"{}cos"{}};}
+\DoxyCodeLine{65             \textcolor{keyword}{const} QString LN = \textcolor{stringliteral}{"{}ln"{}};}
+\DoxyCodeLine{66             \textcolor{keyword}{const} QString TG = \textcolor{stringliteral}{"{}tg"{}};}
+\DoxyCodeLine{67             \textcolor{keyword}{const} QString CTG = \textcolor{stringliteral}{"{}ctg"{}};}
+\DoxyCodeLine{68         \} Function;}
+\DoxyCodeLine{69         \textcolor{keyword}{enum} func}
+\DoxyCodeLine{70         \{}
+\DoxyCodeLine{71             SIN = 1,}
+\DoxyCodeLine{72             COS,}
+\DoxyCodeLine{73             TG,}
+\DoxyCodeLine{74             CTG,}
+\DoxyCodeLine{75             LN,}
+\DoxyCodeLine{76             NON}
+\DoxyCodeLine{77         \};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79         quint64 stringPos \{1\};}
+\DoxyCodeLine{80         \textcolor{keywordtype}{int} strCounter \{0\};}
+\DoxyCodeLine{81         \textcolor{keywordtype}{bool} endOfFile \{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{82         QList<QPair<QString, int>> variables;}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{92         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ac0b878d79f17a6f8e35c7fe1ce4a43e0}{Equation}}(}
+\DoxyCodeLine{93             QString *equation,}
+\DoxyCodeLine{94             \textcolor{keywordtype}{int} startPos,}
+\DoxyCodeLine{95             \textcolor{keywordtype}{int} \&end,}
+\DoxyCodeLine{96             \textcolor{keywordtype}{int} \&result}
+\DoxyCodeLine{97         );}
+\DoxyCodeLine{106         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a9316ff0657860ff1eed9cb22db8b2368}{RightValue}}(}
+\DoxyCodeLine{107             QString *rvalue,}
+\DoxyCodeLine{108             \textcolor{keywordtype}{int} startPos,}
+\DoxyCodeLine{109             \textcolor{keywordtype}{int} \&end,}
+\DoxyCodeLine{110             \textcolor{keywordtype}{int} \&result}
+\DoxyCodeLine{111         );}
+\DoxyCodeLine{120         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a424118c0f55161fa5cd9c66407935541}{Block}}(}
+\DoxyCodeLine{121             QString *block,}
+\DoxyCodeLine{122             \textcolor{keywordtype}{int} startPos,}
+\DoxyCodeLine{123             \textcolor{keywordtype}{int} \&end,}
+\DoxyCodeLine{124             \textcolor{keywordtype}{int} \&result}
+\DoxyCodeLine{125         );}
+\DoxyCodeLine{134         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_acbc1a3806267e1b6aaf7493f621d5636}{Part}}(}
+\DoxyCodeLine{135             QString *part,}
+\DoxyCodeLine{136             \textcolor{keywordtype}{int} startPos,}
+\DoxyCodeLine{137             \textcolor{keywordtype}{int} \&end,}
+\DoxyCodeLine{138             \textcolor{keywordtype}{int} \&result}
+\DoxyCodeLine{139         );}
+\DoxyCodeLine{148         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a87834f1a06ae437fe2ca2d792b7a531f}{Piece}}(}
+\DoxyCodeLine{149             QString *piece,}
+\DoxyCodeLine{150             \textcolor{keywordtype}{int} startPos,}
+\DoxyCodeLine{151             \textcolor{keywordtype}{int} \&end,}
+\DoxyCodeLine{152             \textcolor{keywordtype}{int} \&result}
+\DoxyCodeLine{153         );}
+\DoxyCodeLine{162         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ae11f6783ca826b6f45df10a37e95188e}{SmallPart}}(}
+\DoxyCodeLine{163             QString *spart,}
+\DoxyCodeLine{164             \textcolor{keywordtype}{int} startPos,}
+\DoxyCodeLine{165             \textcolor{keywordtype}{int} \&end,}
+\DoxyCodeLine{166             \textcolor{keywordtype}{int} \&result}
+\DoxyCodeLine{167         );}
+\DoxyCodeLine{176         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_af0ae5f716b0d26665fcc400bd7e20182}{SmallPiece}}(}
+\DoxyCodeLine{177             QString *spiece,}
+\DoxyCodeLine{178             \textcolor{keywordtype}{int} startPos,}
+\DoxyCodeLine{179             \textcolor{keywordtype}{int} \&end,}
+\DoxyCodeLine{180             \textcolor{keywordtype}{int} \&result}
+\DoxyCodeLine{181         );}
+\DoxyCodeLine{190         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a73cacf4970e6f2461eb948727c8bf519}{Variety}}(}
+\DoxyCodeLine{191             QString *variety,}
+\DoxyCodeLine{192             \textcolor{keywordtype}{int} startPos,}
+\DoxyCodeLine{193             \textcolor{keywordtype}{int} \&end,}
+\DoxyCodeLine{194             \textcolor{keywordtype}{int} \&result}
+\DoxyCodeLine{195         );}
+\DoxyCodeLine{202         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ac66bfd831224a38e54efb3e86b8f6bc7}{letter}}(QChar symbol);}
+\DoxyCodeLine{209         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_afadd8a084f61e7f16d0186a65f9a5c93}{figure}}(QChar symbol);}
+\DoxyCodeLine{219         QString \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aa97cfe05146399f765a01541a692fe90}{findTheWord}}(QString *main, \textcolor{keywordtype}{int} \&count);}
+\DoxyCodeLine{228         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a6ad3f3af005c3d9bb615b8d5af2b36bf}{findTheSymbol}}(}
+\DoxyCodeLine{229             QString *main,}
+\DoxyCodeLine{230             QChar check,}
+\DoxyCodeLine{231             \textcolor{keywordtype}{int} \&counter}
+\DoxyCodeLine{232         );}
+\DoxyCodeLine{240         func \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a47b5ff444213e5c61d459d29f64c1dd8}{findTheFunction}}(QString *main, \textcolor{keywordtype}{int} \&counter);}
+\DoxyCodeLine{247         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a02232b2b885097f242d64f863bfb0775}{isNumber}}(QString word);}
+\DoxyCodeLine{254         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aa9937abf6da61e9da9d655c3b76ab79d}{isVariable}}(QString word, \textcolor{keywordtype}{int} \&val);}
+\DoxyCodeLine{255         \textcolor{keywordtype}{void} skipSpace(QString *main, \textcolor{keywordtype}{int} \&counter);}
+\DoxyCodeLine{262         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aaa4c3a719bdb04b92d67fb9a77db9322}{isSeparator}}(QChar sym);}
+\DoxyCodeLine{269         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a229e39fad055c0e40ba7b87ef7c1f87a}{skipSpaceAndLine}}(QString *main, \textcolor{keywordtype}{int} \&counter);}
+\DoxyCodeLine{276         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a0843f751c031db791df945650a2fef93}{inverseNumberWithSign}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} number);}
+\DoxyCodeLine{277     \};}
+\DoxyCodeLine{278 \}}
+\DoxyCodeLine{279 }
+\DoxyCodeLine{280 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// TRANSLATOR\_H}}
 
 \end{DoxyCode}

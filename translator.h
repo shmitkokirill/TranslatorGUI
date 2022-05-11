@@ -1,6 +1,7 @@
 #ifndef TRANSLATOR_H
 #define TRANSLATOR_H
 
+#include "qglobal.h"
 #include <QHash>
 #include <QString>
 namespace SHK_Translator
@@ -75,6 +76,7 @@ namespace SHK_Translator
             NON
         };
 
+        quint64 stringPos {1};
         int strCounter {0};
         bool endOfFile {false};
         QList<QPair<QString, int>> variables;

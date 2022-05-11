@@ -46,9 +46,9 @@ bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ac66bfd831224a38e5
 \item 
 bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_afadd8a084f61e7f16d0186a65f9a5c93}{figure}} (QChar symbol)
 \begin{DoxyCompactList}\small\item\em figure \end{DoxyCompactList}\item 
-QString \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ab456df74ae9fc3e22d1a5451811e2848}{find\+The\+Word}} (QString $\ast$main, QList$<$ QChar $>$ check, int \&counter)
+QString \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aa97cfe05146399f765a01541a692fe90}{find\+The\+Word}} (QString $\ast$main, int \&count)
 \begin{DoxyCompactList}\small\item\em find word in main string \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a30ac0eb50868ae78779ae7aa7a0ff3ee}{find\+The\+Operator}} (QString $\ast$main, QChar check, int \&counter)
+bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a6ad3f3af005c3d9bb615b8d5af2b36bf}{find\+The\+Symbol}} (QString $\ast$main, QChar check, int \&counter)
 \begin{DoxyCompactList}\small\item\em find\+The\+Operator \end{DoxyCompactList}\item 
 func \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a47b5ff444213e5c61d459d29f64c1dd8}{find\+The\+Function}} (QString $\ast$main, int \&counter)
 \begin{DoxyCompactList}\small\item\em find\+The\+Function \end{DoxyCompactList}\item 
@@ -118,6 +118,9 @@ struct \{\\
 \} {\bfseries Function}\\
 
 \end{tabbing}\item 
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a36f8dff65dcc39319b742187ec5ed2fb}\label{class_s_h_k___translator_1_1_translator_a36f8dff65dcc39319b742187ec5ed2fb}} 
+quint64 {\bfseries string\+Pos} \{1\}
+\item 
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_aa5006eed1a9525689d7a7d784982ea5a}\label{class_s_h_k___translator_1_1_translator_aa5006eed1a9525689d7a7d784982ea5a}} 
 int {\bfseries str\+Counter} \{0\}
 \item 
@@ -212,11 +215,11 @@ find\+The\+Function
 \begin{DoxyReturn}{Returns}
 enum with founded function 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a30ac0eb50868ae78779ae7aa7a0ff3ee}\label{class_s_h_k___translator_1_1_translator_a30ac0eb50868ae78779ae7aa7a0ff3ee}} 
-\index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!findTheOperator@{findTheOperator}}
-\index{findTheOperator@{findTheOperator}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
-\doxysubsubsection{\texorpdfstring{findTheOperator()}{findTheOperator()}}
-{\footnotesize\ttfamily bool Translator\+::find\+The\+Operator (\begin{DoxyParamCaption}\item[{QString $\ast$}]{main,  }\item[{QChar}]{check,  }\item[{int \&}]{counter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a6ad3f3af005c3d9bb615b8d5af2b36bf}\label{class_s_h_k___translator_1_1_translator_a6ad3f3af005c3d9bb615b8d5af2b36bf}} 
+\index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!findTheSymbol@{findTheSymbol}}
+\index{findTheSymbol@{findTheSymbol}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
+\doxysubsubsection{\texorpdfstring{findTheSymbol()}{findTheSymbol()}}
+{\footnotesize\ttfamily bool Translator\+::find\+The\+Symbol (\begin{DoxyParamCaption}\item[{QString $\ast$}]{main,  }\item[{QChar}]{check,  }\item[{int \&}]{counter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
@@ -234,11 +237,11 @@ find\+The\+Operator
 \begin{DoxyReturn}{Returns}
 found or not 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_ab456df74ae9fc3e22d1a5451811e2848}\label{class_s_h_k___translator_1_1_translator_ab456df74ae9fc3e22d1a5451811e2848}} 
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_aa97cfe05146399f765a01541a692fe90}\label{class_s_h_k___translator_1_1_translator_aa97cfe05146399f765a01541a692fe90}} 
 \index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!findTheWord@{findTheWord}}
 \index{findTheWord@{findTheWord}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
 \doxysubsubsection{\texorpdfstring{findTheWord()}{findTheWord()}}
-{\footnotesize\ttfamily QString Translator\+::find\+The\+Word (\begin{DoxyParamCaption}\item[{QString $\ast$}]{main,  }\item[{QList$<$ QChar $>$}]{check,  }\item[{int \&}]{counter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily QString Translator\+::find\+The\+Word (\begin{DoxyParamCaption}\item[{QString $\ast$}]{main,  }\item[{int \&}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
