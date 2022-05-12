@@ -60,12 +60,12 @@ int Translator::Equation(
     int labelCurPos = startPos;
     QString label = findTheWord(equation, labelCurPos);
     if (endOfFile || label.isEmpty())
-        return labelCurPos - startPos;
+        return stringPos;
     for (int i = 0; i < label.length(); i++)
         if (!figure(label[i]))
-            return labelCurPos - label.length() - startPos;
+            return stringPos;
     if (!findTheSymbol(equation, Operator.COLON, labelCurPos))
-        return labelCurPos - startPos; // colon isn't expected
+        return stringPos; // colon isn't expected
 
     int varCurPos = labelCurPos;
     while (skipSpaceAndLine(equation, varCurPos));
@@ -73,21 +73,21 @@ int Translator::Equation(
         return stringPos;
     QString var = findTheWord(equation, varCurPos);
     if (endOfFile || var.isEmpty())
-        return varCurPos - startPos;
+        return stringPos;
     if (!letter(var[0]))
-        return varCurPos - var.length();
+        return stringPos;
     // ???
     for (int i = 1; i < var.length(); i++)
         if (!(letter(var[i]) || figure(var[i])))
-            return varCurPos - var.length() - startPos;
+            return stringPos;
     //---
 
     if(!findTheSymbol(equation, Operator.EQUAL, varCurPos))
-        return varCurPos - startPos; // equal isn'n expected
+        return stringPos; // equal isn'n expected
 
     while (skipSpaceAndLine(equation, varCurPos));
     if (endOfFile)
-        return varCurPos - startPos;
+        return stringPos;
     int rvErr = RightValue(equation, varCurPos, end, result);
     if (rvErr)
         return rvErr;
@@ -395,7 +395,7 @@ int Translator::Variety(
         if (!isVariable(word, varVal))
             return stringPos;
     }
-    return currentPos;
+    return stringPos;
 }
 
 bool Translator::letter(QChar symbol)
@@ -437,6 +437,7 @@ bool Translator::findTheSymbol(QString *main, QChar check, int &counter)
     if (main->at(counter) == check)
     {
         counter++;
+        stringPos++;
         while(skipSpaceAndLine(main, counter));
         return true;
     }
@@ -451,13 +452,11 @@ Translator::func Translator::findTheFunction(QString *main, int &counter)
         if (main->at(counter) == Spec.EOS2)
         {
             counter++;
-            stringPos++;
         }
         if (main->at(counter) == Spec.EOS)
         {
             main->replace(counter, 1, '?');
-            strCounter++;
-            stringPos = 0;
+            stringPos = 1;
             break;
         }
         if (isSeparator(main->at(counter)))
@@ -480,6 +479,8 @@ Translator::func Translator::findTheFunction(QString *main, int &counter)
 
 bool Translator::isNumber(QString word)
 {
+    if (word.isEmpty())
+        return false;
     for (int i = 0; i < word.length(); i++)
         if (!figure(word[i]) && word[i] != Operator.MINUS)
             return false;
@@ -519,10 +520,9 @@ bool Translator::skipSpaceAndLine(QString *main, int &counter)
         if (main->at(counter) == Spec.EOS)
         {
             strCounter++;
-            stringPos = 0;
+            stringPos = 1;
             main->replace(counter, 1, '?');
             counter++;
-            stringPos++;
             if (counter >= main->length())
             {
                 endOfFile = true;
