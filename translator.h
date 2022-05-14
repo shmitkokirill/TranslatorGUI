@@ -79,6 +79,7 @@ namespace SHK_Translator
         quint64 stringPos {1};
         int strCounter {1};
         bool endOfFile {false};
+        bool operNotFounded{false};
         QMap<QString, int> variables;
 
         /**
@@ -173,12 +174,11 @@ namespace SHK_Translator
          * @return
          * Errors
          */
-        int SmallPiece(
-            QString *spiece,
+        int SmallPiece(QString *spiece,
             int startPos,
             int &end,
             int &result
-        );
+        , bool funcFounded);
         /**
          * @brief Variety
          * @param[in] variety

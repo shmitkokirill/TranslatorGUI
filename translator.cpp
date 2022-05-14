@@ -178,9 +178,9 @@ int Translator::RightValue(
     } while (rvalue->at(currentPos) == Operator.PLUS ||
              rvalue->at(currentPos) == Operator.MINUS
     );
-    stringPos++;
     if (!(rvalue->at(currentPos++) == Spec.SEMICOLON))
         return stringPos;
+    stringPos++;
     end = currentPos;
     return 0;
 }
@@ -279,6 +279,7 @@ int Translator::Piece(QString *piece, int startPos, int &end, int &result)
         return stringPos;
     if (piece->at(currentPos) == Operator.NOT)
     {
+        operNotFounded = true;
         currentPos++;
         stringPos++;
         notExpected = true;
@@ -318,7 +319,16 @@ int Translator::SmallPart(
             fStack.append(f);
         else
         {
-            int spErr2 = SmallPiece(spart, prevWordPos, endPos, spResult);
+            bool funcFounded{false};
+            if (!fStack.isEmpty())
+                funcFounded = true;
+            int spErr2 = SmallPiece(
+                spart,
+                prevWordPos,
+                endPos,
+                spResult,
+                funcFounded
+            );
             if (spErr2)
                 return spErr2;
             else
@@ -356,7 +366,8 @@ int Translator::SmallPiece(
     QString *spiece,
     int startPos,
     int &end,
-    int &result
+    int &result,
+    bool funcFounded
 ) {
     result = 0;
     QString word;
@@ -365,19 +376,21 @@ int Translator::SmallPiece(
     int strCounterS = strCounter;
     for (; currentPos < spiece->length();)
     {
+        if (!(funcFounded || operNotFounded) && !word.isEmpty() && isSeparator(word.back()))
+            break;
         if (spiece->at(currentPos) == Spec.SEMICOLON)
             break;
-        auto sym = spiece->at(currentPos);
-        if (
-            sym == Spec.SPACE ||
-            sym == Spec.EOS2 ||
-            sym == Operator.AND ||
-            sym == Operator.OR ||
-            sym == Operator.MULTIPLY ||
-            sym == Operator.PLUS ||
-            sym == Operator.DIVIDE
-        )
-            break;
+//        auto sym = spiece->at(currentPos);
+//        if (
+//            sym == Spec.SPACE ||
+//            sym == Spec.EOS2 ||
+//            sym == Operator.AND ||
+//            sym == Operator.OR ||
+//            sym == Operator.MULTIPLY ||
+//            sym == Operator.PLUS ||
+//            sym == Operator.DIVIDE
+//        )
+//            break;
         word.append(spiece->at(currentPos++));
         stringPos++;
         if (isSeparator(spiece->at(currentPos)))
@@ -389,10 +402,10 @@ int Translator::SmallPiece(
 
     while (skipSpaceAndLine(spiece, currentPos));
     if (endOfFile)
-        return stringPos;
+        return stringPosS;
     end = currentPos;
 
-    if (isNumber(word))
+    if (!word.isEmpty() && !isSeparator(word.back()) && isNumber(word))
         result = word.toInt();
     else if (!isVariable(word, result))
     {
@@ -419,16 +432,23 @@ int Translator::Variety(
     int varCounter{0};
     while (currentPos < variety->length())
     {
+        int strCounterS = strCounter;
         quint64 stringPosS = stringPos;
         QString word = findTheWord(variety, currentPos);
         if (word == KeyWord.END && varCounter == variables.count())
         {
+            while (skipSpaceAndLine(variety, currentPos));
+            if (!endOfFile)
+                return stringPos;
             end = currentPos;
             return 0;
         }
         int varVal{0};
         if (!isVariable(word, varVal))
+        {
+            strCounter = strCounterS;
             return stringPosS;
+        }
         varCounter++;
     }
     return stringPos;
