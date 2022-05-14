@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
-#include <QHash>
+#include <QMap>
 
 
 namespace SHK_Translator
@@ -40,7 +40,7 @@ namespace SHK_Translator
          * @return
          * result from collected variables
          */
-        const QString getOutputResult(QList<QPair<QString, int>> result);
+        QString getOutputResult(QMap<QString, int> result);
     signals:
         /**
          * @brief sendMsgToBar

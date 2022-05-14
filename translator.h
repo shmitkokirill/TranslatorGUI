@@ -2,7 +2,7 @@
 #define TRANSLATOR_H
 
 #include "qglobal.h"
-#include <QHash>
+#include <QMap>
 #include <QString>
 namespace SHK_Translator
 {
@@ -24,7 +24,7 @@ namespace SHK_Translator
          * @return
          * list of collected variables
          */
-        const QList<QPair<QString, int>> getVariables();
+        QMap<QString, int> getVariables();
         /**
          * @brief getter
          * @return
@@ -77,9 +77,9 @@ namespace SHK_Translator
         };
 
         quint64 stringPos {1};
-        int strCounter {0};
+        int strCounter {1};
         bool endOfFile {false};
-        QList<QPair<QString, int>> variables;
+        QMap<QString, int> variables;
 
         /**
          * @brief Equation
@@ -252,7 +252,7 @@ namespace SHK_Translator
          * true if word is Variable
          */
         bool isVariable(QString word, int &val);
-        void skipSpace(QString *main, int &counter);
+        bool skipSpaces(QString *main, int &counter);
         /**
          * @brief sym is separator?
          * @param[in] sym

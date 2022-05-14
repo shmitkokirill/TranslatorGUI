@@ -6,7 +6,7 @@
 \DoxyCodeLine{2 \textcolor{preprocessor}{\#define TRANSLATOR\_H}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}qglobal.h"{}}}
-\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QHash>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QMap>}}
 \DoxyCodeLine{6 \textcolor{preprocessor}{\#include <QString>}}
 \DoxyCodeLine{7 \textcolor{keyword}{namespace }SHK\_Translator}
 \DoxyCodeLine{8 \{}
@@ -15,7 +15,7 @@
 \DoxyCodeLine{11     \textcolor{keyword}{public}:}
 \DoxyCodeLine{12         \mbox{\hyperlink{class_s_h_k___translator_1_1_translator}{Translator}}();}
 \DoxyCodeLine{21         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ab9d1b745ceae289c27fdd92029d8453a}{Main}}(QString *srcCode);}
-\DoxyCodeLine{27         \textcolor{keyword}{const} QList<QPair<QString, int>> \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ad68e640ea5a45f57be0d3d8815df247a}{getVariables}}();}
+\DoxyCodeLine{27         QMap<QString, int> \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a7ce7e8d933391c1cd812166fe3d06c35}{getVariables}}();}
 \DoxyCodeLine{33         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a00d7b84b43bc80c89398b91632fb24f7}{getErrorString}}();}
 \DoxyCodeLine{34     \textcolor{keyword}{private}:}
 \DoxyCodeLine{35         \textcolor{keyword}{struct}}
@@ -63,9 +63,9 @@
 \DoxyCodeLine{77         \};}
 \DoxyCodeLine{78 }
 \DoxyCodeLine{79         quint64 stringPos \{1\};}
-\DoxyCodeLine{80         \textcolor{keywordtype}{int} strCounter \{0\};}
+\DoxyCodeLine{80         \textcolor{keywordtype}{int} strCounter \{1\};}
 \DoxyCodeLine{81         \textcolor{keywordtype}{bool} endOfFile \{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{82         QList<QPair<QString, int>> variables;}
+\DoxyCodeLine{82         QMap<QString, int> variables;}
 \DoxyCodeLine{83 }
 \DoxyCodeLine{92         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ac0b878d79f17a6f8e35c7fe1ce4a43e0}{Equation}}(}
 \DoxyCodeLine{93             QString *equation,}
@@ -126,7 +126,7 @@
 \DoxyCodeLine{240         func \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a47b5ff444213e5c61d459d29f64c1dd8}{findTheFunction}}(QString *main, \textcolor{keywordtype}{int} \&counter);}
 \DoxyCodeLine{247         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a02232b2b885097f242d64f863bfb0775}{isNumber}}(QString word);}
 \DoxyCodeLine{254         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aa9937abf6da61e9da9d655c3b76ab79d}{isVariable}}(QString word, \textcolor{keywordtype}{int} \&val);}
-\DoxyCodeLine{255         \textcolor{keywordtype}{void} skipSpace(QString *main, \textcolor{keywordtype}{int} \&counter);}
+\DoxyCodeLine{255         \textcolor{keywordtype}{bool} skipSpaces(QString *main, \textcolor{keywordtype}{int} \&counter);}
 \DoxyCodeLine{262         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aaa4c3a719bdb04b92d67fb9a77db9322}{isSeparator}}(QChar sym);}
 \DoxyCodeLine{269         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a229e39fad055c0e40ba7b87ef7c1f87a}{skipSpaceAndLine}}(QString *main, \textcolor{keywordtype}{int} \&counter);}
 \DoxyCodeLine{276         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a0843f751c031db791df945650a2fef93}{inverseNumberWithSign}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} number);}

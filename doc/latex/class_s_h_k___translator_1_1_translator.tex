@@ -5,7 +5,7 @@
 \item 
 int \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ab9d1b745ceae289c27fdd92029d8453a}{Main}} (QString $\ast$src\+Code)
 \begin{DoxyCompactList}\small\item\em Main Enter the program. \end{DoxyCompactList}\item 
-const QList$<$ QPair$<$ QString, int $>$ $>$ \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ad68e640ea5a45f57be0d3d8815df247a}{get\+Variables}} ()
+QMap$<$ QString, int $>$ \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a7ce7e8d933391c1cd812166fe3d06c35}{get\+Variables}} ()
 \begin{DoxyCompactList}\small\item\em getter \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a00d7b84b43bc80c89398b91632fb24f7}{get\+Error\+String}} ()
 \begin{DoxyCompactList}\small\item\em getter \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -56,8 +56,8 @@ bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a02232b2b885097f24
 \begin{DoxyCompactList}\small\item\em is\+Number \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aa9937abf6da61e9da9d655c3b76ab79d}{is\+Variable}} (QString word, int \&val)
 \begin{DoxyCompactList}\small\item\em is\+Variable \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_abc673238c4da5f85f12785558332e6b4}\label{class_s_h_k___translator_1_1_translator_abc673238c4da5f85f12785558332e6b4}} 
-void {\bfseries skip\+Space} (QString $\ast$main, int \&counter)
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a3e7d13383e489462c901aa2be415d7ec}\label{class_s_h_k___translator_1_1_translator_a3e7d13383e489462c901aa2be415d7ec}} 
+bool {\bfseries skip\+Spaces} (QString $\ast$main, int \&counter)
 \item 
 bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aaa4c3a719bdb04b92d67fb9a77db9322}{is\+Separator}} (QChar sym)
 \begin{DoxyCompactList}\small\item\em sym is separator? \end{DoxyCompactList}\item 
@@ -122,13 +122,13 @@ struct \{\\
 quint64 {\bfseries string\+Pos} \{1\}
 \item 
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_aa5006eed1a9525689d7a7d784982ea5a}\label{class_s_h_k___translator_1_1_translator_aa5006eed1a9525689d7a7d784982ea5a}} 
-int {\bfseries str\+Counter} \{0\}
+int {\bfseries str\+Counter} \{1\}
 \item 
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a8a65effec078f28a71f5e655426d1503}\label{class_s_h_k___translator_1_1_translator_a8a65effec078f28a71f5e655426d1503}} 
 bool {\bfseries end\+Of\+File} \{false\}
 \item 
-\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a1f628a5baeae2f5e4daae55f219df08d}\label{class_s_h_k___translator_1_1_translator_a1f628a5baeae2f5e4daae55f219df08d}} 
-QList$<$ QPair$<$ QString, int $>$ $>$ {\bfseries variables}
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a87ccdde39b2f9644ef2acb62957a5b27}\label{class_s_h_k___translator_1_1_translator_a87ccdde39b2f9644ef2acb62957a5b27}} 
+QMap$<$ QString, int $>$ {\bfseries variables}
 \end{DoxyCompactItemize}
 
 
@@ -272,11 +272,11 @@ getter
 \begin{DoxyReturn}{Returns}
 str\+Counter 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_ad68e640ea5a45f57be0d3d8815df247a}\label{class_s_h_k___translator_1_1_translator_ad68e640ea5a45f57be0d3d8815df247a}} 
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a7ce7e8d933391c1cd812166fe3d06c35}\label{class_s_h_k___translator_1_1_translator_a7ce7e8d933391c1cd812166fe3d06c35}} 
 \index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!getVariables@{getVariables}}
 \index{getVariables@{getVariables}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
 \doxysubsubsection{\texorpdfstring{getVariables()}{getVariables()}}
-{\footnotesize\ttfamily const QList$<$ QPair$<$ QString, int $>$ $>$ Translator\+::get\+Variables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily QMap$<$ QString, int $>$ Translator\+::get\+Variables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 

@@ -18,8 +18,8 @@ bool StringManager::TrimFile(QString *input, QStringList *output)
         emit sendMsgToBar("TrimFile: Не инициализирована выходная переменная");
         return false;
     }
-    QRegExp removeSpaces("[ ]+");
-    *input = input->replace(removeSpaces, " ");
+//    QRegExp removeSpaces("[ ]+");
+//    *input = input->replace(removeSpaces, " ");
     int i {input->length() - 1}/*, j, stNum {1}*/;
     while (input->at(i) == '\n')
     {
@@ -51,12 +51,12 @@ bool StringManager::TrimFile(QString *input, QStringList *output)
     return true;
 }
 
-const QString StringManager::getOutputResult(QList<QPair<QString, int>> result)
+QString StringManager::getOutputResult(QMap<QString, int> result)
 {
     QString res;
-    for(auto item : result)
+    for(auto key : result.keys())
     {
-        res.append(item.first + " = " + QString::number(item.second) + "\n");
+        res.append(key + " = " + QString::number(result[key]) + "\n");
     }
     return res;
 }
