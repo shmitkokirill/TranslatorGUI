@@ -22,7 +22,7 @@ public:
 private:
     const QString FILE_OBJECT_NAME = "object.oshk";
     const QString FILE_OPTIONS = "Исходный код (*.shk)";
-    const QString PATH_TO_BNF = "../TranslatorGUI/bnf";
+    const QString PATH_TO_BNF = "../translatorGUI/bnf";
     const QString FAIL_SAVE_FILE = "Не удалось сохранить файл";
 
     Ui::MainWindow *ui;

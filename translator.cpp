@@ -15,11 +15,19 @@ int Translator::Main(QString *srcCode)
     int currentPos {0}, endPos {0};
     while (skipSpaceAndLine(srcCode, currentPos));
     if (endOfFile)
-        return stringPos;
+    {
+        // everthng ok
+        return 0;
+//        return stringPos;
+    }
 
     quint64 stringPosS = stringPos;
     QString beg = findTheWord(srcCode, currentPos);
-    if (endOfFile || beg.isEmpty() || beg != KeyWord.BEGIN)
+    if (endOfFile && beg.isEmpty())
+    {
+        return 0;
+    }
+    if (beg != KeyWord.BEGIN)
     {
         QString sN = QString::number(strCounter);
         QString pN = QString::number(stringPosS);
@@ -30,7 +38,13 @@ int Translator::Main(QString *srcCode)
     do {
         while (skipSpaceAndLine(srcCode, currentPos));
         if (endOfFile)
+        {
+            QString sN = QString::number(strCounter);
+            QString pN = QString::number(stringPos);
+            errorMsg =
+                errorMsg.arg("Не обнаружено описания уравнений", sN, pN);
             return stringPos;
+        }
         int equationRes;
         int eqErr = Equation(srcCode, currentPos, endPos, equationRes);
         if (eqErr)
@@ -38,42 +52,85 @@ int Translator::Main(QString *srcCode)
         // for next word
         while (skipSpaceAndLine(srcCode, endPos));
         if (endOfFile)
+        {
+            QString sN = QString::number(strCounter);
+            QString pN = QString::number(stringPos);
+            errorMsg =
+                errorMsg.arg("Не обнаружено описания множеств", sN, pN);
             return stringPos;
+        }
         currentPos = endPos;
         quint64 stringPosS = stringPos;
+        int strCounterS = strCounter;
         QString w = findTheWord(srcCode, endPos);
         if (w == KeyWord.ANALYSIS || w == KeyWord.SINTEZ)
         {
             stringPos = stringPosS;
             break;
         }
-        int endPosTmp = endPos;
+        while (skipSpaceAndLine(srcCode, endPos));
+        if (endOfFile)
+        {
+            return strCounter;
+        }
         if (!findTheSymbol(srcCode, Operator.COLON, endPos) && !isNumber(w))
         {
-            QString sN = QString::number(strCounter);
+            QString sN = QString::number(strCounterS);
             QString pN = QString::number(stringPosS);
             errorMsg =
                 errorMsg.arg("Не встречено слова \"Анализ\" либо \"Синтез\"", sN, pN);
             return stringPosS;
         }
         if (endOfFile)
+        {
+            QString sN = QString::number(strCounter);
+            QString pN = QString::number(stringPosS);
+            errorMsg =
+                errorMsg.arg("Не обнаружено описания множеств", sN, pN);
             return stringPosS; // unknown mistake
+        }
         // it's necessary to go to the next Expression
         stringPos = stringPosS;
     } while (true);
     if (endOfFile)
+    {
+        QString sN = QString::number(strCounter);
+        QString pN = QString::number(stringPos);
+        errorMsg =
+            errorMsg.arg("Не обнаружено описания множеств", sN, pN);
         return stringPos;
+    }
     endPos = 0;
     do {
         while (skipSpaceAndLine(srcCode, currentPos));
         if (endOfFile)
+        {
+            QString sN = QString::number(strCounter);
+            QString pN = QString::number(stringPos);
+            errorMsg =
+                errorMsg.arg("Не обнаружено слова \"End\"", sN, pN);
             return stringPos;
+        }
         int varietyRes;
         int varietyErr = Variety(srcCode, currentPos, endPos, varietyRes);
         if (varietyErr)
             return varietyErr;
-        else
-            break;
+        currentPos = endPos;
+        if (varietyRes)
+            continue;
+//        currentPos = endPos;
+//        quint64 stringPosS = stringPos;
+//        QString end = findTheWord(srcCode, currentPos);
+        while (skipSpaceAndLine(srcCode, currentPos));
+        if (!endOfFile)
+        {
+            QString sN = QString::number(strCounter);
+            QString pN = QString::number(stringPos);
+            errorMsg =
+                errorMsg.arg("Обнаружен текст после слова \"End\"", sN, pN);
+            return stringPos;
+        }
+        return 0;
     } while (true);
     return 0;
 }
@@ -528,6 +585,7 @@ int Translator::Variety(
     int &end,
     int &result
 ) {
+    result = 0;
     int currentPos = startPos;
     quint64 stringPosS = stringPos;
     QString key = findTheWord(variety, currentPos);
@@ -539,45 +597,51 @@ int Translator::Variety(
             errorMsg.arg("Не встречено слова \"Анализ\" либо \"Синтез\"", sN, pN);
         return stringPosS;
     }
-    while (skipSpaceAndLine(variety, currentPos));
-    if (endOfFile)
-        return stringPos;
     int varCounter{0};
+    int strCounterS{0};
     while (currentPos < variety->length())
     {
-        int strCounterS = strCounter;
-        stringPosS = stringPos;
-        QString word = findTheWord(variety, currentPos);
-        if (word != KeyWord.END && varCounter == variables.count())
+        if (varCounter > variables.count())
+        {
+            QString sN = QString::number(strCounterS);
+            QString pN = QString::number(stringPosS);
+            errorMsg =
+                errorMsg.arg("Переменная уже перечислена", sN, pN);
+            return stringPosS;
+        }
+        while (skipSpaceAndLine(variety, currentPos));
+        if (endOfFile)
         {
             QString sN = QString::number(strCounter);
-            QString pN = QString::number(stringPosS);
+            QString pN = QString::number(stringPos);
             errorMsg =
                 errorMsg.arg("Программа должна заканчиваться словом \"End\"", sN, pN);
             return stringPos;
         }
-        if (word == KeyWord.END && varCounter == variables.count())
+        strCounterS = strCounter;
+        stringPosS = stringPos;
+        int currentPosS = currentPos;
+        QString word = findTheWord(variety, currentPos);
+        int varVal{0};
+        if (word == KeyWord.ANALYSIS || word == KeyWord.SINTEZ)
         {
-            while (skipSpaceAndLine(variety, currentPos));
-            if (!endOfFile)
-            {
-                QString sN = QString::number(strCounter);
-                QString pN = QString::number(stringPos);
-                errorMsg =
-                    errorMsg.arg("Обнаружен текст после слова \"End\"", sN, pN);
-                return stringPos;
-            }
+            stringPos = stringPosS;
+            end = currentPosS;
+            result = 1;
+            return 0;
+        }
+        if (word == KeyWord.END)
+        {
             end = currentPos;
             return 0;
         }
-        int varVal{0};
-        if (!isVariable(word, varVal) && varCounter != variables.count())
+        if (!isVariable(word, varVal))
         {
             strCounter = strCounterS;
             QString sN = QString::number(strCounter);
             QString pN = QString::number(stringPosS);
             errorMsg =
-            errorMsg.arg("Не встречено переменной во множестве", sN, pN);
+                errorMsg.arg("Обнаружена неинициализированная переменная во множестве", sN, pN);
             return stringPosS;
         }
         varCounter++;
