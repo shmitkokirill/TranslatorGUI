@@ -10,6 +10,7 @@ namespace SourceCodeEdit
         Q_OBJECT
     public:
         CodeEditor(QWidget *parent = nullptr);
+        ~CodeEditor();
         void lineNumberAreaPaintEvent(QPaintEvent *event);
         int lineNumberAreaWidth();
 

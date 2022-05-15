@@ -14,6 +14,7 @@ namespace SHK_Translator
         Q_OBJECT
     public:
         StringManager();
+        ~StringManager();
         /**
          * @brief TrimThePathFromRight
          * @param[in] str

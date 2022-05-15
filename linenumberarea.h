@@ -10,6 +10,7 @@ namespace SourceCodeEdit
     {
     public:
         LineNumberArea(CodeEditor *editor);
+        ~LineNumberArea();
 
         QSize sizeHint() const override;
 

@@ -34,6 +34,11 @@ SourceCodeEdit::CodeEditor::CodeEditor(QWidget *parent)
     setFont(QFont("Consolas", 14));
 }
 
+CodeEditor::~CodeEditor()
+{
+    delete lineNumberArea;
+}
+
 void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
     QPainter *painter = new QPainter(lineNumberArea);

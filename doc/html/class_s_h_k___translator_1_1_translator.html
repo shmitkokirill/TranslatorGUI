@@ -87,6 +87,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a00d7b84b43bc80c89398b91632fb24f7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#a00d7b84b43bc80c89398b91632fb24f7">getErrorString</a> ()</td></tr>
 <tr class="memdesc:a00d7b84b43bc80c89398b91632fb24f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter  <a href="class_s_h_k___translator_1_1_translator.html#a00d7b84b43bc80c89398b91632fb24f7">More...</a><br /></td></tr>
 <tr class="separator:a00d7b84b43bc80c89398b91632fb24f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e1277733546738ca7d892fa818ec233"><td class="memItemLeft" align="right" valign="top"><a id="a2e1277733546738ca7d892fa818ec233" name="a2e1277733546738ca7d892fa818ec233"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>getErrorMessage</b> ()</td></tr>
+<tr class="separator:a2e1277733546738ca7d892fa818ec233"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
@@ -148,8 +151,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:aa9937abf6da61e9da9d655c3b76ab79d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#aa9937abf6da61e9da9d655c3b76ab79d">isVariable</a> (QString word, int &amp;val)</td></tr>
 <tr class="memdesc:aa9937abf6da61e9da9d655c3b76ab79d"><td class="mdescLeft">&#160;</td><td class="mdescRight">isVariable  <a href="class_s_h_k___translator_1_1_translator.html#aa9937abf6da61e9da9d655c3b76ab79d">More...</a><br /></td></tr>
 <tr class="separator:aa9937abf6da61e9da9d655c3b76ab79d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e7d13383e489462c901aa2be415d7ec"><td class="memItemLeft" align="right" valign="top"><a id="a3e7d13383e489462c901aa2be415d7ec" name="a3e7d13383e489462c901aa2be415d7ec"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>skipSpaces</b> (QString *main, int &amp;counter)</td></tr>
+<tr class="memitem:a3e7d13383e489462c901aa2be415d7ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#a3e7d13383e489462c901aa2be415d7ec">skipSpaces</a> (QString *main, int &amp;counter)</td></tr>
+<tr class="memdesc:a3e7d13383e489462c901aa2be415d7ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">removes more than 1 space until sym expected  <a href="class_s_h_k___translator_1_1_translator.html#a3e7d13383e489462c901aa2be415d7ec">More...</a><br /></td></tr>
 <tr class="separator:a3e7d13383e489462c901aa2be415d7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa4c3a719bdb04b92d67fb9a77db9322"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#aaa4c3a719bdb04b92d67fb9a77db9322">isSeparator</a> (QChar sym)</td></tr>
 <tr class="memdesc:aaa4c3a719bdb04b92d67fb9a77db9322"><td class="mdescLeft">&#160;</td><td class="mdescRight">sym is separator?  <a href="class_s_h_k___translator_1_1_translator.html#aaa4c3a719bdb04b92d67fb9a77db9322">More...</a><br /></td></tr>
@@ -254,6 +257,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>strCounter</b> {1}</td
 <tr class="memitem:a8a65effec078f28a71f5e655426d1503"><td class="memItemLeft" align="right" valign="top"><a id="a8a65effec078f28a71f5e655426d1503" name="a8a65effec078f28a71f5e655426d1503"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>endOfFile</b> {false}</td></tr>
 <tr class="separator:a8a65effec078f28a71f5e655426d1503"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4acee81bf71f7f64947defe30b02091"><td class="memItemLeft" align="right" valign="top"><a id="ae4acee81bf71f7f64947defe30b02091" name="ae4acee81bf71f7f64947defe30b02091"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operNotFounded</b> {false}</td></tr>
+<tr class="separator:ae4acee81bf71f7f64947defe30b02091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26063825315f0bdc84db47b8d13a153"><td class="memItemLeft" align="right" valign="top"><a id="ae26063825315f0bdc84db47b8d13a153" name="ae26063825315f0bdc84db47b8d13a153"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>funcFounded</b> {false}</td></tr>
+<tr class="separator:ae26063825315f0bdc84db47b8d13a153"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0cc0ccf847c05b2ecd3edcd34a1d2d2"><td class="memItemLeft" align="right" valign="top"><a id="ab0cc0ccf847c05b2ecd3edcd34a1d2d2" name="ab0cc0ccf847c05b2ecd3edcd34a1d2d2"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>errorMsg</b> {&quot;Ошибка! %1. Строка %2, позиция %3.&quot;}</td></tr>
+<tr class="separator:ab0cc0ccf847c05b2ecd3edcd34a1d2d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87ccdde39b2f9644ef2acb62957a5b27"><td class="memItemLeft" align="right" valign="top"><a id="a87ccdde39b2f9644ef2acb62957a5b27" name="a87ccdde39b2f9644ef2acb62957a5b27"></a>
 QMap&lt; QString, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>variables</b></td></tr>
 <tr class="separator:a87ccdde39b2f9644ef2acb62957a5b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1027,6 +1039,52 @@ QMap&lt; QString, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a3e7d13383e489462c901aa2be415d7ec" name="a3e7d13383e489462c901aa2be415d7ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e7d13383e489462c901aa2be415d7ec">&#9670;&nbsp;</a></span>skipSpaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Translator::skipSpaces </td>
+          <td>(</td>
+          <td class="paramtype">QString *&#160;</td>
+          <td class="paramname"><em>main</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>counter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>removes more than 1 space until sym expected </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">main</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">counter</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if 1 space was deleted </dd></dl>
 
 </div>
 </div>

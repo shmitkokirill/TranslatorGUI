@@ -3,8 +3,8 @@ using namespace SHK_Translator;
 
 StringManager::StringManager()
 {
-
 }
+StringManager::~StringManager() = default;
 
 bool StringManager::TrimFile(QString *input, QStringList *output)
 {
@@ -18,9 +18,10 @@ bool StringManager::TrimFile(QString *input, QStringList *output)
         emit sendMsgToBar("TrimFile: Не инициализирована выходная переменная");
         return false;
     }
-//    QRegExp removeSpaces("[ ]+");
-//    *input = input->replace(removeSpaces, " ");
-    int i {input->length() - 1}/*, j, stNum {1}*/;
+
+    QRegExp removeSpecial("[@?]+");
+    *input = input->replace(removeSpecial, "~");
+    int i {input->length() - 1};
     while (input->at(i) == '\n')
     {
         input->remove(i--, 1);
@@ -32,18 +33,10 @@ bool StringManager::TrimFile(QString *input, QStringList *output)
         if (input->at(i) == '\n')
         {
             input->replace(i, 1, '@');
-//            QString number = QString::number(stNum);
-//            input->insert(i, "@" + number + "@");
-//            int size {2 + number.length()};
-//            for (j = 0; j < size; j++)
-//            {
-//                raw.append(input->at(i++));
-//            }
             raw.append('@');
             i++;
             output->append(raw);
             raw.clear();
-//            stNum++;
             continue;
         }
         raw.append(input->at(i++));

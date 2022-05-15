@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QAction>
+#include <QMessageBox>
 #include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -171,11 +172,11 @@ void MainWindow::on_btnRunClicked()
     int resMain = translator->Main(&text);
     if (resMain)
     {
-        ui->statusBar->showMessage(
-            "Ошибка в строке " +
-            QString::number(translator->getErrorString()) +
-            " в позиции " +
-            QString::number(resMain)
+        ui->outputTxtBrowser->clear();
+        QMessageBox::critical(
+            this,
+            "Translator",
+            translator->getErrorMessage()
         );
         return;
     }

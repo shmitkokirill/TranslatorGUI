@@ -1,4 +1,5 @@
 #include "linenumberarea.h"
+#include "codeeditor.h"
 using namespace SourceCodeEdit;
 
 LineNumberArea::LineNumberArea(CodeEditor *editor) :
@@ -6,6 +7,8 @@ LineNumberArea::LineNumberArea(CodeEditor *editor) :
     codeEditor(editor)
 {
 }
+
+LineNumberArea::~LineNumberArea() = default;
 
 QSize LineNumberArea::sizeHint() const
 {

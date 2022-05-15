@@ -10,6 +10,7 @@ namespace SHK_Translator
     {
     public:
         Translator();
+        ~Translator();
         /**
          * @brief Main
          * Enter the program
@@ -31,6 +32,7 @@ namespace SHK_Translator
          * strCounter
          */
         int getErrorString();
+        QString getErrorMessage();
     private:
         struct
         {
@@ -80,6 +82,8 @@ namespace SHK_Translator
         int strCounter {1};
         bool endOfFile {false};
         bool operNotFounded{false};
+        bool funcFounded{false};
+        QString errorMsg{"Ошибка! %1. Строка %2, позиция %3."};
         QMap<QString, int> variables;
 
         /**
@@ -178,7 +182,7 @@ namespace SHK_Translator
             int startPos,
             int &end,
             int &result
-        , bool funcFounded);
+        );
         /**
          * @brief Variety
          * @param[in] variety
@@ -252,6 +256,13 @@ namespace SHK_Translator
          * true if word is Variable
          */
         bool isVariable(QString word, int &val);
+        /**
+         * @brief removes more than 1 space until sym expected
+         * @param[in] main
+         * @param[in] counter
+         * @return
+         * true if 1 space was deleted
+         */
         bool skipSpaces(QString *main, int &counter);
         /**
          * @brief sym is separator?

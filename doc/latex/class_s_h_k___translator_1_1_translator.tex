@@ -8,7 +8,10 @@ int \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_ab9d1b745ceae289c27
 QMap$<$ QString, int $>$ \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a7ce7e8d933391c1cd812166fe3d06c35}{get\+Variables}} ()
 \begin{DoxyCompactList}\small\item\em getter \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a00d7b84b43bc80c89398b91632fb24f7}{get\+Error\+String}} ()
-\begin{DoxyCompactList}\small\item\em getter \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em getter \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a2e1277733546738ca7d892fa818ec233}\label{class_s_h_k___translator_1_1_translator_a2e1277733546738ca7d892fa818ec233}} 
+QString {\bfseries get\+Error\+Message} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Private Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -56,9 +59,8 @@ bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a02232b2b885097f24
 \begin{DoxyCompactList}\small\item\em is\+Number \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aa9937abf6da61e9da9d655c3b76ab79d}{is\+Variable}} (QString word, int \&val)
 \begin{DoxyCompactList}\small\item\em is\+Variable \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a3e7d13383e489462c901aa2be415d7ec}\label{class_s_h_k___translator_1_1_translator_a3e7d13383e489462c901aa2be415d7ec}} 
-bool {\bfseries skip\+Spaces} (QString $\ast$main, int \&counter)
-\item 
+bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a3e7d13383e489462c901aa2be415d7ec}{skip\+Spaces}} (QString $\ast$main, int \&counter)
+\begin{DoxyCompactList}\small\item\em removes more than 1 space until sym expected \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_aaa4c3a719bdb04b92d67fb9a77db9322}{is\+Separator}} (QChar sym)
 \begin{DoxyCompactList}\small\item\em sym is separator? \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_s_h_k___translator_1_1_translator_a229e39fad055c0e40ba7b87ef7c1f87a}{skip\+Space\+And\+Line}} (QString $\ast$main, int \&counter)
@@ -126,6 +128,15 @@ int {\bfseries str\+Counter} \{1\}
 \item 
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a8a65effec078f28a71f5e655426d1503}\label{class_s_h_k___translator_1_1_translator_a8a65effec078f28a71f5e655426d1503}} 
 bool {\bfseries end\+Of\+File} \{false\}
+\item 
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_ae4acee81bf71f7f64947defe30b02091}\label{class_s_h_k___translator_1_1_translator_ae4acee81bf71f7f64947defe30b02091}} 
+bool {\bfseries oper\+Not\+Founded} \{false\}
+\item 
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_ae26063825315f0bdc84db47b8d13a153}\label{class_s_h_k___translator_1_1_translator_ae26063825315f0bdc84db47b8d13a153}} 
+bool {\bfseries func\+Founded} \{false\}
+\item 
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_ab0cc0ccf847c05b2ecd3edcd34a1d2d2}\label{class_s_h_k___translator_1_1_translator_ab0cc0ccf847c05b2ecd3edcd34a1d2d2}} 
+QString {\bfseries error\+Msg} \{\char`\"{}Ошибка! \%1. Строка \%2, позиция \%3.\char`\"{}\}
 \item 
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a87ccdde39b2f9644ef2acb62957a5b27}\label{class_s_h_k___translator_1_1_translator_a87ccdde39b2f9644ef2acb62957a5b27}} 
 QMap$<$ QString, int $>$ {\bfseries variables}
@@ -472,6 +483,26 @@ it is necessary to go to the next sym (word)
 \mbox{\texttt{ in}}  & {\em counter} & increases \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_a3e7d13383e489462c901aa2be415d7ec}\label{class_s_h_k___translator_1_1_translator_a3e7d13383e489462c901aa2be415d7ec}} 
+\index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!skipSpaces@{skipSpaces}}
+\index{skipSpaces@{skipSpaces}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
+\doxysubsubsection{\texorpdfstring{skipSpaces()}{skipSpaces()}}
+{\footnotesize\ttfamily bool Translator\+::skip\+Spaces (\begin{DoxyParamCaption}\item[{QString $\ast$}]{main,  }\item[{int \&}]{counter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+removes more than 1 space until sym expected 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em main} & \\
+\hline
+\mbox{\texttt{ in}}  & {\em counter} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if 1 space was deleted 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_s_h_k___translator_1_1_translator_ae11f6783ca826b6f45df10a37e95188e}\label{class_s_h_k___translator_1_1_translator_ae11f6783ca826b6f45df10a37e95188e}} 
 \index{SHK\_Translator::Translator@{SHK\_Translator::Translator}!SmallPart@{SmallPart}}
 \index{SmallPart@{SmallPart}!SHK\_Translator::Translator@{SHK\_Translator::Translator}}
