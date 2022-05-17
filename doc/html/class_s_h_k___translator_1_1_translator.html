@@ -78,9 +78,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab9d1b745ceae289c27fdd92029d8453a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#ab9d1b745ceae289c27fdd92029d8453a">Main</a> (QString *srcCode)</td></tr>
-<tr class="memdesc:ab9d1b745ceae289c27fdd92029d8453a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main Enter the program.  <a href="class_s_h_k___translator_1_1_translator.html#ab9d1b745ceae289c27fdd92029d8453a">More...</a><br /></td></tr>
-<tr class="separator:ab9d1b745ceae289c27fdd92029d8453a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10d647900eff970c69ae3895b0091c36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#a10d647900eff970c69ae3895b0091c36">Main</a> (QString *srcCode, int &amp;cursorPos)</td></tr>
+<tr class="memdesc:a10d647900eff970c69ae3895b0091c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main Enter the program.  <a href="class_s_h_k___translator_1_1_translator.html#a10d647900eff970c69ae3895b0091c36">More...</a><br /></td></tr>
+<tr class="separator:a10d647900eff970c69ae3895b0091c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ce7e8d933391c1cd812166fe3d06c35"><td class="memItemLeft" align="right" valign="top">QMap&lt; QString, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_h_k___translator_1_1_translator.html#a7ce7e8d933391c1cd812166fe3d06c35">getVariables</a> ()</td></tr>
 <tr class="memdesc:a7ce7e8d933391c1cd812166fe3d06c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter  <a href="class_s_h_k___translator_1_1_translator.html#a7ce7e8d933391c1cd812166fe3d06c35">More...</a><br /></td></tr>
 <tr class="separator:a7ce7e8d933391c1cd812166fe3d06c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -264,7 +264,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operNotFounded</b> {f
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>funcFounded</b> {false}</td></tr>
 <tr class="separator:ae26063825315f0bdc84db47b8d13a153"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0cc0ccf847c05b2ecd3edcd34a1d2d2"><td class="memItemLeft" align="right" valign="top"><a id="ab0cc0ccf847c05b2ecd3edcd34a1d2d2" name="ab0cc0ccf847c05b2ecd3edcd34a1d2d2"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>errorMsg</b> {&quot;Ошибка! %1. Строка %2, позиция %3.&quot;}</td></tr>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>errorMsg</b> {&quot;Ошибка! %1. Строка %2.&quot;}</td></tr>
 <tr class="separator:ab0cc0ccf847c05b2ecd3edcd34a1d2d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87ccdde39b2f9644ef2acb62957a5b27"><td class="memItemLeft" align="right" valign="top"><a id="a87ccdde39b2f9644ef2acb62957a5b27" name="a87ccdde39b2f9644ef2acb62957a5b27"></a>
 QMap&lt; QString, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>variables</b></td></tr>
@@ -793,8 +793,8 @@ QMap&lt; QString, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 
 </div>
 </div>
-<a id="ab9d1b745ceae289c27fdd92029d8453a" name="ab9d1b745ceae289c27fdd92029d8453a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9d1b745ceae289c27fdd92029d8453a">&#9670;&nbsp;</a></span>Main()</h2>
+<a id="a10d647900eff970c69ae3895b0091c36" name="a10d647900eff970c69ae3895b0091c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10d647900eff970c69ae3895b0091c36">&#9670;&nbsp;</a></span>Main()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -803,8 +803,18 @@ QMap&lt; QString, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
           <td class="memname">int Translator::Main </td>
           <td>(</td>
           <td class="paramtype">QString *&#160;</td>
-          <td class="paramname"><em>srcCode</em></td><td>)</td>
+          <td class="paramname"><em>srcCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>cursorPos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -1,4 +1,6 @@
 #include "codeeditor.h"
+#include "qtextcursor.h"
+#include "qtextedit.h"
 #include <QFont>
 #include <QPainter>
 #include <QTextBlock>
@@ -87,25 +89,25 @@ int CodeEditor::lineNumberAreaWidth()
     return space;
 }
 
-void CodeEditor::resizeEvent(QResizeEvent *event)
+void CodeEditor::highlightTheSymbol(int pos)
 {
-    QPlainTextEdit::resizeEvent(event);
+    QList<QTextEdit::ExtraSelection> extraSelections;
 
-    QRect cr = contentsRect();
-    lineNumberArea->setGeometry(
-        QRect(
-            cr.left(),
-            cr.top(),
-            lineNumberAreaWidth(),
-            cr.height()
-        )
-    );
-}
+    if (!isReadOnly())
+    {
+        QTextEdit::ExtraSelection symbol;
+        const QRgb sColor = ERROR_SYMBOL;
+        QColor symColor = QColor(sColor);
 
-void CodeEditor::updateLineNumberAreaWidth(int newBlockCount)
-{
-    Q_UNUSED(newBlockCount);
-    setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
+        symbol.format.setBackground(symColor);
+        QTextCursor cursorTxt = textCursor();
+        cursorTxt.setPosition(pos);
+        symbol.cursor = cursorTxt;
+        symbol.cursor.select(QTextCursor::WordUnderCursor);
+        extraSelections.append(symbol);
+    }
+
+    setExtraSelections(extraSelections);
 }
 
 void CodeEditor::highlightCurrentLine()
@@ -125,6 +127,27 @@ void CodeEditor::highlightCurrentLine()
     }
 
     setExtraSelections(extraSelections);
+}
+
+void CodeEditor::resizeEvent(QResizeEvent *event)
+{
+    QPlainTextEdit::resizeEvent(event);
+
+    QRect cr = contentsRect();
+    lineNumberArea->setGeometry(
+        QRect(
+            cr.left(),
+            cr.top(),
+            lineNumberAreaWidth(),
+            cr.height()
+        )
+    );
+}
+
+void CodeEditor::updateLineNumberAreaWidth(int newBlockCount)
+{
+    Q_UNUSED(newBlockCount);
+    setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
 }
 
 void CodeEditor::updateLineNumberArea(const QRect &rect, int dy)

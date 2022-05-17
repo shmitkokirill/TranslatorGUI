@@ -13,6 +13,7 @@ namespace SourceCodeEdit
         ~CodeEditor();
         void lineNumberAreaPaintEvent(QPaintEvent *event);
         int lineNumberAreaWidth();
+        void highlightTheSymbol(int pos);
 
     protected:
         void resizeEvent(QResizeEvent *event) override;
@@ -25,7 +26,8 @@ namespace SourceCodeEdit
         enum Colors
         {
             NUMBER_PANEL = 0xfaf5e8,
-            CURRENT_LINE = 0xd4d3d2
+            CURRENT_LINE = 0xd4d3d2,
+            ERROR_SYMBOL = 0xff8f8f
         };
 
         QWidget *lineNumberArea;

@@ -169,7 +169,8 @@ void MainWindow::on_btnRunClicked()
         return ;
     }
 
-    int resMain = translator->Main(&text);
+    int cursorPos{0};
+    int resMain = translator->Main(&text, cursorPos);
     if (resMain)
     {
         ui->outputTxtBrowser->clear();
@@ -178,6 +179,7 @@ void MainWindow::on_btnRunClicked()
             "Translator",
             translator->getErrorMessage()
         );
+        srcCodeEditor->highlightTheSymbol(cursorPos);
         return;
     }
     ui->outputTxtBrowser->setText(

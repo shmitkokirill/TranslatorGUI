@@ -19,7 +19,7 @@ namespace SHK_Translator
          * @return
          * Errors
          */
-        int Main(QString *srcCode);
+        int Main(QString *srcCode, int &cursorPos);
         /**
          * @brief getter
          * @return
@@ -83,7 +83,7 @@ namespace SHK_Translator
         bool endOfFile {false};
         bool operNotFounded{false};
         bool funcFounded{false};
-        QString errorMsg{"Ошибка! %1. Строка %2, позиция %3."};
+        QString errorMsg{"Ошибка! %1. Строка %2."};
         QMap<QString, int> variables;
 
         /**

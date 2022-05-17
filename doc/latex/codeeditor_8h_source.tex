@@ -17,25 +17,27 @@
 \DoxyCodeLine{13         \mbox{\hyperlink{class_source_code_edit_1_1_code_editor}{\string~CodeEditor}}();}
 \DoxyCodeLine{14         \textcolor{keywordtype}{void} lineNumberAreaPaintEvent(QPaintEvent *event);}
 \DoxyCodeLine{15         \textcolor{keywordtype}{int} lineNumberAreaWidth();}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17     \textcolor{keyword}{protected}:}
-\DoxyCodeLine{18         \textcolor{keywordtype}{void} resizeEvent(QResizeEvent *event) \textcolor{keyword}{override};}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20     \textcolor{keyword}{private} slots:}
-\DoxyCodeLine{21         \textcolor{keywordtype}{void} updateLineNumberAreaWidth(\textcolor{keywordtype}{int} newBlockCount);}
-\DoxyCodeLine{22         \textcolor{keywordtype}{void} highlightCurrentLine();}
-\DoxyCodeLine{23         \textcolor{keywordtype}{void} updateLineNumberArea(\textcolor{keyword}{const} QRect \&rect, \textcolor{keywordtype}{int} dy);}
-\DoxyCodeLine{24     \textcolor{keyword}{private}:}
-\DoxyCodeLine{25         \textcolor{keyword}{enum} Colors}
-\DoxyCodeLine{26         \{}
-\DoxyCodeLine{27             NUMBER\_PANEL = 0xfaf5e8,}
-\DoxyCodeLine{28             CURRENT\_LINE = 0xd4d3d2}
-\DoxyCodeLine{29         \};}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31         QWidget *lineNumberArea;}
+\DoxyCodeLine{16         \textcolor{keywordtype}{void} highlightTheSymbol(\textcolor{keywordtype}{int} pos);}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{19         \textcolor{keywordtype}{void} resizeEvent(QResizeEvent *event) \textcolor{keyword}{override};}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keyword}{private} slots:}
+\DoxyCodeLine{22         \textcolor{keywordtype}{void} updateLineNumberAreaWidth(\textcolor{keywordtype}{int} newBlockCount);}
+\DoxyCodeLine{23         \textcolor{keywordtype}{void} highlightCurrentLine();}
+\DoxyCodeLine{24         \textcolor{keywordtype}{void} updateLineNumberArea(\textcolor{keyword}{const} QRect \&rect, \textcolor{keywordtype}{int} dy);}
+\DoxyCodeLine{25     \textcolor{keyword}{private}:}
+\DoxyCodeLine{26         \textcolor{keyword}{enum} Colors}
+\DoxyCodeLine{27         \{}
+\DoxyCodeLine{28             NUMBER\_PANEL = 0xfaf5e8,}
+\DoxyCodeLine{29             CURRENT\_LINE = 0xd4d3d2,}
+\DoxyCodeLine{30             ERROR\_SYMBOL = 0xff8f8f}
+\DoxyCodeLine{31         \};}
 \DoxyCodeLine{32 }
-\DoxyCodeLine{33     \};}
-\DoxyCodeLine{34 \}}
-\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CODEEDITOR\_H}}
+\DoxyCodeLine{33         QWidget *lineNumberArea;}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \};}
+\DoxyCodeLine{36 \}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CODEEDITOR\_H}}
 
 \end{DoxyCode}
