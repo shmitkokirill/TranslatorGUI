@@ -18,7 +18,6 @@ int Translator::Main(QString *srcCode, int &cursorPos)
     {
         // everthng ok
         return 0;
-//        return stringPos;
     }
 
     quint64 stringPosS = stringPos;
@@ -95,8 +94,18 @@ int Translator::Main(QString *srcCode, int &cursorPos)
             cursorPos = endPos;
             return stringPosS;
         }
-        if (!findTheSymbol(srcCode, Operator.COLON, endPos) && !isNumber(w))
-        {
+        if (!findTheSymbol(srcCode, Operator.COLON, endPos) &&
+            !isNumber(w)
+        ) {
+            if (findTheSymbol(srcCode, Operator.EQUAL, endPos))
+            {
+                QString sN = QString::number(strCounterS);
+                QString pN = QString::number(stringPosS);
+                errorMsg =
+                    errorMsg.arg("Перед переменной должна стоять метка", sN, pN);
+                cursorPos = currentPos;
+                return stringPosS;
+            }
             QString sN = QString::number(strCounterS);
             QString pN = QString::number(stringPosS);
             errorMsg =
@@ -111,7 +120,7 @@ int Translator::Main(QString *srcCode, int &cursorPos)
             errorMsg =
                 errorMsg.arg("Не обнаружено описания множеств", sN, pN);
             cursorPos = endPos;
-            return stringPosS; // unknown mistake
+            return stringPosS;
         }
         // it's necessary to go to the next Expression
         stringPos = stringPosS;
@@ -147,9 +156,6 @@ int Translator::Main(QString *srcCode, int &cursorPos)
         currentPos = endPos;
         if (varietyRes)
             continue;
-//        currentPos = endPos;
-//        quint64 stringPosS = stringPos;
-//        QString end = findTheWord(srcCode, currentPos);
         while (skipSpaceAndLine(srcCode, currentPos));
         if (!endOfFile)
         {
@@ -174,7 +180,7 @@ int Translator::Equation(
     int labelCurPos = startPos;
     quint64 stringPosS = stringPos;
     QString label = findTheWord(equation, labelCurPos);
-    if (endOfFile || label.isEmpty())
+    if (endOfFile || label.isEmpty() || findTheSymbol(equation, Operator.EQUAL, labelCurPos))
     {
         QString sN = QString::number(strCounter);
         QString pN = QString::number(stringPosS);
@@ -209,7 +215,11 @@ int Translator::Equation(
     while (skipSpaceAndLine(equation, varCurPos));
     if (endOfFile)
     {
-        end = varCurPos;
+        QString sN = QString::number(strCounter);
+        QString pN = QString::number(stringPosS);
+        errorMsg =
+            errorMsg.arg("После метки должно быть описание переменной", sN, pN);
+        end = cursor;
         return stringPos;
     }
     stringPosS = stringPos;
@@ -260,6 +270,10 @@ int Translator::Equation(
     while (skipSpaceAndLine(equation, varCurPos));
     if (endOfFile)
     {
+        QString sN = QString::number(strCounter);
+        QString pN = QString::number(stringPosS);
+        errorMsg =
+            errorMsg.arg("Не обнаружено описания правой части после знака \"=\"", sN, pN);
         end = cursor;
         return stringPos;
     }
@@ -292,6 +306,10 @@ int Translator::RightValue(
         while (skipSpaceAndLine(rvalue, currentPos));
         if (endOfFile)
         {
+            QString sN = QString::number(strCounter);
+            QString pN = QString::number(stringPos);
+            errorMsg =
+                errorMsg.arg("Не обнаружено число после оператора \"-\"", sN, pN);
             end = currentPos;
             return stringPos;
         }
@@ -306,10 +324,19 @@ int Translator::RightValue(
     }
     else if (rvalue->at(currentPos) == Operator.PLUS)
     {
+        if (isSeparator(rvalue->at(currentPos + 1)) || rvalue->at(currentPos + 1) == Operator.NOT)
+        {
+            QString sN = QString::number(strCounter);
+            QString pN = QString::number(stringPos);
+            errorMsg =
+                errorMsg.arg("Обнаружено два математических знака подряд", sN, pN);
+            end = currentPos;
+            return stringPos;
+        }
         QString sN = QString::number(strCounter);
         QString pN = QString::number(stringPos);
         errorMsg =
-            errorMsg.arg("Оператор \"+\" не должен стоять в начале", sN, pN);
+            errorMsg.arg("Оператор \"+\" не является унарным", sN, pN);
         end = currentPos;
         return stringPos;
     }
@@ -334,6 +361,10 @@ int Translator::RightValue(
             while (skipSpaceAndLine(rvalue, currentPos));
             if (endOfFile)
             {
+                QString sN = QString::number(strCounter);
+                QString pN = QString::number(stringPos);
+                errorMsg =
+                    errorMsg.arg("Не обнаружено число после оператора \"-\"", sN, pN);
                 end = currentPos;
                 return stringPos;
             }
@@ -355,6 +386,10 @@ int Translator::RightValue(
             while (skipSpaceAndLine(rvalue, currentPos));
             if (endOfFile)
             {
+                QString sN = QString::number(strCounter);
+                QString pN = QString::number(stringPos);
+                errorMsg =
+                    errorMsg.arg("Не обнаружено число после оператора \"+\"", sN, pN);
                 end = currentPos;
                 return stringPos;
             }
@@ -374,23 +409,36 @@ int Translator::RightValue(
     );
     if (rvalue->at(currentPos) != Spec.SEMICOLON)
     {
-
         int strCounterS = strCounter;
         int stringPosS = stringPos;
-        int curPos = currentPos + 1;
 
-        if (findTheSymbol(rvalue, Operator.COLON, curPos))
+        int curPos = currentPos;
+        if (isSeparator(rvalue->at(currentPos)) || rvalue->at(currentPos) == Operator.NOT)
         {
             QString sN = QString::number(strCounterS);
             QString pN = QString::number(stringPosS);
             errorMsg =
                 errorMsg.arg("Уравнение должно заканчиваться знаком \";\"", sN, pN);
-            end = cursor;
+            end = curPos;
             return stringPosS;
         }
 
-        int spRes{0};
-        QString errorMsgS = errorMsg;
+        curPos = currentPos;
+        int endPosS{0};
+        auto spRes{0};
+        if (!SmallPiece(rvalue, curPos, endPosS, spRes))
+        {
+            if (findTheSymbol(rvalue, Operator.COLON, endPosS))
+            {
+                QString sN = QString::number(strCounterS);
+                QString pN = QString::number(stringPosS);
+                errorMsg =
+                    errorMsg.arg("Уравнение должно заканчиваться знаком \";\"", sN, pN);
+                end = currentPos;
+                return stringPosS;
+            }
+        }
+
         if (!SmallPiece(rvalue, currentPos, endPos, spRes))
         {
             stringPos++;
@@ -401,17 +449,6 @@ int Translator::RightValue(
             end = currentPos;
             return stringPosS;
         }
-//        else
-//        {
-//            errorMsg = errorMsgS;
-//            stringPos++;
-//            QString sN = QString::number(strCounter);
-//            QString pN = QString::number(stringPos);
-//            errorMsg =
-//                errorMsg.arg("Не обнаружено знака математической операции", sN, pN);
-//            return stringPos;
-
-//        }
     }
     if (!(rvalue->at(currentPos++) == Spec.SEMICOLON))
     {
@@ -443,6 +480,11 @@ int Translator::Block(QString *block, int startPos, int &end, int &result)
     while (skipSpaceAndLine(block, currentPos));
     if (endOfFile)
     {
+
+        QString sN = QString::number(strCounter);
+        QString pN = QString::number(stringPos);
+        errorMsg =
+            errorMsg.arg("Уравнение должно заканчиваться знаком \";\"", sN, pN);
         end = currentPos;
         return stringPos;
     }
@@ -466,7 +508,7 @@ int Translator::Block(QString *block, int startPos, int &end, int &result)
                 errorMsg =
                     errorMsg.arg("Деление на 0", sN, pN);
                 end = currentPos + 1;
-                return stringPos; // divide zero
+                return stringPos;
             }
             blockRes /= partRes;
             currentPos = endPos;
@@ -492,6 +534,11 @@ int Translator::Part(QString *part, int startPos, int &end, int &result)
     while (skipSpaceAndLine(part, currentPos));
     if (endOfFile)
     {
+
+        QString sN = QString::number(strCounter);
+        QString pN = QString::number(stringPos);
+        errorMsg =
+            errorMsg.arg("Не обнаружено числа", sN, pN);
         end = currentPos;
         return stringPos;
     }
@@ -506,6 +553,10 @@ int Translator::Part(QString *part, int startPos, int &end, int &result)
     while (skipSpaceAndLine(part, currentPos));
     if (endOfFile)
     {
+        QString sN = QString::number(strCounter);
+        QString pN = QString::number(stringPos);
+        errorMsg =
+            errorMsg.arg("Уравнение должно заканчиваться знаком \";\"", sN, pN);
         end = currentPos;
         return stringPos;
     }
@@ -547,6 +598,10 @@ int Translator::Piece(QString *piece, int startPos, int &end, int &result)
     while (skipSpaceAndLine(piece, currentPos));
     if (endOfFile)
     {
+        QString sN = QString::number(strCounter);
+        QString pN = QString::number(stringPos);
+        errorMsg =
+            errorMsg.arg("Не обнаружено числа", sN, pN);
         end = currentPos;
         return stringPos;
     }
@@ -560,6 +615,10 @@ int Translator::Piece(QString *piece, int startPos, int &end, int &result)
     while (skipSpaceAndLine(piece, currentPos));
     if (endOfFile)
     {
+        QString sN = QString::number(strCounter);
+        QString pN = QString::number(stringPos);
+        errorMsg =
+            errorMsg.arg("Не обнаружено числа", sN, pN);
         end = currentPos;
         return stringPos;
     }
@@ -593,6 +652,10 @@ int Translator::SmallPart(
         while (skipSpaceAndLine(spart, currentPos));
         if (endOfFile)
         {
+            QString sN = QString::number(strCounter);
+            QString pN = QString::number(stringPos);
+            errorMsg =
+                errorMsg.arg("Не обнаружено числа", sN, pN);
             end = currentPos;
             return stringPos;
         }
@@ -664,7 +727,8 @@ int Translator::SmallPiece(
             isSeparator(word.back())
         )
             break;
-        if (!word.isEmpty() && word.back() == Operator.NOT)
+        // changed 18.05
+        if (!funcFounded && !word.isEmpty() && word.back() == Operator.NOT)
             break;
         if (spiece->at(currentPos) == Spec.SEMICOLON)
             break;
@@ -693,6 +757,25 @@ int Translator::SmallPiece(
         return stringPosS;
     }
     end = currentPos;
+
+    if (funcFounded && word.length() > 1 && word.front() == Operator.NOT)
+    {
+        word.remove(0, 1);
+        if (isSeparator(word.front()) || word.front() == Operator.NOT)
+        {
+            QString sN = QString::number(strCounter);
+            QString pN = QString::number(stringPos);
+            errorMsg =
+                errorMsg.arg("Встречено два математических знака подряд", sN, pN);
+            end = startPos;
+            return stringPos;
+        }
+        if (isNumber(word))
+            result = inverseNumberWithSign(word.toInt());
+        if (isVariable(word, result))
+            result = inverseNumberWithSign(result);
+        return 0;
+    }
 
     if (!word.isEmpty() && !isSeparator(word.back()) && isNumber(word))
         result = word.toInt();
@@ -733,16 +816,42 @@ int Translator::SmallPiece(
         }
         if (!isNumber(word))
         {
+            auto sym = word.front();
+            if (isSeparator(sym))
+            {
+                word.remove(0, 1);
+                if (!word.isEmpty() &&
+                    (isSeparator(word.front()) || word.front() == Operator.NOT)
+                ) {
+                    QString sN = QString::number(strCounter);
+                    QString pN = QString::number(stringPos);
+                    errorMsg =
+                        errorMsg.arg("Обнаружено два математических знака подряд", sN, pN);
+                    end = startPos;
+                    return stringPos;
+                }
+                QString sN = QString::number(strCounter);
+                QString pN = QString::number(stringPosS);
+                errorMsg =
+                    errorMsg.arg("Оператор " + sym + " не является унарным", sN, pN);
+                end = startPos;
+                return stringPosS;
+            }
+            if (!word.isEmpty() && figure(word.front()))
+            {
+                QString sN = QString::number(strCounter);
+                QString pN = QString::number(stringPosS);
+                errorMsg =
+                    errorMsg.arg("Переменная должна начинаться с буквы", sN, pN);
+                end = currentPosS;
+                return stringPosS;
+            }
             strCounter = strCounterS;
             QString sN = QString::number(strCounter);
             QString pN = QString::number(stringPosS);
-//            if (!findTheSymbol(spiece, Spec.SEMICOLON, currentPos))
-                errorMsg =
-                    errorMsg.arg("Обращение к неинициализированной переменной", sN, pN);
-//            else
-//                errorMsg =
-//                    errorMsg.arg("Уравнение должно заканчиваться знаком \";\"", sN, pN);
-                end = currentPosS;
+            errorMsg =
+                errorMsg.arg("Обращение к неинициализированной переменной", sN, pN);
+            end = currentPosS;
             return stringPosS;
         }
         strCounter = strCounterS;
