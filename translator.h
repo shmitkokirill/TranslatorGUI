@@ -285,6 +285,8 @@ namespace SHK_Translator
          * inversed number with sign
          */
         unsigned int inverseNumberWithSign(unsigned int number);
+        bool tanIsCorrect(int degrees);
+        bool ctanIsCorrect(int degrees);
     };
 }
 

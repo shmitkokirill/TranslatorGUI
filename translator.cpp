@@ -108,8 +108,12 @@ int Translator::Main(QString *srcCode, int &cursorPos)
             }
             QString sN = QString::number(strCounterS);
             QString pN = QString::number(stringPosS);
-            errorMsg =
-                errorMsg.arg("Не встречено слова \"Анализ\" либо \"Синтез\"", sN, pN);
+            if (srcCode->at(endPos) == Spec.SEMICOLON)
+                errorMsg =
+                    errorMsg.arg("Два знака \";\" подряд", sN, pN);
+            else
+                errorMsg =
+                    errorMsg.arg("Не встречено слова \"Анализ\" либо \"Синтез\"", sN, pN);
             cursorPos = endPos;
             return stringPosS;
         }
@@ -229,8 +233,12 @@ int Translator::Equation(
     {
         QString sN = QString::number(strCounter);
         QString pN = QString::number(stringPosS);
-        errorMsg =
-            errorMsg.arg("Объявление переменной не обнаружено", sN, pN);
+        if (equation->at(varCurPos) == Operator.COLON)
+            errorMsg =
+                errorMsg.arg("Два знака \":\" подряд", sN, pN);
+        else
+            errorMsg =
+                errorMsg.arg("Объявление переменной не обнаружено", sN, pN);
         end = cursor;
         return stringPosS;
     }
@@ -253,7 +261,18 @@ int Translator::Equation(
             end = cursor;
             return stringPosS;
         }
-
+    if (var == KeyWord.ANALYSIS ||
+        var == KeyWord.SINTEZ ||
+        var == KeyWord.BEGIN ||
+        var == KeyWord.END
+    ) {
+        QString sN = QString::number(strCounter);
+        QString pN = QString::number(stringPosS);
+        errorMsg =
+            errorMsg.arg("Переменная не может быть задана ключевыми словами: Begin, End, Анализ, Синтез", sN, pN);
+        end = cursor;
+        return stringPosS;
+    }
     cursor = varCurPos;
     stringPosS = stringPos;
     if(!findTheSymbol(equation, Operator.EQUAL, varCurPos))
@@ -698,8 +717,8 @@ int Translator::SmallPart(
     result = spResult;
     while (!fStack.isEmpty())
     {
-//        double inRad = (double) result * 0.01745;
-        double inRad = result;
+        double inRad = (double) result * 0.01745;
+//        double inRad = result;
         switch (fStack.last())
         {
             case SIN:
@@ -709,12 +728,40 @@ int Translator::SmallPart(
                 result = round(cos(inRad));
                 break;
             case TG:
+                if (!tanIsCorrect(result))
+                {
+                    QString sN = QString::number(strCounter);
+                    QString pN = QString::number(stringPos);
+                    errorMsg =
+                    errorMsg.arg(QString("Функция tg с аргументом \"%1\" не вычислима. Данная функция не определена при +- 90' +- 180' * n").arg(QString::number(result)), sN, pN);
+                    end = currentPos;
+                    return stringPos;
+                }
                 result = round(tan(inRad));
                 break;
             case CTG:
+                if (!ctanIsCorrect(result))
+                {
+                    QString sN = QString::number(strCounter);
+                    QString pN = QString::number(stringPos);
+                    errorMsg =
+                    errorMsg.arg(QString("Функция ctg с аргументом \"%1\" не вычислима. Данная функция не определена при 180' * n").arg(QString::number(result)), sN, pN);
+                    end = currentPos;
+                    return stringPos;
+                }
                 result = round(1 / tan(inRad));
+                break;
             case LN:
-                result = round(log(inRad));
+                if (result <= 0)
+                {
+                    QString sN = QString::number(strCounter);
+                    QString pN = QString::number(stringPos);
+                    errorMsg =
+                    errorMsg.arg(QString("Функция ln с аргументом \"%1\" не вычислима. Данная функция не определена при аргументе <= 0").arg(QString::number(result)), sN, pN);
+                    end = currentPos;
+                    return stringPos;
+                }
+                result = round(log(result));
                 break;
         }
         fStack.pop_back();
@@ -1170,6 +1217,24 @@ unsigned int Translator::inverseNumberWithSign(unsigned int number)
     // количество цифр числа a в системе счисления 2
     unsigned int shift = (unsigned int)std::log2(number) + 1u;
     return (shift == 32) ? ~number : (~number & ((1u << shift) - 1u));
+}
+
+bool Translator::tanIsCorrect(int degrees)
+{
+//    if (degrees % 90 != 0)
+//        return false;
+    int a = degrees % 90;
+    int b = degrees / 90;
+    if (degrees % 90 == 0 && (degrees / 90) % 2 != 0)
+        return false;
+    return true;
+}
+
+bool Translator::ctanIsCorrect(int degrees)
+{
+    if (degrees % 180 == 0)
+        return false;
+    return true;
 }
 
 bool Translator::isSeparator(QChar sym)
