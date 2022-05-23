@@ -33,7 +33,7 @@ SourceCodeEdit::CodeEditor::CodeEditor(QWidget *parent)
 
     updateLineNumberAreaWidth(0);
     highlightCurrentLine();
-    setFont(QFont("Consolas", 14));
+    setFont(QFont("Consolas", 18));
 }
 
 CodeEditor::~CodeEditor()

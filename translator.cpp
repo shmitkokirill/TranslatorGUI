@@ -277,6 +277,20 @@ int Translator::Equation(
         end = cursor;
         return stringPos;
     }
+    auto sym = equation->at(varCurPos);
+    if (sym == Operator.OR ||
+        sym == Operator.AND ||
+        sym == Operator.PLUS ||
+        sym == Operator.DIVIDE ||
+        sym == Operator.MULTIPLY
+    ) {
+        QString sN = QString::number(strCounter);
+        QString pN = QString::number(stringPosS);
+        errorMsg =
+            errorMsg.arg("Оператор " + QString(equation->at(varCurPos)) + " не является унарным", sN, pN);
+        end = cursor;
+        return stringPos;
+    }
     int rvErr = RightValue(equation, varCurPos, end, result);
     if (rvErr)
         return rvErr;
@@ -684,7 +698,8 @@ int Translator::SmallPart(
     result = spResult;
     while (!fStack.isEmpty())
     {
-        double inRad = (double) result * 0.01745;
+//        double inRad = (double) result * 0.01745;
+        double inRad = result;
         switch (fStack.last())
         {
             case SIN:
