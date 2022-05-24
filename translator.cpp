@@ -257,7 +257,7 @@ int Translator::Equation(
             QString sN = QString::number(strCounter);
             QString pN = QString::number(stringPosS);
             errorMsg =
-                errorMsg.arg("Переменная должна состоять только из букв и цифр", sN, pN);
+                errorMsg.arg("Переменная должна состоять только из букв и цифр, с первой буквы", sN, pN);
             end = cursor;
             return stringPosS;
         }
@@ -342,7 +342,7 @@ int Translator::RightValue(
             QString sN = QString::number(strCounter);
             QString pN = QString::number(stringPos);
             errorMsg =
-                errorMsg.arg("Не обнаружено число после оператора \"-\"", sN, pN);
+                errorMsg.arg("Не обнаружено числа после оператора \"-\"", sN, pN);
             end = currentPos;
             return stringPos;
         }
@@ -397,7 +397,7 @@ int Translator::RightValue(
                 QString sN = QString::number(strCounter);
                 QString pN = QString::number(stringPos);
                 errorMsg =
-                    errorMsg.arg("Не обнаружено число после оператора \"-\"", sN, pN);
+                    errorMsg.arg("Не обнаружено числа после оператора \"-\"", sN, pN);
                 end = currentPos;
                 return stringPos;
             }
@@ -422,7 +422,7 @@ int Translator::RightValue(
                 QString sN = QString::number(strCounter);
                 QString pN = QString::number(stringPos);
                 errorMsg =
-                    errorMsg.arg("Не обнаружено число после оператора \"+\"", sN, pN);
+                    errorMsg.arg("Не обнаружено числа после оператора \"+\"", sN, pN);
                 end = currentPos;
                 return stringPos;
             }
@@ -1013,7 +1013,7 @@ int Translator::Variety(
             QString pN = QString::number(stringPosS);
             if (word.isEmpty())
                 errorMsg =
-                    errorMsg.arg("Обнаружен терминал", sN, pN);
+                    errorMsg.arg("Обнаружен недупустимый знак", sN, pN);
             else
             {
                 if (!isNumber(word))
