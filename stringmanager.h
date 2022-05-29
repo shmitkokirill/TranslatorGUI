@@ -34,7 +34,7 @@ namespace SHK_Translator
          * @return
          * true if success
          */
-        bool TrimFile(QString *input, QStringList *output);
+        bool TrimFile(QString *input, QString &output);
         /**
          * @brief
          * @param[in] result
@@ -42,13 +42,16 @@ namespace SHK_Translator
          * result from collected variables
          */
         QString getOutputResult(QMap<QString, int> result);
+        int getErrPos();
     signals:
         /**
          * @brief sendMsgToBar
          * It's for communication between Ui and This obj
          */
         void sendMsgToBar(QString);
-
+    private:
+        QString errorMsg{"Ошибка! %1. Строка %2."};
+        int errPos;
     };
 }
 #endif // STRINGMANAGER_H

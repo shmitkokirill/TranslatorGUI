@@ -6,21 +6,53 @@ StringManager::StringManager()
 }
 StringManager::~StringManager() = default;
 
-bool StringManager::TrimFile(QString *input, QStringList *output)
+int StringManager::getErrPos()
+{
+    return errPos;
+}
+
+bool StringManager::TrimFile(QString *input, QString &output)
 {
     if (input->isEmpty())
     {
         emit sendMsgToBar("TrimFile: Нет входных данных");
         return false;
     }
-    if (!output)
-    {
-        emit sendMsgToBar("TrimFile: Не инициализирована выходная переменная");
-        return false;
-    }
 
-    QRegExp removeSpecial("[@?]+");
-    *input = input->replace(removeSpecial, "~");
+    int strCount = 1;
+    for (int i = 0; i < input->length(); i++)
+    {
+        QChar sym = input->at(i);
+        if (sym == '\n')
+        {
+            strCount++;
+            continue;
+        }
+        if (
+            !(sym >= 65 && sym <= 90) &&
+            !(sym >= 97  && sym <= 122) &&
+            !(sym >= 1040 && sym <= 1103) &&
+            !(
+                 sym == '=' ||
+                 sym == '+' ||
+                 sym == '-' ||
+                 sym == ';' ||
+                 sym == '/' ||
+                 sym == '*' ||
+                 sym == ':' ||
+                 sym == '&' ||
+                 sym == '|' ||
+                 sym == '^'
+            ) &&
+            !(sym >= 48 && sym <= 57) &&
+            sym != ' '
+        ) {
+            errPos = i;
+            QString sN = QString::number(strCount);
+            output = errorMsg.arg("Встречен неизвестный терминал", sN);
+            return false;
+        }
+    }
     int i {input->length() - 1};
     while (input->at(i) == '\n')
     {
@@ -35,7 +67,6 @@ bool StringManager::TrimFile(QString *input, QStringList *output)
             input->replace(i, 1, '@');
             raw.append('@');
             i++;
-            output->append(raw);
             raw.clear();
             continue;
         }

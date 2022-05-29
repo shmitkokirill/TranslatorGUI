@@ -158,14 +158,20 @@ void MainWindow::on_btnRunClicked()
         SaveFileActionClicked();
     }
     QString fileDirectory = stringManager->TrimThePathFromRight(pathToSrcFile);
-    QStringList *objectFile = new QStringList();
-    if (stringManager->TrimFile(&text, objectFile))
+    QString error;
+    if (stringManager->TrimFile(&text, error))
     {
         SaveFile(fileDirectory + FILE_OBJECT_NAME, &text);
     }
     else
     {
-        ui->statusBar->showMessage("Не удалось получить объектный файл");
+        ui->outputTxtBrowser->clear();
+        QMessageBox::critical(
+            this,
+            "Translator",
+            error
+        );
+        srcCodeEditor->highlightTheSymbol(stringManager->getErrPos());
         return ;
     }
 

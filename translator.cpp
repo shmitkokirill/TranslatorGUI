@@ -848,8 +848,16 @@ int Translator::SmallPiece(
             strCounter = strCounterS;
             QString sN = QString::number(strCounter);
             QString pN = QString::number(stringPosS);
-            errorMsg =
-                errorMsg.arg("Не обнаружено переменной", sN, pN);
+            if (spiece->at(currentPos) == Spec.SEMICOLON)
+                if (funcFounded)
+                    errorMsg =
+                        errorMsg.arg("Не обнаружено аргумента у функции", sN, pN);
+                else
+                    errorMsg =
+                        errorMsg.arg("Правая часть не содержит описания", sN, pN);
+            else
+                errorMsg =
+                    errorMsg.arg("Не обнаружено переменной", sN, pN);
             end = currentPosS;
             return stringPosS;
         }
@@ -858,8 +866,12 @@ int Translator::SmallPiece(
             strCounter = strCounterS;
             QString sN = QString::number(strCounter);
             QString pN = QString::number(stringPosS);
-            errorMsg =
-                errorMsg.arg("Обнаружено два математических знака подряд", sN, pN);
+            if (funcFounded)
+                errorMsg =
+                    errorMsg.arg("Не обнаружено аргумента у функции", sN, pN);
+            else
+                errorMsg =
+                    errorMsg.arg("Обнаружено два математических знака подряд", sN, pN);
             end = currentPosS;
             return stringPosS;
         }
@@ -911,8 +923,12 @@ int Translator::SmallPiece(
             strCounter = strCounterS;
             QString sN = QString::number(strCounter);
             QString pN = QString::number(stringPosS);
-            errorMsg =
-                errorMsg.arg("Обращение к неинициализированной переменной", sN, pN);
+            if (word == Operator.EQUAL)
+                errorMsg =
+                    errorMsg.arg("Два знака \"=\" подряд", sN, pN);
+            else
+                errorMsg =
+                    errorMsg.arg("Обращение к неинициализированной переменной", sN, pN);
             end = currentPosS;
             return stringPosS;
         }
